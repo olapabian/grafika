@@ -475,60 +475,7 @@ void MyWindow::mousePressEvent(QMouseEvent *event)
         startX=x;
         startY=y;
         isPressed=true;
-        if(figura==4 || figura==5)
-        {
-            point A;
-            A.x=x;
-            A.y=y;
-            Krzywe.push_back(A);
-            K();
-            K2();
-        }
-        else if(figura==6 && !Krzywe.empty()) //usuwanie
-        {
-            point p;
-            p.x=x;
-            p.y=y;
-            p=najblizszy(p);
-            usunPunkt(p);
-        }
-        else if(figura==7 && !Krzywe.empty() ) //modyfikacja
-        {
-            point start;
-            start.x=x;
-            start.y=y;
-            point pom;
-            pom = najblizszy(start);
-            start2X=pom.x;
-            start2Y=pom.y;
-        }
-        else if(figura==8 || figura==9)
-        {
-            point A;
-            A.x=x;
-            A.y=y;
-            Krzywe2.push_back(A);
-            K2();
-            K();
-        }
-        else if(figura==10 && !Krzywe2.empty()) //usuwanie
-        {
-            point p;
-            p.x=x;
-            p.y=y;
-            p=najblizszy2(p);
-            usunPunkt2(p);
-        }
-        else if(figura==11 && !Krzywe2.empty() ) //modyfikacja
-        {
-            point start;
-            start.x=x;
-            start.y=y;
-            point pom;
-            pom = najblizszy2(start);
-            start2X=pom.x;
-            start2Y=pom.y;
-        }
+
     }
     else if(event->button() == Qt::RightButton )
     {
@@ -560,20 +507,6 @@ void MyWindow::mouseMoveEvent(QMouseEvent *event)
         else if(figura==3)
         {
             elipsa(x,y,gestosc/1000);
-        }
-        else if(figura==7 && isPressed && !Krzywe.empty())
-        {
-            point p;
-            p.x=x;
-            p.y=y;
-            modyfikuj(p);
-        }
-        else if(figura==11 && isPressed && !Krzywe2.empty())
-        {
-            point p;
-            p.x=x;
-            p.y=y;
-            modyfikuj2(p);
         }
         update();
     }
