@@ -289,6 +289,7 @@ void MyWindow::kreska(int finX,int finY)
 }
 void MyWindow::kreska2(int finX,int finY,int sX, int sY)
 {
+    point p;
     float a=1,b=0;
     int x,y;
     if(sX==finX)//pionowa
@@ -298,7 +299,10 @@ void MyWindow::kreska2(int finX,int finY,int sX, int sY)
         {
             for(int y=sY;y<=finY;++y)
             {
-                wstawPiksel((int)floor(x+0.5),y);
+                wstawPiksel((int)floor(x+0.5),y);               
+                p.x=(int)floor(x+0.5);
+                p.y=y;
+                wielokatCaly.push_back(p);
             }
         }
         else
@@ -306,6 +310,9 @@ void MyWindow::kreska2(int finX,int finY,int sX, int sY)
             for(int y=finY;y<=sY;++y)
             {
                 wstawPiksel((int)floor(x+0.5),y);
+                p.x=(int)floor(x+0.5);
+                p.y=y;
+                wielokatCaly.push_back(p);
             }
         }
     }
@@ -322,6 +329,9 @@ void MyWindow::kreska2(int finX,int finY,int sX, int sY)
                 {
                     y=a*x+b;
                     wstawPiksel(x,(int)floor(y+0.5));
+                    p.x=x;
+                    p.y=(int)floor(y+0.5);
+                    wielokatCaly.push_back(p);
                 }
             }
             else
@@ -330,6 +340,9 @@ void MyWindow::kreska2(int finX,int finY,int sX, int sY)
                 {
                     y=a*x+b;
                     wstawPiksel(x,(int)floor(y+0.5));
+                    p.x=x;
+                    p.y=(int)floor(y+0.5);
+                    wielokatCaly.push_back(p);
                 }
             }
 
@@ -342,6 +355,9 @@ void MyWindow::kreska2(int finX,int finY,int sX, int sY)
                 {
                     x=(y-b)/a;
                     wstawPiksel((int)floor(x+0.5),y);
+                    p.x=(int)floor(x+0.5);
+                    p.y=y;
+                    wielokatCaly.push_back(p);
                 }
             }
             else
@@ -350,6 +366,9 @@ void MyWindow::kreska2(int finX,int finY,int sX, int sY)
                 {
                     x=(y-b)/a;
                     wstawPiksel((int)floor(x+0.5),y);
+                    p.x=(int)floor(x+0.5);
+                    p.y=y;
+                    wielokatCaly.push_back(p);
                 }
             }
         }
@@ -434,6 +453,22 @@ void MyWindow::rysujWielokat()
     }
 
 }
+void MyWindow::scan_line()
+{
+    unsigned char *ptr;
+    ptr = img->bits();
+    int i,j;
+    // Przechodzimy po wszystkich wierszach obrazu
+    for(i=0; i<wys; i++)//y
+    {
+        for(j=0; j<szer; j++)//x
+        {
+            ptr[szer*4*i + 4*j]=0; // Skladowa BLUE
+            ptr[szer*4*i + 4*j + 1] = 250; // Skladowa GREEN
+            ptr[szer*4*i + 4*j + 2] = 0; // Skladowa RED
+        }
+    }
+}
 void MyWindow::mousePressEvent(QMouseEvent *event)
 {
     int x = event->x();
@@ -449,12 +484,13 @@ void MyWindow::mousePressEvent(QMouseEvent *event)
             p.x=x;
             p.y=y;
             wielokat.push_back(p);
+            wielokatCaly.push_back(p);
             rysujWielokat();
         }
     }
     else if(event->button() == Qt::RightButton )
     {
-        //kubelek(x,y);
+        //scan_line();
     }
     update();
 }

@@ -83,7 +83,8 @@ private:
     bool isPressed2=false;
     float gestosc=1; //do gestosci kropek w elipsie
     bool czyPierwszy=1; //do okreslenia czy jest to pierwszy x i y zeby okreslic finX i finY w krzywej
-    std::vector<point> wielokat;
+    std::vector<point> wielokat;//wierzcholki wielokata
+    std::vector<point> wielokatCaly;//wszystkie punkty wilokata
     int ileP=0;
     // Deklaracje funkcji
     void schowek();
@@ -99,6 +100,7 @@ private:
     void kolo(int finX,int finY);
     void elipsa(int finX,int finY, float step);
     void rysujWielokat();
+    void scan_line();
     // Deklaracje slotow, czyli funkcji wywolywanych
     // po wystapieniu zdarzen zwiazanych z GUI
     // np. klikniecie na przycisk, ruch myszka
