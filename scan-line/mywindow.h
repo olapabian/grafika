@@ -77,40 +77,28 @@ private:
     int startX,startY;
     int start2X,start2Y;
     int ileKrzyw=0;
-    int figura=0; //0-olowek 1-kreska 2-kolo 3-elpisa 4-krzywa 5-dodaj punkt 6-usun punkt 7-modyfikuj punkt
+    int figura=0; //0-olowek 1-kreska 2-kolo 3-elpisa 4-wielokat
     //8-krzywa2 9-dodaj 10-usun 11-modyfikuj
     bool isPressed=false;
     bool isPressed2=false;
     float gestosc=1; //do gestosci kropek w elipsie
     bool czyPierwszy=1; //do okreslenia czy jest to pierwszy x i y zeby okreslic finX i finY w krzywej
-    std::vector <point> Krzywe;
-    std::vector <point> Krzywe2;
+    std::vector<point> wielokat;
     int ileP=0;
     // Deklaracje funkcji
     void schowek();
     void z_powrotem();
     void czysc();
     void czysc2();
+    void wstawPiksel(int x,int y);
+    void wstaw8(int x,int y);
+    bool czyNalezy(point p);
+    bool czyTlo(int x,int y);
     void kreska(int finX,int finY);
     void kreska2(int finX,int finY,int startX, int startY);
     void kolo(int finX,int finY);
     void elipsa(int finX,int finY, float step);
-    void krzywa(int a);
-    void K();
-    void K2();
-    void modyfikuj2(point p);
-    void usunPunkt2(point p);
-    int szukaj2(point p);
-    point najblizszy2(point p);
-    void kubelek(int x, int y);
-    void wstawPiksel(int x,int y);
-    void wstaw8(int x,int y);
-    bool czyTlo(int x,int y);
-    bool czyNalezy(point p);
-    void usunPunkt(point p);
-    point najblizszy(point p);
-    int szukaj(point p);
-    void modyfikuj(point p);
+    void rysujWielokat();
     // Deklaracje slotow, czyli funkcji wywolywanych
     // po wystapieniu zdarzen zwiazanych z GUI
     // np. klikniecie na przycisk, ruch myszka
@@ -126,6 +114,7 @@ private slots:
     void mouseReleaseEvent(QMouseEvent *event);
     void mouseMoveEvent(QMouseEvent *event);
     void on_suwak_valueChanged(int value);
+    void on_wielokatButton_clicked();
 };
 
 #endif // MYWINDOW_H

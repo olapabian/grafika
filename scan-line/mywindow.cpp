@@ -94,7 +94,10 @@ void MyWindow::on_suwak_valueChanged(int value)
 {
     gestosc=value;
 }
-
+void MyWindow::on_wielokatButton_clicked()
+{
+    figura=4;
+}
 void MyWindow::czysc()
 {
     // Wskaznik za pomoca, ktorego bedziemy modyfikowac obraz
@@ -130,8 +133,7 @@ void MyWindow::czysc()
         }
     }
     ileP=0;
-    Krzywe.clear();
-    Krzywe2.clear();
+    wielokat.clear();
 }
 void MyWindow::czysc2() //czysci bez usuniecia wektora Krzywe
 {
@@ -420,66 +422,39 @@ bool MyWindow::czyNalezy(point p)//czy nalezy do obrazka
     }
     else return false;
 }
-void MyWindow::kubelek(int x,int y)
+
+void MyWindow::rysujWielokat()
 {
-    point p1,p2,p3;
-    p1.x=x;
-    p1.y=y;
-    std::stack<point> S;
-    S.push(p1);
-    while(!S.empty())
+    if(wielokat.size()>1)
     {
-        p2=S.top();
-        S.pop();
-        if(czyTlo(p2.x,p2.y))
+        for(int i=0;i<wielokat.size()-1;++i)
         {
-            wstawPiksel(p2.x,p2.y);
-
-            p3.x=p2.x+1;
-            p3.y=p2.y;
-            if(czyNalezy(p3))
-            {
-                S.push(p3);
-            }
-
-            p3.x=p2.x;
-            p3.y=p2.y+1;
-            if(czyNalezy(p3))
-            {
-                S.push(p3);
-            }
-
-            p3.x=p2.x-1;
-            p3.y=p2.y;
-            if(czyNalezy(p3))
-            {
-                S.push(p3);
-            }
-
-            p3.x=p2.x;
-            p3.y=p2.y-1;
-            if(czyNalezy(p3))
-            {
-                S.push(p3);
-            }
+            kreska2(wielokat[i+1].x,wielokat[i+1].y,wielokat[i].x,wielokat[i].y);
         }
     }
-    update();
+
 }
 void MyWindow::mousePressEvent(QMouseEvent *event)
 {
     int x = event->x();
     int y = event->y();
-    if(event->button() == Qt::LeftButton)
+    if(event->button() == Qt::LeftButton )
     {
         startX=x;
         startY=y;
         isPressed=true;
-
+        if(figura==4)
+        {
+            point p;
+            p.x=x;
+            p.y=y;
+            wielokat.push_back(p);
+            rysujWielokat();
+        }
     }
     else if(event->button() == Qt::RightButton )
     {
-        kubelek(x,y);
+        //kubelek(x,y);
     }
     update();
 }
@@ -508,6 +483,7 @@ void MyWindow::mouseMoveEvent(QMouseEvent *event)
         {
             elipsa(x,y,gestosc/1000);
         }
+
         update();
     }
 }
@@ -520,9 +496,13 @@ void MyWindow::mouseReleaseEvent(QMouseEvent *event)
     {
         isPressed=false;
     }
+
     schowek();
     update();
 }
+
+
+
 
 
 
