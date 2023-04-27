@@ -176,9 +176,9 @@ void MyWindow::wstawPiksel(int x,int y)
     int wys = img->height();
     if ((x>=0)&&(y>=0)&&(x<szer)&&(y<wys))
     {
-        ptr[szer*4*y + 4*x] = 255; // Składowa BLUE
-        ptr[szer*4*y + 4*x + 1] = 255; // Składowa GREEN
-        ptr[szer*4*y + 4*x + 2] = 255; // Składowa RED
+        ptr[szer*4*y + 4*x] = 255; // SkĹ‚adowa BLUE
+        ptr[szer*4*y + 4*x + 1] = 255; // SkĹ‚adowa GREEN
+        ptr[szer*4*y + 4*x + 2] = 255; // SkĹ‚adowa RED
     }
 
 }
@@ -193,9 +193,9 @@ void MyWindow::schowek()
     {
         for(int x=0;x<szer;++x)
         {
-            ptr2[szer*4*y + 4*x] = ptr[szer*4*y + 4*x]; // Składowa BLUE
-            ptr2[szer*4*y + 4*x + 1] = ptr[szer*4*y + 4*x + 1]; // Składowa GREEN
-            ptr2[szer*4*y + 4*x + 2] = ptr[szer*4*y + 4*x + 2]; // Składowa RED
+            ptr2[szer*4*y + 4*x] = ptr[szer*4*y + 4*x]; // SkĹ‚adowa BLUE
+            ptr2[szer*4*y + 4*x + 1] = ptr[szer*4*y + 4*x + 1]; // SkĹ‚adowa GREEN
+            ptr2[szer*4*y + 4*x + 2] = ptr[szer*4*y + 4*x + 2]; // SkĹ‚adowa RED
         }
     }
 
@@ -210,9 +210,9 @@ void MyWindow::z_powrotem()
     {
         for(int x=0;x<szer;++x)
         {
-            ptr[szer*4*y + 4*x] = ptr2[szer*4*y + 4*x]; // Składowa BLUE
-            ptr[szer*4*y + 4*x + 1] = ptr2[szer*4*y + 4*x + 1]; // Składowa GREEN
-            ptr[szer*4*y + 4*x + 2] = ptr2[szer*4*y + 4*x + 2]; // Składowa RED
+            ptr[szer*4*y + 4*x] = ptr2[szer*4*y + 4*x]; // SkĹ‚adowa BLUE
+            ptr[szer*4*y + 4*x + 1] = ptr2[szer*4*y + 4*x + 1]; // SkĹ‚adowa GREEN
+            ptr[szer*4*y + 4*x + 2] = ptr2[szer*4*y + 4*x + 2]; // SkĹ‚adowa RED
         }
     }
 }
@@ -523,7 +523,6 @@ void MyWindow::mouseReleaseEvent(QMouseEvent *event)
     schowek();
     update();
 }
-
 
 
 
