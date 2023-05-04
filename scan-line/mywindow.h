@@ -84,7 +84,6 @@ private:
     float gestosc=1; //do gestosci kropek w elipsie
     bool czyPierwszy=1; //do okreslenia czy jest to pierwszy x i y zeby okreslic finX i finY w krzywej
     std::vector<point> wielokat;//wierzcholki wielokata
-    std::vector<point> wielokatCaly;//wszystkie punkty wilokata
     int ileP=0;
     // Deklaracje funkcji
     void schowek();

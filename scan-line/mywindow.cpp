@@ -135,7 +135,7 @@ void MyWindow::czysc()
     ileP=0;
     wielokat.clear();
 }
-void MyWindow::czysc2() //czysci bez usuniecia wektora Krzywe
+void MyWindow::czysc2() //czysci bez usuniecia wektorow
 {
     // Wskaznik za pomoca, ktorego bedziemy modyfikowac obraz
     unsigned char *ptr;
@@ -302,7 +302,6 @@ void MyWindow::kreska2(int finX,int finY,int sX, int sY)
                 wstawPiksel((int)floor(x+0.5),y);               
                 p.x=(int)floor(x+0.5);
                 p.y=y;
-                wielokatCaly.push_back(p);
             }
         }
         else
@@ -312,7 +311,6 @@ void MyWindow::kreska2(int finX,int finY,int sX, int sY)
                 wstawPiksel((int)floor(x+0.5),y);
                 p.x=(int)floor(x+0.5);
                 p.y=y;
-                wielokatCaly.push_back(p);
             }
         }
     }
@@ -331,7 +329,6 @@ void MyWindow::kreska2(int finX,int finY,int sX, int sY)
                     wstawPiksel(x,(int)floor(y+0.5));
                     p.x=x;
                     p.y=(int)floor(y+0.5);
-                    wielokatCaly.push_back(p);
                 }
             }
             else
@@ -342,7 +339,6 @@ void MyWindow::kreska2(int finX,int finY,int sX, int sY)
                     wstawPiksel(x,(int)floor(y+0.5));
                     p.x=x;
                     p.y=(int)floor(y+0.5);
-                    wielokatCaly.push_back(p);
                 }
             }
 
@@ -357,7 +353,6 @@ void MyWindow::kreska2(int finX,int finY,int sX, int sY)
                     wstawPiksel((int)floor(x+0.5),y);
                     p.x=(int)floor(x+0.5);
                     p.y=y;
-                    wielokatCaly.push_back(p);
                 }
             }
             else
@@ -368,7 +363,6 @@ void MyWindow::kreska2(int finX,int finY,int sX, int sY)
                     wstawPiksel((int)floor(x+0.5),y);
                     p.x=(int)floor(x+0.5);
                     p.y=y;
-                    wielokatCaly.push_back(p);
                 }
             }
         }
@@ -446,9 +440,13 @@ void MyWindow::rysujWielokat()
 {
     if(wielokat.size()>1)
     {
-        for(int i=0;i<wielokat.size()-1;++i)
+        for(int i=0;i<wielokat.size();++i)
         {
-            kreska2(wielokat[i+1].x,wielokat[i+1].y,wielokat[i].x,wielokat[i].y);
+            if(i==wielokat.size()-1)
+            {
+                kreska2(wielokat[0].x,wielokat[0].y,wielokat[i].x,wielokat[i].y);
+            }
+            else kreska2(wielokat[i+1].x,wielokat[i+1].y,wielokat[i].x,wielokat[i].y);
         }
     }
 
@@ -457,16 +455,30 @@ void MyWindow::scan_line()
 {
     unsigned char *ptr;
     ptr = img->bits();
-    int i,j;
-    // Przechodzimy po wszystkich wierszach obrazu
-    for(i=0; i<wys; i++)//y
+    for(int y = 0; y < wys; y++)
     {
-        for(j=0; j<szer; j++)//x
+        std::vector <int> przeciecia;//przechowuje przecieciaprostej poziomej
+        for(int i=0;i<wielokat.size()-1;i++)//szukanie przeciec
         {
-            ptr[szer*4*i + 4*j]=0; // Skladowa BLUE
-            ptr[szer*4*i + 4*j + 1] = 250; // Skladowa GREEN
-            ptr[szer*4*i + 4*j + 2] = 0; // Skladowa RED
+            if((wielokat[i].y>y && wielokat[i+1].y<=y) || (wielokat[i].y<=y && wielokat[i+1].y>y))
+            {
+                int x = wielokat[i].x + (y-wielokat[i].y)*(wielokat[i+1].x-wielokat[i].x)/(wielokat[i+1].y-wielokat[i].y);
+                przeciecia.push_back(x);
+            }
         }
+        if((wielokat.back().y > y && wielokat.front().y <= y) || (wielokat.back().y <= y && wielokat.front().y > y))
+        {
+            int x = wielokat.back().x + (y - wielokat.back().y) * (wielokat.front().x - wielokat.back().x) / (wielokat.front().y - wielokat.back().y);
+            przeciecia.push_back(x);
+        }
+        std::sort(przeciecia.begin(),przeciecia.end());
+
+        for(int i=0;i<przeciecia.size();i+=2)
+        {
+            for(int x = przeciecia[i]; x < przeciecia[i+1]; x++)
+                wstawPiksel(x,y);
+        }
+        przeciecia.clear();
     }
 }
 void MyWindow::mousePressEvent(QMouseEvent *event)
@@ -484,13 +496,11 @@ void MyWindow::mousePressEvent(QMouseEvent *event)
             p.x=x;
             p.y=y;
             wielokat.push_back(p);
-            wielokatCaly.push_back(p);
-            rysujWielokat();
         }
     }
     else if(event->button() == Qt::RightButton )
     {
-        //scan_line();
+        scan_line();
     }
     update();
 }
@@ -531,8 +541,9 @@ void MyWindow::mouseReleaseEvent(QMouseEvent *event)
     if(event->button() == Qt::LeftButton)
     {
         isPressed=false;
+        czysc2();
+        rysujWielokat();
     }
-
     schowek();
     update();
 }
