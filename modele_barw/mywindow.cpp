@@ -222,6 +222,42 @@ void MyWindow::rysuj()
                         wstawPiksel(i,j,0,0,0);
                     }
                 }
+                else if(suwak=='V')
+                {
+
+                    float H=(((szer-j)/(float)szer)/60.0)*360;
+                    float c=((wys-i)/(float)szer)*p;
+                    float X=c*(1-std::abs(fmod(H,2)-1));
+                    float m=p-c;
+                    if(H>=0 && H<=1)
+                    {
+                        wstawPiksel(i,j,(c+m)*255,(X+m)*255,m*255);
+                    }
+                    else if(H<=2)
+                    {
+                        wstawPiksel(i,j,(X+m)*255,(c+m)*255,m*255);
+                    }
+                    else if(H<=3)
+                    {
+                        wstawPiksel(i,j,m*255,(c+m)*255,(X+m)*255);
+                    }
+                    else if(H<=4)
+                    {
+                        wstawPiksel(i,j,m*255,(X+m)*255,(c+m)*255);
+                    }
+                    else if(H<=5)
+                    {
+                        wstawPiksel(i,j,(X+m)*255,m*255,(c+m)*255);
+                    }
+                    else if(H<=6)
+                    {
+                        wstawPiksel(i,j,(c+m)*255,m*255,(X+m)*255);
+                    }
+                    else
+                    {
+                        wstawPiksel(i,j,0,0,0);
+                    }
+                }
 
             }
         }
