@@ -106,6 +106,14 @@ void MyWindow::on_verticalSlider_6_sliderMoved(int position)
     pozycja=position;
     rysuj();
 }
+void MyWindow::wstawPiksel(int i,int j,int r, int g,int b)
+{
+    unsigned char *ptr;
+    ptr = img->bits();
+    ptr[szer*4*i + 4*j]=b; // Skladowa BLUE
+    ptr[szer*4*i + 4*j + 1] = g; // Skladowa GREEN
+    ptr[szer*4*i + 4*j + 2] = r; // Skladowa RED
+}
 void MyWindow::rysuj()
 {
     unsigned char *ptr;
@@ -118,79 +126,103 @@ void MyWindow::rysuj()
             {
                 if(suwak=='R')
                 {
-                    ptr[szer*4*i + 4*j]=(wys-i)/2; // Skladowa BLUE
-                    ptr[szer*4*i + 4*j + 1] = j/2; // Skladowa GREEN
-                    ptr[szer*4*i + 4*j + 2] = pozycja; // Skladowa RED
+                    wstawPiksel(i,j,pozycja,j/2,(wys-i)/2);
                 }
                 else if(suwak=='G')
                 {
-                    ptr[szer*4*i + 4*j]=(wys-i)/2; // Skladowa BLUE
-                    ptr[szer*4*i + 4*j + 1] = pozycja; // Skladowa GREEN
-                    ptr[szer*4*i + 4*j + 2] = j/2; // Skladowa RED
+                    wstawPiksel(i,j,j/2,pozycja,(wys-i)/2);
                 }
                 else if(suwak=='B')
                 {
-                    ptr[szer*4*i + 4*j]=pozycja; // Skladowa BLUE
-                    ptr[szer*4*i + 4*j + 1] = j/2; // Skladowa GREEN
-                    ptr[szer*4*i + 4*j + 2] = (wys-i)/2; // Skladowa RED
+                    wstawPiksel(i,j,(wys-i)/2,j/2,pozycja);
                 }
             }
         }
     }
     else
     {
+        float p=0;
         if(suwak=='S' || suwak=='V')
         {
-            float p;
-            p=pozycja/10000.0;
+            p=(float)pozycja/100.0;
         }
+        else p=(float)pozycja;
         for(int i=0; i<wys; i++)
         {
             for(int j=0; j<szer; j++)
             {
                 if(suwak=='H')
                 {
-                    float H=pozycja/60.0;
-                    float c=(i/510.0)*(j/510.0);
+                    float H=p/60.0;
+                    float c=((j)/(float)wys)*((wys-i)/(float)szer);
                     float X=c*(1-std::abs(fmod(H,2)-1));
-                    float m=(i/510.0)-c;
+                    float m=((j)/(float)wys)-c;
                     if(H>=0 && H<=1)
                     {
-                        ptr[szer*4*i + 4*j]=c+m;
-                        ptr[szer*4*i + 4*j + 1] = X+m;
-                        ptr[szer*4*i + 4*j + 2] = 0+m;
+                        wstawPiksel(i,j,(c+m)*255,(X+m)*255,m*255);
                     }
                     else if(H<=2)
                     {
-                            ptr[szer*4*i + 4*j]=X+m;
-                            ptr[szer*4*i + 4*j + 1] = c+m;
-                            ptr[szer*4*i + 4*j + 2] = 0+m;
+                        wstawPiksel(i,j,(X+m)*255,(c+m)*255,m*255);
                     }
                     else if(H<=3)
                     {
-                        ptr[szer*4*i + 4*j]=0+m;
-                        ptr[szer*4*i + 4*j + 1] = c+m;
-                        ptr[szer*4*i + 4*j + 2] = X+m;
+                        wstawPiksel(i,j,m*255,(c+m)*255,(X+m)*255);
                     }
                     else if(H<=4)
                     {
-                        ptr[szer*4*i + 4*j]=0+m;
-                        ptr[szer*4*i + 4*j + 1] = X+m;
-                        ptr[szer*4*i + 4*j + 2] = c+m;
+                        wstawPiksel(i,j,m*255,(X+m)*255,(c+m)*255);
                     }
                     else if(H<=5)
                     {
-                        ptr[szer*4*i + 4*j]=X+m;
-                        ptr[szer*4*i + 4*j + 1] = 0+m;
-                        ptr[szer*4*i + 4*j + 2] = c+m;
+                        wstawPiksel(i,j,(X+m)*255,m*255,(c+m)*255);
                     }
                     else if(H<=6)
                     {
-                        ptr[szer*4*i + 4*j]=c+m;
-                        ptr[szer*4*i + 4*j + 1] = 0+m;
-                        ptr[szer*4*i + 4*j + 2] = X+m;
+                        wstawPiksel(i,j,(c+m)*255,m*255,(X+m)*255);
+                    }
+                    else
+                    {
+                        wstawPiksel(i,j,0,0,0);
                     }
                 }
+                else if(suwak=='S')
+                {
+
+                    float H=(((szer-j)/(float)szer)/60.0)*360;
+                    float c=((wys-i)/(float)wys)*p;
+                    float X=c*(1-std::abs(fmod(H,2)-1));
+                    float m=((wys-i)/(float)wys)-c;
+                    if(H>=0 && H<=1)
+                    {
+                        wstawPiksel(i,j,(c+m)*255,(X+m)*255,m*255);
+                    }
+                    else if(H<=2)
+                    {
+                        wstawPiksel(i,j,(X+m)*255,(c+m)*255,m*255);
+                    }
+                    else if(H<=3)
+                    {
+                        wstawPiksel(i,j,m*255,(c+m)*255,(X+m)*255);
+                    }
+                    else if(H<=4)
+                    {
+                        wstawPiksel(i,j,m*255,(X+m)*255,(c+m)*255);
+                    }
+                    else if(H<=5)
+                    {
+                        wstawPiksel(i,j,(X+m)*255,m*255,(c+m)*255);
+                    }
+                    else if(H<=6)
+                    {
+                        wstawPiksel(i,j,(c+m)*255,m*255,(X+m)*255);
+                    }
+                    else
+                    {
+                        wstawPiksel(i,j,0,0,0);
+                    }
+                }
+
             }
         }
     }

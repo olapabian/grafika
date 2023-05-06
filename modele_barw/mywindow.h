@@ -28,6 +28,7 @@ private:
     int pozycja;//pozycja suwaka
 
     void rysuj();
+    void wstawPiksel(int i,int j,int r,int g,int b);
 private slots :
     void paintEvent(QPaintEvent*);
     void on_verticalSliderR_sliderPressed();
