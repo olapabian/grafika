@@ -130,8 +130,6 @@ void MyWindow::czysc()
         }
     }
     ileP=0;
-    Krzywe.clear();
-    Krzywe2.clear();
 }
 void MyWindow::czysc2() //czysci bez usuniecia wektora Krzywe
 {
@@ -180,7 +178,6 @@ void MyWindow::wstawPiksel(int x,int y)
         ptr[szer*4*y + 4*x + 1] = 255; // Składowa GREEN
         ptr[szer*4*y + 4*x + 2] = 255; // Składowa RED
     }
-
 }
 void MyWindow::schowek()
 {
