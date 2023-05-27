@@ -23,7 +23,6 @@ void MainWindow::on_horizontalSlider_3_valueChanged(int value) //orzechy
 }
 
 
-
 //mode
 void MainWindow::on_listWidget_currentRowChanged(int currentRow) //corgi
 {
@@ -63,7 +62,7 @@ void MainWindow::blenduj() //img obraz kopiowany img2 obraz do ktorego kopiujemy
                     ptr2[szer*4*y + 4*x + 1] = list[i].a*((ptr[szer*4*y + 4*x + 1] + ptr2[szer*4*y + 4*x + 1])/2) + (1-list[i].a)*ptr2[szer*4*y + 4*x +1];
                     ptr2[szer*4*y + 4*x + 2] = list[i].a*((ptr[szer*4*y + 4*x + 2] + ptr2[szer*4*y + 4*x + 2])/2) + (1-list[i].a)*ptr2[szer*4*y + 4*x + 2];
                 }
-                else if(list[i].mode==2) //darken
+                else if(list[i].mode==3) //darken
                 {
                     if(ptr[szer*4*y + 4*x] < ptr2[szer*4*y + 4*x]){
                         ptr2[szer*4*y + 4*x] = list[i].a*ptr2[szer*4*y + 4*x]+ (1-list[i].a)*ptr2[szer*4*y + 4*x];
@@ -80,7 +79,7 @@ void MainWindow::blenduj() //img obraz kopiowany img2 obraz do ktorego kopiujemy
                     }
                     else ptr2[szer*4*y + 4*x + 2] = list[i].a*ptr[szer*4*y + 4*x + 2]+ (1-list[i].a)*ptr2[szer*4*y + 4*x + 2];
                 }
-                else if(list[i].mode==3) //lighten
+                else if(list[i].mode==2) //lighten
                 {
                     if(ptr[szer*4*y + 4*x] > ptr2[szer*4*y + 4*x]){
                         ptr2[szer*4*y + 4*x] = list[i].a*ptr2[szer*4*y + 4*x]+ (1-list[i].a)*ptr2[szer*4*y + 4*x];
@@ -123,9 +122,9 @@ void MainWindow::blenduj() //img obraz kopiowany img2 obraz do ktorego kopiujemy
      {
          for(int x=0;x<szer;++x)
          {
-             ptr[szer*4*y + 4*x] = 128;
-             ptr[szer*4*y + 4*x + 1] = 128;
-             ptr[szer*4*y + 4*x + 2] = 128;
+             ptr[szer*4*y + 4*x] = 0;
+             ptr[szer*4*y + 4*x + 1] = 0;
+             ptr[szer*4*y + 4*x + 2] = 0;
          }
      }
  }
