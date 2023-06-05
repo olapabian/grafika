@@ -246,6 +246,7 @@ release/moc_mainwindow.cpp: ../morfologia/mainwindow.h \
 		C:/Qt/6.4.2/mingw_64/include/QtGui/QTransform \
 		C:/Qt/6.4.2/mingw_64/include/QtCore/qnativeinterface.h \
 		C:/Qt/6.4.2/mingw_64/include/QtWidgets/qtabwidget.h \
+		C:/Qt/6.4.2/mingw_64/include/QtGui/QImage \
 		release/moc_predefs.h \
 		C:/Qt/6.4.2/mingw_64/bin/moc.exe
 	C:\Qt\6.4.2\mingw_64\bin\moc.exe $(DEFINES) --include C:/Users/User/Desktop/grafika/build-morfologia-Desktop_Qt_6_4_2_MinGW_64_bit-Debug/release/moc_predefs.h -IC:/Qt/6.4.2/mingw_64/mkspecs/win32-g++ -IC:/Users/User/Desktop/grafika/morfologia -IC:/Qt/6.4.2/mingw_64/include -IC:/Qt/6.4.2/mingw_64/include/QtWidgets -IC:/Qt/6.4.2/mingw_64/include/QtGui -IC:/Qt/6.4.2/mingw_64/include/QtCore -I. -IC:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++ -IC:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/x86_64-w64-mingw32 -IC:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/backward -IC:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include -IC:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include-fixed -IC:/Qt/Tools/mingw1120_64/x86_64-w64-mingw32/include ..\morfologia\mainwindow.h -o release\moc_mainwindow.cpp
@@ -411,6 +412,7 @@ release/main.o: ../morfologia/main.cpp ../morfologia/mainwindow.h \
 		C:/Qt/6.4.2/mingw_64/include/QtGui/QTransform \
 		C:/Qt/6.4.2/mingw_64/include/QtCore/qnativeinterface.h \
 		C:/Qt/6.4.2/mingw_64/include/QtWidgets/qtabwidget.h \
+		C:/Qt/6.4.2/mingw_64/include/QtGui/QImage \
 		C:/Qt/6.4.2/mingw_64/include/QtWidgets/QApplication \
 		C:/Qt/6.4.2/mingw_64/include/QtWidgets/qapplication.h \
 		C:/Qt/6.4.2/mingw_64/include/QtCore/qcoreapplication.h \
@@ -574,7 +576,12 @@ release/mainwindow.o: ../morfologia/mainwindow.cpp ../morfologia/mainwindow.h \
 		C:/Qt/6.4.2/mingw_64/include/QtGui/QTransform \
 		C:/Qt/6.4.2/mingw_64/include/QtCore/qnativeinterface.h \
 		C:/Qt/6.4.2/mingw_64/include/QtWidgets/qtabwidget.h \
-		ui_mainwindow.h
+		C:/Qt/6.4.2/mingw_64/include/QtGui/QImage \
+		ui_mainwindow.h \
+		C:/Qt/6.4.2/mingw_64/include/QtGui/QPainter \
+		C:/Qt/6.4.2/mingw_64/include/QtGui/qpainter.h \
+		C:/Qt/6.4.2/mingw_64/include/QtGui/qtextoption.h \
+		C:/Qt/6.4.2/mingw_64/include/QtGui/qpen.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\mainwindow.o ..\morfologia\mainwindow.cpp
 
 release/moc_mainwindow.o: release/moc_mainwindow.cpp 

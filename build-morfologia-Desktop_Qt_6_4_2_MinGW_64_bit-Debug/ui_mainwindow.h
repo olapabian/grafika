@@ -41,7 +41,7 @@ public:
         centralwidget->setObjectName("centralwidget");
         label = new QLabel(centralwidget);
         label->setObjectName("label");
-        label->setGeometry(QRect(10, -3, 450, 644));
+        label->setGeometry(QRect(10, -3, 471, 611));
         erozja = new QPushButton(centralwidget);
         erozja->setObjectName("erozja");
         erozja->setGeometry(QRect(610, 30, 83, 29));

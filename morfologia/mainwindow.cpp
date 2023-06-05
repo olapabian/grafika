@@ -129,7 +129,16 @@ void MainWindow::zmiana()
             }
             else if(tryb==3)
             {
-                //otwarcie
+                //otwarcie erozja
+                if(obraz[szer*4*y+4*x]==0 && obraz[szer*4*y+4*x+1]==0 && obraz[szer*4*y+4*x+2]==0)//jezeli piksel jest czarny
+                {
+                    if(czyKolor(x,y,255))//jesli sasiedzi sa biali jakikolwiek
+                    {
+                        wynik[szer*4*y+4*x]=255;//zapalam na niebiesko
+                        wynik[szer*4*y+4*x+1]=0;
+                        wynik[szer*4*y+4*x+2]=0;
+                    }
+                }
             }
             else if(tryb==4)
             {
