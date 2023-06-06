@@ -70,7 +70,9 @@ public:
         Skalownie = new QSlider(centralwidget);
         Skalownie->setObjectName("Skalownie");
         Skalownie->setGeometry(QRect(600, 180, 160, 16));
-        Skalownie->setValue(50);
+        Skalownie->setMaximum(200);
+        Skalownie->setValue(100);
+        Skalownie->setSliderPosition(100);
         Skalownie->setOrientation(Qt::Horizontal);
         label_7 = new QLabel(centralwidget);
         label_7->setObjectName("label_7");
@@ -87,12 +89,14 @@ public:
         LewoPrawo->setObjectName("LewoPrawo");
         LewoPrawo->setGeometry(QRect(600, 40, 160, 18));
         LewoPrawo->setMaximum(544);
+        LewoPrawo->setPageStep(10);
         LewoPrawo->setValue(272);
         LewoPrawo->setOrientation(Qt::Horizontal);
         GoraDol = new QSlider(centralwidget);
         GoraDol->setObjectName("GoraDol");
         GoraDol->setGeometry(QRect(600, 80, 160, 18));
         GoraDol->setMaximum(676);
+        GoraDol->setPageStep(10);
         GoraDol->setValue(338);
         GoraDol->setSliderPosition(338);
         GoraDol->setOrientation(Qt::Horizontal);
