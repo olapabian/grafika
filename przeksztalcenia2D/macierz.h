@@ -1,14 +1,13 @@
 #ifndef MACIERZ_H
 #define MACIERZ_H
-
+#include <iostream>
 class macierz
 {
 public:
     int h, w;
-    double **tab;
-    double** pomnoz(int h2, int w2, double **tab2);
-    double** dodaj(int h2, int w2, double **tab2);
-    macierz(int h, int w, double **tab);
+    std::vector <double> tab;
+    macierz pomnoz(int h2, int w2, std::vector <double>tab2);
+    macierz(int h, int w, std::vector<double> &tab);
     macierz(const macierz& other);
     ~macierz();
 };
