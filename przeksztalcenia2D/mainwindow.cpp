@@ -9,7 +9,7 @@ using namespace std;
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent),
       ui(new Ui::MainWindow),
-      img(new QImage("C:/Users/User/Desktop/przeksztalcenia2D/pszczola.png")),
+      img(new QImage("C:/Users/User/Desktop/grafika/przeksztalcenia2D/pszczola.png")),
       img2(new QImage(*img))
 {
     ui->setupUi(this);
@@ -31,7 +31,9 @@ void MainWindow::paintEvent(QPaintEvent*)
 
 macierz MainWindow::stworzMacierze() //zwracja tablice 3x1 z przesunieciami po x i y tworzenie macierzy z wartosciami juz
 {   
+    std::vector <double>pom1;
     std::vector <double>pom;
+    std::vector <double>pom2;
 
 ////////////////////przesuniecie/////////////////////////////
 
@@ -42,11 +44,11 @@ macierz MainWindow::stworzMacierze() //zwracja tablice 3x1 z przesunieciami po x
 
 ///////////////////rotacja////////////////////////////
 
-    //powrot na dobre miejsce
-    pom={1,0,272,
+    //vector do powrot na dobre miejsce
+    pom1={1,0,272,
          0,1,338,
          0,0,1};
-    wynik=wynik.pomnoz(3,3,pom);
+    wynik=wynik.pomnoz(3,3,pom1);
 
     //rotacja wzgl 0 0
     pom={std::cos(ui->Rotacja->value()),-std::sin(ui->Rotacja->value()),0,
@@ -54,20 +56,17 @@ macierz MainWindow::stworzMacierze() //zwracja tablice 3x1 z przesunieciami po x
          0,0,1};
     wynik = wynik.pomnoz(3,3,pom);
 
-    //translacja do rogu
-    pom={1,0,-272,
+    //vector do translacja do rogu
+    pom2={1,0,-272,
          0,1,-338,
          0,0,1};
-    wynik = wynik.pomnoz(3,3,pom);
+    wynik = wynik.pomnoz(3,3,pom2);
 
 ///////////////////skalowanie////////////////////////////
 
     //powrot na dobre miejsce
 
-    pom={1,0,272,
-         0,1,338,
-         0,0,1};
-    wynik=wynik.pomnoz(3,3,pom);
+    wynik=wynik.pomnoz(3,3,pom1);
 
     //skalowanie wzgledem 0 0
     pom={ui->Skalownie->value()/100.0,0,0,
@@ -77,38 +76,23 @@ macierz MainWindow::stworzMacierze() //zwracja tablice 3x1 z przesunieciami po x
 
     //translacja do rogu
 
-    pom={1,0,-272,
-         0,1,-338,
+    wynik=wynik.pomnoz(3,3,pom2);
+
+
+///////////////////////pochylenie//////////////////////////
+
+    //powrot na dobre miejsce
+    wynik=wynik.pomnoz(3,3,pom1);
+
+    //pochylenie
+    pom={1,ui->horizontalSlider_6->value()/100.0,0,
+         ui->horizontalSlider_7->value()/100.0,1,0,
          0,0,1};
     wynik=wynik.pomnoz(3,3,pom);
 
 
-/////////////////////////////////////////////////
-///////////////////////////////////////////////
-
     //translacja do rogu
-
-//    pom={1,0,272,
-//         0,1,338,
-//         0,0,1};
-
-
-
-//    wynik=wynik.pomnoz(3,3,pom);
-
-    //pochylenie
-//    pom={0,ui->horizontalSlider_6->value()/100.0,0,
-//         ui->horizontalSlider_7->value()/100.0,0,0,
-//         0,0,1};
-//    wynik=wynik.pomnoz(3,3,pom);
-
-    //powrot na dobre miejsce
-
-//    pom={1,0,-272,
-//         0,1,-338,
-//         0,0,1};
-
-//    wynik=wynik.pomnoz(3,3,pom);
+    wynik=wynik.pomnoz(3,3,pom2);
 
 
 /////////////////////////////////////////////////
@@ -155,31 +139,29 @@ void MainWindow::on_GoraDol_valueChanged(int value)
 
 void MainWindow::on_Rotacja_valueChanged(int value)
 {
-    przeksztalcenie = 2;
     przesun();
 }
 
 
 void MainWindow::on_Skalownie_valueChanged(int value)
 {
-    przeksztalcenie = 1;
     przesun();
 }
 
 void MainWindow::on_Skalowanie2_valueChanged(int value)
 {
-    przeksztalcenie = 2;
     przesun();
 }
 
 
 void MainWindow::on_horizontalSlider_6_valueChanged(int value)
 {
-
+    przesun();
 }
 
 
 void MainWindow::on_horizontalSlider_7_valueChanged(int value)
 {
+    przesun();
 }
 
