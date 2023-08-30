@@ -7,6 +7,13 @@ typedef struct point{
     int x;
     int y;
 } point;
+typedef struct wspolrzedne{
+    int x;//pierwsze
+    int y;
+    int alfa; //barycentryczne
+    int beta;
+    int gamma;
+} wspolrzedne;
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -21,7 +28,7 @@ public:
     QImage *img, *img2, *imgMemory, *img2Memory, *orginal;
 private:
     Ui::MainWindow *ui;
-    point a,b,c,A,B,C;
+    point *a,*b,*c,*A,*B,*C;
     bool isPressed=false;
     bool isPressed2=false;
     bool AisPressed=false;
@@ -32,6 +39,8 @@ private:
     bool BigCisPressed=false;
     int licznik=0;
     int licznik2=0;
+    std::vector<point> wielokat1;//wierzcholki wielokata
+    std::vector<point> wielokat2;//wierzcholki wielokata
 private slots:
     void paintEvent(QPaintEvent *event);
     void mousePressEvent(QMouseEvent *event);
@@ -41,6 +50,7 @@ private slots:
     void kreska2(int finX,int finY,int sX, int sY, int obrazek);
     void rysujTrojkat(int wielkosc);
     void kwadrat(int X,int Y,int obrazek);
+    void teksturowanie();
     void czysc1();
     void czysc2();
 };

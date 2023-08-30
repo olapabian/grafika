@@ -121,6 +121,7 @@ void MainWindow::przesun()
             }
         }
     }
+
     repaint();
 }
 

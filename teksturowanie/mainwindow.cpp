@@ -14,13 +14,33 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     img2 = new QImage(500, 500, QImage::Format_RGB32);
     imgMemory = new QImage(500, 500, QImage::Format_RGB32);
     img2Memory = new QImage(500, 500, QImage::Format_RGB32);
+    a= nullptr;
+    b=nullptr;
+    c=nullptr;
+    A=nullptr;
+    B=nullptr;
+    C=nullptr;
 }
 
 
 MainWindow::~MainWindow()
 {
+    licznik=0;
+    licznik2=0;
+    delete a;
+    delete b;
+    delete c;
+    delete A;
+    delete B;
+    delete C;
+    delete img;
+    delete orginal;
+    delete img2;
+    delete imgMemory;
+    delete img2Memory;
     delete ui;
 }
+
 
 void MainWindow::paintEvent(QPaintEvent *)
 {
@@ -69,134 +89,138 @@ void MainWindow::czysc2()
 }
 void MainWindow::mousePressEvent(QMouseEvent *event)
 {
-    int x = event->x();
-    int y = event->y();
-    if(event->button() == Qt::LeftButton)
+    int xPom = event->x();
+    int yPom = event->y();
+    point *Point;
+    Point = new point;
+    Point->x = xPom;
+    Point->y = yPom;
+
+    if (event->button() == Qt::LeftButton)
     {
-        if(x<=510 && x>=10 && y>=10 && y <=510) //pierwszy obrazek
+        if (xPom <= 510 && xPom >= 10 && yPom >= 10 && yPom <= 510) // Pierwszy obrazek
         {
-            isPressed=true;
-            if(licznik==0)
+            isPressed = true;
+            if (licznik == 0)
             {
-                a.x=x;
-                a.y=y;
+                a=Point;
                 licznik++;
             }
             else  if(licznik==1)
             {
-                b.x=x;
-                b.y=y;
+                b=Point;
                 licznik++;
             }
             else  if(licznik==2)
             {
-                c.x=x;
-                c.y=y;
+                c=Point;
                 licznik++;
                 rysujTrojkat(0);
             }
-            else if(x<a.x+7 && x>a.x-7 && y>a.y-7 && y<a.y+7)
+            else if(xPom < a->x + 7 && xPom > a->x - 7 && yPom > a->y - 7 && yPom < a->y + 7)
             {
-                AisPressed=true;
+                AisPressed = true;
             }
-            else if(x<b.x+7 && x>b.x-7 && y>b.y-7 && y<b.y+7)
+            else if(xPom < b->x + 7 && xPom > b->x - 7 && yPom > b->y - 7 && yPom < b->y + 7)
             {
-                BisPressed=true;
+                BisPressed = true;
             }
-            else if(x<c.x+7 && x>c.x-7 && y>c.y-7 && y<c.y+7)
+            else if(xPom < c->x + 7 && xPom > c->x - 7 && yPom > c->y - 7 && yPom < c->y + 7)
             {
-                CisPressed=true;
+                CisPressed = true;
             }
+            Point = nullptr;
         }
-        else if(x<=1100 && x>=600 && y>=10 && y <=510)//czrny obrazek
+        else if(xPom <= 1100 && xPom >= 600 && yPom >= 10 && yPom <= 510) // Czarny obrazek
         {
-            isPressed2=true;
-            if(licznik2==0)
+            isPressed2 = true;
+            if (licznik2 == 0)
             {
-                A.x=x;
-                A.y=y;
+                A=Point;
                 licznik2++;
             }
-            else  if(licznik2==1)
+            else if (licznik2 == 1)
             {
-                B.x=x;
-                B.y=y;
+                B=Point;
                 licznik2++;
             }
-            else  if(licznik2==2)
+            else if (licznik2 == 2)
             {
-                C.x=x;
-                C.y=y;
+                C=Point;
                 rysujTrojkat(1);
                 licznik2++;
             }
-            else if(x<A.x+7 && x>A.x-7 && y>A.y-7 && y<A.y+7)
+            else if (xPom < A->x + 7 && xPom > A->x - 7 && yPom > A->y - 7 && yPom < A->y + 7)
             {
-                BigAisPressed=true;
+                BigAisPressed = true;
             }
-            else if(x<B.x+7 && x>B.x-7 && y>B.y-7 && y<B.y+7)
+            else if (xPom < B->x + 7 && xPom > B->x - 7 && yPom > B->y - 7 && yPom < B->y + 7)
             {
-                BigBisPressed=true;
+                BigBisPressed = true;
             }
-            else if(x<C.x+7 && x>C.x-7 && y>C.y-7 && y<C.y+7)
+            else if (xPom < C->x + 7 && xPom > C->x - 7 && yPom > C->y - 7 && yPom < C->y + 7)
             {
-                BigCisPressed=true;
+                BigCisPressed = true;
             }
+            Point = nullptr;
         }
     }
+    delete Point;
     update();
 }
 void MainWindow::mouseMoveEvent(QMouseEvent *event)
 {
-    int x = event->x();
-    int y = event->y();
+    int xPom = event->x();
+    int yPom = event->y();
+    point *Point;
+    Point = new point;
+    Point->x = xPom;
+    Point->y = yPom;
     if((event->buttons() == Qt::LeftButton) && isPressed)
     {
         czysc1();
         if(AisPressed)
         {
-            a.x=x;
-            a.y=y;
+            a=Point;
+            Point = nullptr;
         }
         else if(BisPressed)
         {
-            b.x=x;
-            b.y=y;
+            b=Point;
+            Point = nullptr;
         }
         else if(CisPressed)
         {
-            c.x=x;
-            c.y=y;
+            c=Point;
+            Point = nullptr;
         }
         rysujTrojkat(0);
-        update();
     }
     if((event->buttons() == Qt::LeftButton) && isPressed2)
     {
         czysc2();
         if(BigAisPressed)
         {
-            A.x=x;
-            A.y=y;
+            A=Point;
+            Point = nullptr;
         }
         else if(BigBisPressed)
         {
-            B.x=x;
-            B.y=y;
+            B=Point;
+            Point = nullptr;
         }
         else if(BigCisPressed)
         {
-            C.x=x;
-            C.y=y;
+            C=Point;
+            Point = nullptr;
         }
         rysujTrojkat(1);
-        update();
     }
+    delete Point;
+    update();
 }
 void MainWindow::mouseReleaseEvent(QMouseEvent *event)
 {
-    int x = event->x();
-    int y = event->y();
     if(event->button() == Qt::LeftButton)
     {
         isPressed=false;
@@ -325,21 +349,97 @@ void MainWindow::rysujTrojkat(int wielkosc) //wielkosc litery 0 - mala 1 -duza
 {
     if(wielkosc==0)
     {
-        kreska2(b.x,b.y,a.x,a.y,wielkosc);
-        kwadrat(b.x,b.y,wielkosc);
-        kreska2(c.x,c.y,b.x,b.y,wielkosc);
-        kwadrat(a.x,a.y,wielkosc);
-        kreska2(a.x,a.y,c.x,c.y,wielkosc);
-        kwadrat(c.x,c.y,wielkosc);
+        kreska2(b->x,b->y,a->x,a->y,wielkosc);
+        kwadrat(b->x,b->y,wielkosc);
+        kreska2(c->x,c->y,b->x,b->y,wielkosc);
+        kwadrat(a->x,a->y,wielkosc);
+        kreska2(a->x,a->y,c->x,c->y,wielkosc);
+        kwadrat(c->x,c->y,wielkosc);
     }
     else
     {
-        kreska2(B.x,B.y,A.x,A.y,wielkosc);
-        kreska2(C.x,C.y,B.x,B.y,wielkosc);
-        kreska2(A.x,A.y,C.x,C.y,wielkosc);
-        kwadrat(A.x,A.y,wielkosc);
-        kwadrat(B.x,B.y,wielkosc);
-        kwadrat(C.x,C.y,wielkosc);
+        kreska2(B->x,B->y,A->x,A->y,wielkosc);
+        kwadrat(B->x,B->y,wielkosc);
+        kreska2(C->x,C->y,B->x,B->y,wielkosc);
+        kwadrat(A->x,A->y,wielkosc);
+        kreska2(A->x,A->y,C->x,C->y,wielkosc);
+        kwadrat(C->x,C->y,wielkosc);
     }
     update();
+}
+
+void MainWindow::teksturowanie()
+{
+    unsigned char *ptr;
+    ptr = img->bits();
+    int wys = img->height();
+    int szer = img->width();
+    std::vector<wspolrzedne> Wspolrzedne;
+    for(int y = 0; y < wys; y++)
+    {
+        std::vector <int> przeciecia;//przechowuje przecieciaprostej poziomej
+        for(int i=0;i<wielokat1.size()-1;i++)//szukanie przeciec
+        {
+            if((wielokat1[i].y>y && wielokat1[i+1].y<=y) || (wielokat1[i].y<=y && wielokat1[i+1].y>y))
+            {
+                int x = wielokat1[i].x + (y-wielokat1[i].y)*(wielokat1[i+1].x-wielokat1[i].x)/(wielokat1[i+1].y-wielokat1[i].y);
+                przeciecia.push_back(x);
+            }
+        }
+        if((wielokat1.back().y > y && wielokat1.front().y <= y) || (wielokat1.back().y <= y && wielokat1.front().y > y))
+        {
+            int x = wielokat1.back().x + (y - wielokat1.back().y) * (wielokat1.front().x - wielokat1.back().x) / (wielokat1.front().y - wielokat1.back().y);
+            przeciecia.push_back(x);
+        }
+        std::sort(przeciecia.begin(),przeciecia.end());
+
+        for(int i=0;i<przeciecia.size();i+=2)
+        {
+            for(int x = przeciecia[i]; x < przeciecia[i+1]; x++)
+            {
+                // Oblicz współrzędne barycentryczne piksela
+                wspolrzedne pom;
+                pom.x=x;
+                pom.y=y;
+                pom.alfa = ((float)((b->y - c->y) * x + (c->x - b->x) * y + b->x * c->y - b->y * c->x)) /
+                              ((float)((b->y - c->y) * a->x + (c->x - b->x) * a->y + b->x * c->y - b->y * c->x));
+                pom.beta = ((float)((c->y - a->y) * x + (a->x - c->x) * y + c->x * a->y - c->y * a->x)) /
+                             ((float)((b->y - c->y) * a->x + (c->x - b->x) * a->y + b->x * c->y - b->y * c->x));
+                pom.gamma = 1.0f - pom.alfa - pom.beta;
+                Wspolrzedne.push_back(pom);
+            }
+        }
+        przeciecia.clear();
+    }
+    unsigned char *ptr2;
+    ptr2 = img2->bits();
+    for(int y = 0; y < wys; y++)
+    {
+        std::vector <int> przeciecia2;//przechowuje przecieciaprostej poziomej
+        for(int i=0;i<wielokat1.size()-1;i++)//szukanie przeciec
+        {
+            if((wielokat1[i].y>y && wielokat1[i+1].y<=y) || (wielokat1[i].y<=y && wielokat1[i+1].y>y))
+            {
+                int x = wielokat1[i].x + (y-wielokat1[i].y)*(wielokat1[i+1].x-wielokat1[i].x)/(wielokat1[i+1].y-wielokat1[i].y);
+                przeciecia2.push_back(x);
+            }
+        }
+        if((wielokat1.back().y > y && wielokat1.front().y <= y) || (wielokat1.back().y <= y && wielokat1.front().y > y))
+        {
+            int x = wielokat1.back().x + (y - wielokat1.back().y) * (wielokat1.front().x - wielokat1.back().x) / (wielokat1.front().y - wielokat1.back().y);
+            przeciecia2.push_back(x);
+        }
+        std::sort(przeciecia2.begin(),przeciecia2.end());
+
+        for(int i=0;i<przeciecia2.size();i+=2)
+        {
+            for(int x = przeciecia2[i]; x < przeciecia2[i+1]; x++)
+            {
+                ptr2[static_cast<int>(std::round(Wspolrzedne[x].alfa*B->x + Wspolrzedne[x].beta*B->x + Wspolrzedne[x].gamma*C->x))]=ptr[szer*4*(y-10) + 4*(x-10)]; // Składowa BLUE
+                ptr2[static_cast<int>(std::round(Wspolrzedne[x].alfa*B->x + Wspolrzedne[x].beta*B->x + Wspolrzedne[x].gamma*C->x)) + 1]=ptr[szer*4*(y-10) + 4*(x-10)+1]; // Składowa GREEN
+                ptr2[static_cast<int>(std::round(Wspolrzedne[x].alfa*B->x + Wspolrzedne[x].beta*B->x + Wspolrzedne[x].gamma*C->x)) + 2]=ptr[szer*4*(y-10) + 4*(x-10)+2]; // Składowa RED
+            }
+        }
+        przeciecia2.clear();
+    }
 }
