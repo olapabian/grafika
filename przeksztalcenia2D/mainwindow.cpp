@@ -5,6 +5,7 @@
 #include <cmath>
 #include "macierz.h"
 #include "macierz.cpp"
+#include <math.h>
 using namespace std;
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent),
@@ -51,8 +52,8 @@ macierz MainWindow::stworzMacierze() //zwracja tablice 3x1 z przesunieciami po x
     wynik=wynik.pomnoz(3,3,pom1);
 
     //rotacja wzgl 0 0
-    pom={std::cos(ui->Rotacja->value()),-std::sin(ui->Rotacja->value()),0,
-         std::sin(ui->Rotacja->value()),std::cos(ui->Rotacja->value()),0,
+    pom={std::cos(ui->Rotacja->value()*M_PI/180.0),-std::sin(ui->Rotacja->value()*M_PI/180.0),0,
+         std::sin(ui->Rotacja->value()*M_PI/180.0),std::cos(ui->Rotacja->value()*M_PI/180.0),0,
          0,0,1};
     wynik = wynik.pomnoz(3,3,pom);
 

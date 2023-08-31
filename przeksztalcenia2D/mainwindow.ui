@@ -237,7 +237,7 @@
      <number>0</number>
     </property>
     <property name="maximum">
-     <number>180</number>
+     <number>360</number>
     </property>
     <property name="pageStep">
      <number>1</number>
@@ -318,7 +318,7 @@
      <x>0</x>
      <y>0</y>
      <width>881</width>
-     <height>25</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>
