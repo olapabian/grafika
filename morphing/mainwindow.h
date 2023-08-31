@@ -25,16 +25,20 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-    QImage *img, *img2, *imgMemory, *img2Memory, *orginal;
+    QImage *img, *img2, *Img, *orginal, *Orginal;
 private:
     Ui::MainWindow *ui;
-    point a,b,c,A,B,C;
-    //point *Point;
+    point a,b,c,d,e,f,A,B,C;
+    int obraz=0; //0 - sowa  lub 1 - tygrys
     bool isPressed=false;
     bool isPressed2=false;
+    bool isPressed3=false;
     bool AisPressed=false;
     bool BisPressed=false;
     bool CisPressed=false;
+    bool DisPressed=false;
+    bool EisPressed=false;
+    bool FisPressed=false;
     bool BigAisPressed=false;
     bool BigBisPressed=false;
     bool BigCisPressed=false;
@@ -44,6 +48,7 @@ private:
     std::vector<point> wielokat1;//wierzcholki wielokata
     std::vector<point> wielokat2;//wierzcholki wielokata
 private slots:
+    void czysc3();
     double Interpolacja(int x, int y, double dx);
     void paintEvent(QPaintEvent *event);
     void mousePressEvent(QMouseEvent *event);
@@ -56,5 +61,7 @@ private slots:
     void teksturowanie();
     void czysc1();
     void czysc2();
+    void on_sowa_clicked();
+    void on_tygrys_clicked();
 };
 #endif // MAINWINDOW_H

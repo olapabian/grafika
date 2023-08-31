@@ -14,6 +14,8 @@
 #include <QtWidgets/QFrame>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
+#include <QtWidgets/QPushButton>
+#include <QtWidgets/QSlider>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QWidget>
 
@@ -24,7 +26,9 @@ class Ui_MainWindow
 public:
     QWidget *centralwidget;
     QFrame *frame;
-    QFrame *frame_2;
+    QPushButton *sowa;
+    QPushButton *tygrys;
+    QSlider *horizontalSlider;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -32,7 +36,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName("MainWindow");
-        MainWindow->resize(1173, 686);
+        MainWindow->resize(1287, 658);
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName("centralwidget");
         frame = new QFrame(centralwidget);
@@ -40,15 +44,21 @@ public:
         frame->setGeometry(QRect(600, 10, 500, 500));
         frame->setFrameShape(QFrame::StyledPanel);
         frame->setFrameShadow(QFrame::Raised);
-        frame_2 = new QFrame(frame);
-        frame_2->setObjectName("frame_2");
-        frame_2->setGeometry(QRect(0, 0, 500, 500));
-        frame_2->setFrameShape(QFrame::StyledPanel);
-        frame_2->setFrameShadow(QFrame::Raised);
+        sowa = new QPushButton(centralwidget);
+        sowa->setObjectName("sowa");
+        sowa->setGeometry(QRect(100, 550, 80, 24));
+        tygrys = new QPushButton(centralwidget);
+        tygrys->setObjectName("tygrys");
+        tygrys->setGeometry(QRect(300, 550, 80, 24));
+        horizontalSlider = new QSlider(centralwidget);
+        horizontalSlider->setObjectName("horizontalSlider");
+        horizontalSlider->setGeometry(QRect(780, 550, 160, 16));
+        horizontalSlider->setMaximum(10);
+        horizontalSlider->setOrientation(Qt::Horizontal);
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName("menubar");
-        menubar->setGeometry(QRect(0, 0, 1173, 21));
+        menubar->setGeometry(QRect(0, 0, 1287, 21));
         MainWindow->setMenuBar(menubar);
         statusbar = new QStatusBar(MainWindow);
         statusbar->setObjectName("statusbar");
@@ -62,6 +72,8 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "MainWindow", nullptr));
+        sowa->setText(QCoreApplication::translate("MainWindow", "sowa", nullptr));
+        tygrys->setText(QCoreApplication::translate("MainWindow", "tygrys", nullptr));
     } // retranslateUi
 
 };

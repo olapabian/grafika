@@ -9,17 +9,20 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     ui = new Ui::MainWindow;
     ui->setupUi(this);
 
-    img = new QImage("C:/Users/User/Desktop/grafika/teksturowanie/sowa.jpg");
-    orginal = new QImage("C:/Users/User/Desktop/grafika/teksturowanie/sowa.jpg");
+    img = new QImage("C:/Users/User/Desktop/grafika/morphing/sowa.jpg");
+    orginal = new QImage("C:/Users/User/Desktop/grafika/morphing/sowa.jpg");
+    Img = new QImage("C:/Users/User/Desktop/grafika/morphing/tygrys.jpg");
+    Orginal = new QImage("C:/Users/User/Desktop/grafika/morphing/tygrys.jpg");
     img2 = new QImage(500, 500, QImage::Format_RGB32);
-    imgMemory = new QImage(500, 500, QImage::Format_RGB32);
-    img2Memory = new QImage(500, 500, QImage::Format_RGB32);
     licznik=0;
     licznik2=0;
     licznik3=0;
 
     a.x = 0; b.x = 0; c.x = 0;
     a.y = 0; b.y = 0; c.y = 0; // punkty na sowie
+
+    d.x = 0; e.x = 0; f.x = 0;
+    d.y = 0; e.y = 0; f.y = 0; // punkty na sowie
 
     A.x = 0; B.x = 0; C.x = 0;
     A.y = 0; B.y = 0; C.y = 0; // punkty na czarnym
@@ -30,11 +33,10 @@ MainWindow::~MainWindow()
 {
     licznik=0;
     licznik2=0;
+    licznik3=0;
     delete img;
-    delete orginal;
+    delete Img;
     delete img2;
-    delete imgMemory;
-    delete img2Memory;
     delete ui;
 }
 
@@ -45,7 +47,11 @@ void MainWindow::paintEvent(QPaintEvent *)
 
     int x = ui->frame->x();
     int y = ui->frame->y();
-    p.drawImage(10, 10, *img);
+    if(obraz == 1)
+    {
+        p.drawImage(10, 10, *Img);
+    }
+    else p.drawImage(10, 10, *img);
     p.drawImage(x, y, *img2);
 }
 
@@ -70,7 +76,6 @@ void MainWindow::czysc1()
 }
 void MainWindow::czysc2()
 {
-    unsigned char *ptr2 = img2Memory->bits();
     unsigned char *ptr = img2->bits();
     int szer = img->width();
     int wys = img->height();
@@ -81,6 +86,22 @@ void MainWindow::czysc2()
             ptr[szer*4*y + 4*x] = 0; // Składowa BLUE
             ptr[szer*4*y + 4*x + 1] = 0; // Składowa GREEN
             ptr[szer*4*y + 4*x + 2] = 0; // Składowa RED
+        }
+    }
+}
+void MainWindow::czysc3()
+{
+    unsigned char *ptr2 = Orginal->bits();
+    unsigned char *ptr = Img->bits();
+    int szer = Img->width();
+    int wys = Img->height();
+    for(int y=0;y<wys;++y)
+    {
+        for(int x=0;x<szer;++x)
+        {
+            ptr[szer*4*y + 4*x] = ptr2[szer*4*y + 4*x]; // Składowa BLUE
+            ptr[szer*4*y + 4*x + 1] = ptr2[szer*4*y + 4*x + 1]; // Składowa GREEN
+            ptr[szer*4*y + 4*x + 2] = ptr2[szer*4*y + 4*x + 2]; // Składowa RED
         }
     }
 }
@@ -96,82 +117,75 @@ void MainWindow::mousePressEvent(QMouseEvent *event)
     {
         if (xPom <= 510 && xPom >= 10 && yPom >= 10 && yPom <= 510) // Pierwszy obrazek
         {
-            isPressed = true;
-            if (licznik == 0)
+            if(obraz == 0)
             {
-                licznik++;
-                a=Point;
-                wielokat1.push_back(Point);
+                isPressed = true;
+                if (licznik == 0)
+                {
+                    licznik++;
+                    a=Point;
+                }
+                else  if(licznik==1)
+                {
+                    licznik++;
+                    b=Point;
+                }
+                else  if(licznik==2)
+                {
+                    licznik++;
+                    c=Point;
+                    rysujTrojkat(0);
+                }
+                else if(xPom < a.x + 7 && xPom > a.x - 7 && yPom > a.y - 7 && yPom < a.y + 7)
+                {
+                    AisPressed = true;
+                }
+                else if(xPom < b.x + 7 && xPom > b.x - 7 && yPom > b.y - 7 && yPom < b.y + 7)
+                {
+                    BisPressed = true;
+                }
+                else if(xPom < c.x + 7 && xPom > c.x - 7 && yPom > c.y - 7 && yPom < c.y + 7)
+                {
+                    CisPressed = true;
+                }
             }
-            else  if(licznik==1)
+            else if (obraz == 1)
             {
-                licznik++;
-                b=Point;
-                wielokat1.push_back(Point);
-            }
-            else  if(licznik==2)
-            {
-                licznik++;
-                c=Point;               
-                wielokat1.push_back(Point);
-                rysujTrojkat(0);
-            }
-            else if(xPom < a.x + 7 && xPom > a.x - 7 && yPom > a.y - 7 && yPom < a.y + 7)
-            {
-                AisPressed = true;
-            }
-            else if(xPom < b.x + 7 && xPom > b.x - 7 && yPom > b.y - 7 && yPom < b.y + 7)
-            {
-                BisPressed = true;
-            }
-            else if(xPom < c.x + 7 && xPom > c.x - 7 && yPom > c.y - 7 && yPom < c.y + 7)
-            {
-                CisPressed = true;
-            }
-        }
-        else if(xPom <= 1100 && xPom >= 600 && yPom >= 10 && yPom <= 510) // Czarny obrazek
-        {
-            isPressed2 = true;
-            if (licznik2 == 0)
-            {
-                licznik2++;
-                A=Point;
-                wielokat2.push_back(Point);
-
-            }
-            else if (licznik2 == 1)
-            {
-                licznik2++;
-                B=Point;
-                wielokat2.push_back(Point);
-
-            }
-            else if (licznik2 == 2)
-            {
-                licznik2++;
-                C=Point;
-                wielokat2.push_back(Point);
-
-                rysujTrojkat(1);
-
-
-            }
-            else if (xPom < A.x + 7 && xPom > A.x - 7 && yPom > A.y - 7 && yPom < A.y + 7)
-            {
-                BigAisPressed = true;
-            }
-            else if (xPom < B.x + 7 && xPom > B.x - 7 && yPom > B.y - 7 && yPom < B.y + 7)
-            {
-                BigBisPressed = true;
-            }
-            else if (xPom < C.x + 7 && xPom > C.x - 7 && yPom > C.y - 7 && yPom < C.y + 7)
-            {
-                BigCisPressed = true;
+                isPressed3 = true;
+                if (licznik3 == 0)
+                {
+                    licznik3++;
+                    d=Point;
+                }
+                else  if(licznik3==1)
+                {
+                    licznik3++;
+                    e=Point;
+                }
+                else  if(licznik3==2)
+                {
+                    licznik3++;
+                    f=Point;
+                    rysujTrojkat(2);
+                }
+                else if(xPom < d.x + 7 && xPom > d.x - 7 && yPom > d.y - 7 && yPom < d.y + 7)
+                {
+                    DisPressed = true;
+                }
+                else if(xPom < e.x + 7 && xPom > e.x - 7 && yPom > e.y - 7 && yPom < e.y + 7)
+                {
+                    EisPressed = true;
+                }
+                else if(xPom < f.x + 7 && xPom > f.x - 7 && yPom > f.y - 7 && yPom < f.y + 7)
+                {
+                    FisPressed = true;
+                }
             }
 
         }
-    }
+
     update();
+}
 }
 void MainWindow::mouseMoveEvent(QMouseEvent *event)
 {
@@ -182,47 +196,45 @@ void MainWindow::mouseMoveEvent(QMouseEvent *event)
     Point.y = yPom;
     if((event->buttons() == Qt::LeftButton) && isPressed)
     {
-        czysc1();
-        if(AisPressed)
+        if(obraz == 0)
         {
-            a=Point;
-            wielokat1[0]=Point;
+            czysc1();
+            if(AisPressed)
+            {
+                a=Point;
+            }
+            else if(BisPressed)
+            {
+                b=Point;
+            }
+            else if(CisPressed)
+            {
+                c=Point;
+            }
+            rysujTrojkat(0);
+
         }
-        else if(BisPressed)
-        {
-            b=Point;
-            wielokat1[1]=Point;
-        }
-        else if(CisPressed)
-        {
-            c=Point;
-            wielokat1[2]=Point;
-        }
-        rysujTrojkat(0);
     }
-    if((event->buttons() == Qt::LeftButton) && isPressed2)
+    else if((event->buttons() == Qt::LeftButton) && isPressed3)
     {
-        czysc2();
-        if(BigAisPressed)
+        if(obraz == 1)
         {
-            A=Point;
-            wielokat2[0]=Point;
+            czysc3();
+            if(DisPressed)
+            {
+                d=Point;
+            }
+            else if(EisPressed)
+            {
+                e=Point;
+            }
+            else if(FisPressed)
+            {
+                f=Point;
+            }
+            rysujTrojkat(2);
         }
-        else if(BigBisPressed)
-        {
-            B=Point;
-            wielokat2[1]=Point;
-        }
-        else if(BigCisPressed)
-        {
-            C=Point;
-            wielokat2[2]=Point;
-        }
-
-        rysujTrojkat(1);
-
     }
-
     update();
 }
 void MainWindow::mouseReleaseEvent(QMouseEvent *event)
@@ -233,7 +245,11 @@ void MainWindow::mouseReleaseEvent(QMouseEvent *event)
         AisPressed=false;
         BisPressed=false;
         CisPressed=false;
+        DisPressed=false;
+        EisPressed=false;
+        FisPressed=false;
         isPressed2=false;
+        isPressed3=false;
         BigAisPressed=false;
         BigBisPressed=false;
         BigCisPressed=false;
@@ -257,7 +273,7 @@ void MainWindow::wstawPiksel(int x,int y, int r, int g, int b,int obrazek)
             ptr[szer*4*(y-10) + 4*(x-10) + 2] = b; // Składowa RED
         }
     }
-    else
+    else if(obrazek == 1)
     {
         ptr = img2->bits();
         szer = img2->width();
@@ -267,6 +283,18 @@ void MainWindow::wstawPiksel(int x,int y, int r, int g, int b,int obrazek)
             ptr[szer*4*(y-10) + 4*(x-600)] = r; // Składowa BLUE
             ptr[szer*4*(y-10) + 4*(x-600) + 1] = g; // Składowa GREEN
             ptr[szer*4*(y-10) + 4*(x-600) + 2] = b; // Składowa RED
+        }
+    }
+    else if(obrazek == 2)
+    {
+        ptr = Img->bits();
+        szer = Img->width();
+        wys = Img->height();
+        if ((x-10>=0)&&(y-10>=0)&&(x-10<szer)&&(y-10<wys))
+        {
+            ptr[szer*4*(y-10) + 4*(x-10)] = r; // Składowa BLUE
+            ptr[szer*4*(y-10) + 4*(x-10) + 1] = g; // Składowa GREEN
+            ptr[szer*4*(y-10) + 4*(x-10) + 2] = b; // Składowa RED
         }
     }
 
@@ -368,15 +396,15 @@ void MainWindow::rysujTrojkat(int wielkosc) //wielkosc litery 0 - mala 1 -duza
     else
     {
 
-        kreska2(B.x,B.y,A.x,A.y,wielkosc);
-        kreska2(C.x,C.y,B.x,B.y,wielkosc);
-        kreska2(A.x,A.y,C.x,C.y,wielkosc);
+        kreska2(e.x,e.y,d.x,d.y,wielkosc);
+        kreska2(f.x,f.y,e.x,e.y,wielkosc);
+        kreska2(d.x,d.y,f.x,f.y,wielkosc);
 
-        kwadrat(B.x,B.y,wielkosc);
+        kwadrat(e.x,e.y,wielkosc);
 
-        kwadrat(A.x,A.y,wielkosc);
+        kwadrat(d.x,d.y,wielkosc);
 
-        kwadrat(C.x,C.y,wielkosc);
+        kwadrat(f.x,f.y,wielkosc);
     }
     teksturowanie();
     update();
@@ -528,3 +556,19 @@ void MainWindow::teksturowanie()
     }
     update();
 }
+
+
+void MainWindow::on_sowa_clicked()
+{
+    obraz = 0;
+    update();
+}
+
+
+void MainWindow::on_tygrys_clicked()
+{
+    obraz = 1;
+    update();
+
+}
+
