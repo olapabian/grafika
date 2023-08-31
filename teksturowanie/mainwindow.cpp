@@ -14,12 +14,15 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     img2 = new QImage(500, 500, QImage::Format_RGB32);
     imgMemory = new QImage(500, 500, QImage::Format_RGB32);
     img2Memory = new QImage(500, 500, QImage::Format_RGB32);
-    a= nullptr;
-    b=nullptr;
-    c=nullptr;
-    A=nullptr;
-    B=nullptr;
-    C=nullptr;
+    licznik=0;
+    licznik2=0;
+    licznik3=0;
+
+    a.x = 0; b.x = 0; c.x = 0;
+    a.y = 0; b.y = 0; c.y = 0; // punkty na sowie
+
+    A.x = 0; B.x = 0; C.x = 0;
+    A.y = 0; B.y = 0; C.y = 0; // punkty na czarnym
 }
 
 
@@ -27,12 +30,6 @@ MainWindow::~MainWindow()
 {
     licznik=0;
     licznik2=0;
-    delete a;
-    delete b;
-    delete c;
-    delete A;
-    delete B;
-    delete C;
     delete img;
     delete orginal;
     delete img2;
@@ -91,10 +88,9 @@ void MainWindow::mousePressEvent(QMouseEvent *event)
 {
     int xPom = event->x();
     int yPom = event->y();
-    point *Point;
-    Point = new point;
-    Point->x = xPom;
-    Point->y = yPom;
+    point Point;
+    Point.x = xPom;
+    Point.y = yPom;
 
     if (event->button() == Qt::LeftButton)
     {
@@ -103,96 +99,104 @@ void MainWindow::mousePressEvent(QMouseEvent *event)
             isPressed = true;
             if (licznik == 0)
             {
-                a=Point;
                 licznik++;
+                a=Point;
+                wielokat1.push_back(Point);
             }
             else  if(licznik==1)
             {
-                b=Point;
                 licznik++;
+                b=Point;
+                wielokat1.push_back(Point);
             }
             else  if(licznik==2)
             {
-                c=Point;
                 licznik++;
+                c=Point;               
+                wielokat1.push_back(Point);
                 rysujTrojkat(0);
             }
-            else if(xPom < a->x + 7 && xPom > a->x - 7 && yPom > a->y - 7 && yPom < a->y + 7)
+            else if(xPom < a.x + 7 && xPom > a.x - 7 && yPom > a.y - 7 && yPom < a.y + 7)
             {
                 AisPressed = true;
             }
-            else if(xPom < b->x + 7 && xPom > b->x - 7 && yPom > b->y - 7 && yPom < b->y + 7)
+            else if(xPom < b.x + 7 && xPom > b.x - 7 && yPom > b.y - 7 && yPom < b.y + 7)
             {
                 BisPressed = true;
             }
-            else if(xPom < c->x + 7 && xPom > c->x - 7 && yPom > c->y - 7 && yPom < c->y + 7)
+            else if(xPom < c.x + 7 && xPom > c.x - 7 && yPom > c.y - 7 && yPom < c.y + 7)
             {
                 CisPressed = true;
             }
-            Point = nullptr;
         }
         else if(xPom <= 1100 && xPom >= 600 && yPom >= 10 && yPom <= 510) // Czarny obrazek
         {
             isPressed2 = true;
             if (licznik2 == 0)
             {
-                A=Point;
                 licznik2++;
+                A=Point;
+                wielokat2.push_back(Point);
+
             }
             else if (licznik2 == 1)
             {
-                B=Point;
                 licznik2++;
+                B=Point;
+                wielokat2.push_back(Point);
+
             }
             else if (licznik2 == 2)
             {
-                C=Point;
-                rysujTrojkat(1);
                 licznik2++;
+                C=Point;
+                wielokat2.push_back(Point);
+
+                rysujTrojkat(1);
+                teksturowanie();
+
             }
-            else if (xPom < A->x + 7 && xPom > A->x - 7 && yPom > A->y - 7 && yPom < A->y + 7)
+            else if (xPom < A.x + 7 && xPom > A.x - 7 && yPom > A.y - 7 && yPom < A.y + 7)
             {
                 BigAisPressed = true;
             }
-            else if (xPom < B->x + 7 && xPom > B->x - 7 && yPom > B->y - 7 && yPom < B->y + 7)
+            else if (xPom < B.x + 7 && xPom > B.x - 7 && yPom > B.y - 7 && yPom < B.y + 7)
             {
                 BigBisPressed = true;
             }
-            else if (xPom < C->x + 7 && xPom > C->x - 7 && yPom > C->y - 7 && yPom < C->y + 7)
+            else if (xPom < C.x + 7 && xPom > C.x - 7 && yPom > C.y - 7 && yPom < C.y + 7)
             {
                 BigCisPressed = true;
             }
-            Point = nullptr;
+
         }
     }
-    delete Point;
     update();
 }
 void MainWindow::mouseMoveEvent(QMouseEvent *event)
 {
     int xPom = event->x();
     int yPom = event->y();
-    point *Point;
-    Point = new point;
-    Point->x = xPom;
-    Point->y = yPom;
+    point Point;
+    Point.x = xPom;
+    Point.y = yPom;
     if((event->buttons() == Qt::LeftButton) && isPressed)
     {
         czysc1();
         if(AisPressed)
         {
             a=Point;
-            Point = nullptr;
+            wielokat1[0]=Point;
         }
         else if(BisPressed)
         {
             b=Point;
-            Point = nullptr;
+            wielokat1[1]=Point;
         }
         else if(CisPressed)
         {
             c=Point;
-            Point = nullptr;
+            wielokat1[2]=Point;
         }
         rysujTrojkat(0);
     }
@@ -202,21 +206,23 @@ void MainWindow::mouseMoveEvent(QMouseEvent *event)
         if(BigAisPressed)
         {
             A=Point;
-            Point = nullptr;
+            wielokat2[0]=Point;
         }
         else if(BigBisPressed)
         {
             B=Point;
-            Point = nullptr;
+            wielokat2[1]=Point;
         }
         else if(BigCisPressed)
         {
             C=Point;
-            Point = nullptr;
+            wielokat2[2]=Point;
         }
+
         rysujTrojkat(1);
+
     }
-    delete Point;
+
     update();
 }
 void MainWindow::mouseReleaseEvent(QMouseEvent *event)
@@ -349,21 +355,28 @@ void MainWindow::rysujTrojkat(int wielkosc) //wielkosc litery 0 - mala 1 -duza
 {
     if(wielkosc==0)
     {
-        kreska2(b->x,b->y,a->x,a->y,wielkosc);
-        kwadrat(b->x,b->y,wielkosc);
-        kreska2(c->x,c->y,b->x,b->y,wielkosc);
-        kwadrat(a->x,a->y,wielkosc);
-        kreska2(a->x,a->y,c->x,c->y,wielkosc);
-        kwadrat(c->x,c->y,wielkosc);
+        kreska2(b.x,b.y,a.x,a.y,wielkosc);
+        kreska2(c.x,c.y,b.x,b.y,wielkosc);
+        kreska2(a.x,a.y,c.x,c.y,wielkosc);
+
+        kwadrat(b.x,b.y,wielkosc);
+
+        kwadrat(a.x,a.y,wielkosc);
+
+        kwadrat(c.x,c.y,wielkosc);
     }
     else
     {
-        kreska2(B->x,B->y,A->x,A->y,wielkosc);
-        kwadrat(B->x,B->y,wielkosc);
-        kreska2(C->x,C->y,B->x,B->y,wielkosc);
-        kwadrat(A->x,A->y,wielkosc);
-        kreska2(A->x,A->y,C->x,C->y,wielkosc);
-        kwadrat(C->x,C->y,wielkosc);
+
+        kreska2(B.x,B.y,A.x,A.y,wielkosc);
+        kreska2(C.x,C.y,B.x,B.y,wielkosc);
+        kreska2(A.x,A.y,C.x,C.y,wielkosc);
+
+        kwadrat(B.x,B.y,wielkosc);
+
+        kwadrat(A.x,A.y,wielkosc);
+
+        kwadrat(C.x,C.y,wielkosc);
     }
     update();
 }
@@ -397,16 +410,18 @@ void MainWindow::teksturowanie()
         {
             for(int x = przeciecia[i]; x < przeciecia[i+1]; x++)
             {
-                // Oblicz współrzędne barycentryczne piksela
                 wspolrzedne pom;
-                pom.x=x;
-                pom.y=y;
-                pom.alfa = ((float)((b->y - c->y) * x + (c->x - b->x) * y + b->x * c->y - b->y * c->x)) /
-                              ((float)((b->y - c->y) * a->x + (c->x - b->x) * a->y + b->x * c->y - b->y * c->x));
-                pom.beta = ((float)((c->y - a->y) * x + (a->x - c->x) * y + c->x * a->y - c->y * a->x)) /
-                             ((float)((b->y - c->y) * a->x + (c->x - b->x) * a->y + b->x * c->y - b->y * c->x));
+                 //Oblicz współrzędne barycentryczne piksela
+                pom.alfa = ((float)((b.y - c.y) * x + (c.x - b.x) * y + b.x * c.y - b.y * c.x)) /
+                              ((float)((b.y - c.y) * a.x + (c.x - b.x) * a.y + b.x * c.y - b.y * c.x));
+                pom.beta = ((float)((c.y - a.y) * x + (a.x - c.x) * y + c.x * a.y - c.y * a.x)) /
+                             ((float)((b.y - c.y) * a.x + (c.x - b.x) * a.y + b.x * c.y - b.y * c.x));
                 pom.gamma = 1.0f - pom.alfa - pom.beta;
-                Wspolrzedne.push_back(pom);
+                if(licznik3==0)
+                {
+                    Wspolrzedne.push_back(pom);
+                }
+                else Wspolrzedne[0]=pom;
             }
         }
         przeciecia.clear();
@@ -416,17 +431,17 @@ void MainWindow::teksturowanie()
     for(int y = 0; y < wys; y++)
     {
         std::vector <int> przeciecia2;//przechowuje przecieciaprostej poziomej
-        for(int i=0;i<wielokat1.size()-1;i++)//szukanie przeciec
+        for(int i=0;i<wielokat2.size()-1;i++)//szukanie przeciec
         {
-            if((wielokat1[i].y>y && wielokat1[i+1].y<=y) || (wielokat1[i].y<=y && wielokat1[i+1].y>y))
+            if((wielokat2[i].y>y && wielokat2[i+1].y<=y) || (wielokat2[i].y<=y && wielokat2[i+1].y>y))
             {
-                int x = wielokat1[i].x + (y-wielokat1[i].y)*(wielokat1[i+1].x-wielokat1[i].x)/(wielokat1[i+1].y-wielokat1[i].y);
+                int x = wielokat2[i].x + (y-wielokat2[i].y)*(wielokat2[i+1].x-wielokat2[i].x)/(wielokat2[i+1].y-wielokat2[i].y);
                 przeciecia2.push_back(x);
             }
         }
-        if((wielokat1.back().y > y && wielokat1.front().y <= y) || (wielokat1.back().y <= y && wielokat1.front().y > y))
+        if((wielokat2.back().y > y && wielokat2.front().y <= y) || (wielokat2.back().y <= y && wielokat2.front().y > y))
         {
-            int x = wielokat1.back().x + (y - wielokat1.back().y) * (wielokat1.front().x - wielokat1.back().x) / (wielokat1.front().y - wielokat1.back().y);
+            int x = wielokat2.back().x + (y - wielokat2.back().y) * (wielokat2.front().x - wielokat2.back().x) / (wielokat2.front().y - wielokat2.back().y);
             przeciecia2.push_back(x);
         }
         std::sort(przeciecia2.begin(),przeciecia2.end());
@@ -435,11 +450,34 @@ void MainWindow::teksturowanie()
         {
             for(int x = przeciecia2[i]; x < przeciecia2[i+1]; x++)
             {
-                ptr2[static_cast<int>(std::round(Wspolrzedne[x].alfa*B->x + Wspolrzedne[x].beta*B->x + Wspolrzedne[x].gamma*C->x))]=ptr[szer*4*(y-10) + 4*(x-10)]; // Składowa BLUE
-                ptr2[static_cast<int>(std::round(Wspolrzedne[x].alfa*B->x + Wspolrzedne[x].beta*B->x + Wspolrzedne[x].gamma*C->x)) + 1]=ptr[szer*4*(y-10) + 4*(x-10)+1]; // Składowa GREEN
-                ptr2[static_cast<int>(std::round(Wspolrzedne[x].alfa*B->x + Wspolrzedne[x].beta*B->x + Wspolrzedne[x].gamma*C->x)) + 2]=ptr[szer*4*(y-10) + 4*(x-10)+2]; // Składowa RED
+//                ptr2[static_cast<int>(std::round(Wspolrzedne[x].alfa*B->x + Wspolrzedne[x].beta*B->x + Wspolrzedne[x].gamma*C->x))]=ptr[szer*4*(y-10) + 4*(x-10)]; // Składowa BLUE
+//                ptr2[static_cast<int>(std::round(Wspolrzedne[x].alfa*B->x + Wspolrzedne[x].beta*B->x + Wspolrzedne[x].gamma*C->x)) + 1]=ptr[szer*4*(y-10) + 4*(x-10)+1]; // Składowa GREEN
+//                ptr2[static_cast<int>(std::round(Wspolrzedne[x].alfa*B->x + Wspolrzedne[x].beta*B->x + Wspolrzedne[x].gamma*C->x)) + 2]=ptr[szer*4*(y-10) + 4*(x-10)+2]; // Składowa RED
+                // Calculate pixel coordinates and components
+//                          int pixel_x = static_cast<int>(std::round(Wspolrzedne[x].alfa * B->x + Wspolrzedne[x].beta * B->x + Wspolrzedne[x].gamma * C->x));
+//                          int pixel_y = static_cast<int>(std::round(Wspolrzedne[y].alfa * B->y + Wspolrzedne[y].beta * B->y + Wspolrzedne[y].gamma * C->y));
+//                          int blue_component = ptr[szer * 4 * (pixel_y - 10) + 4 * (pixel_x - 10)];
+//                          int green_component = ptr[szer * 4 * (pixel_y - 10) + 4 * (pixel_x - 10) + 1];
+//                          int red_component = ptr[szer * 4 * (pixel_y - 10) + 4 * (pixel_x - 10) + 2];
+
+//                          // Set pixel values using wstawPiksel or other appropriate method
+//                          wstawPiksel(x, y, blue_component, green_component, red_component, 1);
+                int pixel_x = static_cast<int>(std::round(Wspolrzedne[0].alfa * a.x + Wspolrzedne[0].beta * b.x + Wspolrzedne[0].gamma * c.x));
+                                int pixel_y = static_cast<int>(std::round(Wspolrzedne[0].alfa * a.y + Wspolrzedne[0].beta * b.y + Wspolrzedne[0].gamma * c.y));
+
+                                // Ensure the calculated pixel coordinates are within bounds
+                                pixel_x = std::max(0, std::min(szer - 1, pixel_x));
+                                pixel_y = std::max(0, std::min(wys - 1, pixel_y));
+
+                                // Copy color components from the original image to the textured image
+                                ptr2[(y * szer + x) * 4] = ptr[(pixel_y * szer + pixel_x) * 4];         // Blue
+                                ptr2[(y * szer + x) * 4 + 1] = ptr[(pixel_y * szer + pixel_x) * 4 + 1]; // Green
+                                ptr2[(y * szer + x) * 4 + 2] = ptr[(pixel_y * szer + pixel_x) * 4 + 2]; // Red
+                                ptr2[(y * szer + x) * 4 + 3] = 255; // Alpha (assuming 4-channel BGRA)
+                            }
+
+                //wstawPiksel(x, y, static_cast<int>(std::round(Wspolrzedne[x].alfa*B->x + Wspolrzedne[x].beta*B->x + Wspolrzedne[x].gamma*C->x)), static_cast<int>(std::round(Wspolrzedne[x].alfa*B->x + Wspolrzedne[x].beta*B->x + Wspolrzedne[x].gamma*C->x)) + 1, static_cast<int>(std::round(Wspolrzedne[x].alfa*B->x + Wspolrzedne[x].beta*B->x + Wspolrzedne[x].gamma*C->x)) + 2, 1);
             }
-        }
         przeciecia2.clear();
     }
 }

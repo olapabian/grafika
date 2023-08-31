@@ -28,7 +28,8 @@ public:
     QImage *img, *img2, *imgMemory, *img2Memory, *orginal;
 private:
     Ui::MainWindow *ui;
-    point *a,*b,*c,*A,*B,*C;
+    point a,b,c,A,B,C;
+    //point *Point;
     bool isPressed=false;
     bool isPressed2=false;
     bool AisPressed=false;
@@ -37,8 +38,9 @@ private:
     bool BigAisPressed=false;
     bool BigBisPressed=false;
     bool BigCisPressed=false;
-    int licznik=0;
-    int licznik2=0;
+    int licznik;
+    int licznik2;
+    int licznik3;
     std::vector<point> wielokat1;//wierzcholki wielokata
     std::vector<point> wielokat2;//wierzcholki wielokata
 private slots:
