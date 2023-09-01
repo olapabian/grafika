@@ -30,6 +30,12 @@ private:
     Ui::MainWindow *ui;
     point a,b,c,d,e,f,A,B,C;
     int obraz=0; //0 - sowa  lub 1 - tygrys
+    bool aInitialized ;
+    bool bInitialized ;
+    bool cInitialized ;
+    bool dInitialized;
+    bool eInitialized;
+    bool fInitialized;
     bool isPressed=false;
     bool isPressed2=false;
     bool isPressed3=false;

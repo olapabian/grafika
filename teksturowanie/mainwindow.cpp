@@ -18,11 +18,13 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     licznik2=0;
     licznik3=0;
 
-    a.x = 0; b.x = 0; c.x = 0;
-    a.y = 0; b.y = 0; c.y = 0; // punkty na sowie
+    aInitialized = false;
+    bInitialized = false;
+    cInitialized = false;
 
-    A.x = 0; B.x = 0; C.x = 0;
-    A.y = 0; B.y = 0; C.y = 0; // punkty na czarnym
+    AInitialized = false;
+    BInitialized = false;
+    CInitialized = false;
 }
 
 
@@ -100,61 +102,63 @@ void MainWindow::mousePressEvent(QMouseEvent *event)
             if (licznik == 0)
             {
                 licznik++;
-                a=Point;
+                a = Point;
+                aInitialized = true;
                 wielokat1.push_back(Point);
             }
-            else  if(licznik==1)
+            else if (licznik == 1)
             {
                 licznik++;
-                b=Point;
+                b = Point;
+                bInitialized = true;
                 wielokat1.push_back(Point);
             }
-            else  if(licznik==2)
+            else if (licznik == 2)
             {
                 licznik++;
-                c=Point;               
+                c = Point;
+                cInitialized = true;
                 wielokat1.push_back(Point);
                 rysujTrojkat(0);
             }
-            else if(xPom < a.x + 7 && xPom > a.x - 7 && yPom > a.y - 7 && yPom < a.y + 7)
+            else if (xPom < a.x + 7 && xPom > a.x - 7 && yPom > a.y - 7 && yPom < a.y + 7)
             {
                 AisPressed = true;
             }
-            else if(xPom < b.x + 7 && xPom > b.x - 7 && yPom > b.y - 7 && yPom < b.y + 7)
+            else if (xPom < b.x + 7 && xPom > b.x - 7 && yPom > b.y - 7 && yPom < b.y + 7)
             {
                 BisPressed = true;
             }
-            else if(xPom < c.x + 7 && xPom > c.x - 7 && yPom > c.y - 7 && yPom < c.y + 7)
+            else if (xPom < c.x + 7 && xPom > c.x - 7 && yPom > c.y - 7 && yPom < c.y + 7)
             {
                 CisPressed = true;
             }
         }
-        else if(xPom <= 1100 && xPom >= 600 && yPom >= 10 && yPom <= 510) // Czarny obrazek
+        else if (xPom <= 1100 && xPom >= 600 && yPom >= 10 && yPom <= 510) // Czarny obrazek
         {
             isPressed2 = true;
             if (licznik2 == 0)
             {
                 licznik2++;
-                A=Point;
+                A = Point;
+                AInitialized = true;
                 wielokat2.push_back(Point);
-
             }
             else if (licznik2 == 1)
             {
                 licznik2++;
-                B=Point;
+                B = Point;
+                BInitialized = true;
                 wielokat2.push_back(Point);
-
             }
             else if (licznik2 == 2)
             {
                 licznik2++;
-                C=Point;
+                C = Point;
+                CInitialized = true;
                 wielokat2.push_back(Point);
-
+//                teksturowanie();
                 rysujTrojkat(1);
-
-
             }
             else if (xPom < A.x + 7 && xPom > A.x - 7 && yPom > A.y - 7 && yPom < A.y + 7)
             {
@@ -168,7 +172,6 @@ void MainWindow::mousePressEvent(QMouseEvent *event)
             {
                 BigCisPressed = true;
             }
-
         }
     }
     update();
@@ -351,180 +354,194 @@ void MainWindow::kwadrat(int X,int Y,int obrazek)
         }
     }
 }
-void MainWindow::rysujTrojkat(int wielkosc) //wielkosc litery 0 - mala 1 -duza
+void MainWindow::rysujTrojkat(int wielkosc)
 {
-    if(wielkosc==0)
+    if (wielkosc == 0)
     {
-        kreska2(b.x,b.y,a.x,a.y,wielkosc);
-        kreska2(c.x,c.y,b.x,b.y,wielkosc);
-        kreska2(a.x,a.y,c.x,c.y,wielkosc);
+        if (aInitialized && bInitialized && cInitialized)
+        {
+            kreska2(b.x,b.y,a.x,a.y,wielkosc);
+            kreska2(c.x,c.y,b.x,b.y,wielkosc);
+            kreska2(a.x,a.y,c.x,c.y,wielkosc);
 
-        kwadrat(b.x,b.y,wielkosc);
+            kwadrat(b.x,b.y,wielkosc);
 
-        kwadrat(a.x,a.y,wielkosc);
+            kwadrat(a.x,a.y,wielkosc);
 
-        kwadrat(c.x,c.y,wielkosc);
+            kwadrat(c.x,c.y,wielkosc);
+            update();
+        }
     }
-    else
+    else if (wielkosc == 1)
     {
+        if (AInitialized && BInitialized && CInitialized)
+        {
+            kreska2(B.x,B.y,A.x,A.y,wielkosc);
+            kreska2(C.x,C.y,B.x,B.y,wielkosc);
+            kreska2(A.x,A.y,C.x,C.y,wielkosc);
 
-        kreska2(B.x,B.y,A.x,A.y,wielkosc);
-        kreska2(C.x,C.y,B.x,B.y,wielkosc);
-        kreska2(A.x,A.y,C.x,C.y,wielkosc);
+            kwadrat(B.x,B.y,wielkosc);
 
-        kwadrat(B.x,B.y,wielkosc);
+            kwadrat(A.x,A.y,wielkosc);
 
-        kwadrat(A.x,A.y,wielkosc);
-
-        kwadrat(C.x,C.y,wielkosc);
+            kwadrat(C.x,C.y,wielkosc);
+            update();
+        }
     }
     teksturowanie();
     update();
 }
 
-//void MainWindow::teksturowanie()
-//{
-//    unsigned char *ptr;
-//    ptr = img->bits();
-//    int wys = img->height();
-//    int szer = img->width();
-//    std::vector<wspolrzedne> Wspolrzedne;
-//    for(int y = 0; y < wys; y++)
-//    {
-//        std::vector <int> przeciecia;//przechowuje przecieciaprostej poziomej
-//        for(int i=0;i<wielokat1.size()-1;i++)//szukanie przeciec
-//        {
-//            if((wielokat1[i].y>y && wielokat1[i+1].y<=y) || (wielokat1[i].y<=y && wielokat1[i+1].y>y))
-//            {
-//                int x = wielokat1[i].x + (y-wielokat1[i].y)*(wielokat1[i+1].x-wielokat1[i].x)/(wielokat1[i+1].y-wielokat1[i].y);
-//                przeciecia.push_back(x);
-//            }
-//        }
-//        if((wielokat1.back().y > y && wielokat1.front().y <= y) || (wielokat1.back().y <= y && wielokat1.front().y > y))
-//        {
-//            int x = wielokat1.back().x + (y - wielokat1.back().y) * (wielokat1.front().x - wielokat1.back().x) / (wielokat1.front().y - wielokat1.back().y);
-//            przeciecia.push_back(x);
-//        }
-//        std::sort(przeciecia.begin(),przeciecia.end());
-
-//        for(int i=0;i<przeciecia.size();i+=2)
-//        {
-//            for(int x = przeciecia[i]; x < przeciecia[i+1]; x++)
-//            {
-//                wspolrzedne pom;
-//                 //Oblicz współrzędne barycentryczne piksela
-//                pom.alfa = ((float)((b.y - c.y) * x + (c.x - b.x) * y + b.x * c.y - b.y * c.x)) /
-//                              ((float)((b.y - c.y) * a.x + (c.x - b.x) * a.y + b.x * c.y - b.y * c.x));
-//                pom.beta = ((float)((c.y - a.y) * x + (a.x - c.x) * y + c.x * a.y - c.y * a.x)) /
-//                             ((float)((b.y - c.y) * a.x + (c.x - b.x) * a.y + b.x * c.y - b.y * c.x));
-//                pom.gamma = 1.0f - pom.alfa - pom.beta;
-//                if(licznik3==0)
-//                {
-//                    Wspolrzedne.push_back(pom);
-//                }
-//                else Wspolrzedne[0]=pom;
-//            }
-//        }
-//        przeciecia.clear();
-//    }
-//    unsigned char *ptr2;
-//    ptr2 = img2->bits();
-//    for(int y = 0; y < wys; y++)
-//    {
-//        std::vector <int> przeciecia2;//przechowuje przecieciaprostej poziomej
-//        for(int i=0;i<wielokat2.size()-1;i++)//szukanie przeciec
-//        {
-//            if((wielokat2[i].y>y && wielokat2[i+1].y<=y) || (wielokat2[i].y<=y && wielokat2[i+1].y>y))
-//            {
-//                int x = wielokat2[i].x + (y-wielokat2[i].y)*(wielokat2[i+1].x-wielokat2[i].x)/(wielokat2[i+1].y-wielokat2[i].y);
-//                przeciecia2.push_back(x);
-//            }
-//        }
-//        if((wielokat2.back().y > y && wielokat2.front().y <= y) || (wielokat2.back().y <= y && wielokat2.front().y > y))
-//        {
-//            int x = wielokat2.back().x + (y - wielokat2.back().y) * (wielokat2.front().x - wielokat2.back().x) / (wielokat2.front().y - wielokat2.back().y);
-//            przeciecia2.push_back(x);
-//        }
-//        std::sort(przeciecia2.begin(),przeciecia2.end());
-
-//        for(int i=0;i<przeciecia2.size();i+=2)
-//        {
-//            for(int x = przeciecia2[i]; x < przeciecia2[i+1]; x++)
-//            {
-////                ptr2[static_cast<int>(std::round(Wspolrzedne[x].alfa*B->x + Wspolrzedne[x].beta*B->x + Wspolrzedne[x].gamma*C->x))]=ptr[szer*4*(y-10) + 4*(x-10)]; // Składowa BLUE
-////                ptr2[static_cast<int>(std::round(Wspolrzedne[x].alfa*B->x + Wspolrzedne[x].beta*B->x + Wspolrzedne[x].gamma*C->x)) + 1]=ptr[szer*4*(y-10) + 4*(x-10)+1]; // Składowa GREEN
-////                ptr2[static_cast<int>(std::round(Wspolrzedne[x].alfa*B->x + Wspolrzedne[x].beta*B->x + Wspolrzedne[x].gamma*C->x)) + 2]=ptr[szer*4*(y-10) + 4*(x-10)+2]; // Składowa RED
-//                // Calculate pixel coordinates and components
-////                          int pixel_x = static_cast<int>(std::round(Wspolrzedne[x].alfa * B->x + Wspolrzedne[x].beta * B->x + Wspolrzedne[x].gamma * C->x));
-////                          int pixel_y = static_cast<int>(std::round(Wspolrzedne[y].alfa * B->y + Wspolrzedne[y].beta * B->y + Wspolrzedne[y].gamma * C->y));
-////                          int blue_component = ptr[szer * 4 * (pixel_y - 10) + 4 * (pixel_x - 10)];
-////                          int green_component = ptr[szer * 4 * (pixel_y - 10) + 4 * (pixel_x - 10) + 1];
-////                          int red_component = ptr[szer * 4 * (pixel_y - 10) + 4 * (pixel_x - 10) + 2];
-
-////                          // Set pixel values using wstawPiksel or other appropriate method
-////                          wstawPiksel(x, y, blue_component, green_component, red_component, 1);
-//                int pixel_x = static_cast<int>(std::round(Wspolrzedne[0].alfa * a.x + Wspolrzedne[0].beta * b.x + Wspolrzedne[0].gamma * c.x));
-//                                int pixel_y = static_cast<int>(std::round(Wspolrzedne[0].alfa * a.y + Wspolrzedne[0].beta * b.y + Wspolrzedne[0].gamma * c.y));
-
-//                                // Ensure the calculated pixel coordinates are within bounds
-//                                pixel_x = std::max(0, std::min(szer - 1, pixel_x));
-//                                pixel_y = std::max(0, std::min(wys - 1, pixel_y));
-
-//                                // Copy color components from the original image to the textured image
-//                                ptr2[(y * szer + x) * 4] = ptr[(pixel_y * szer + pixel_x) * 4];         // Blue
-//                                ptr2[(y * szer + x) * 4 + 1] = ptr[(pixel_y * szer + pixel_x) * 4 + 1]; // Green
-//                                ptr2[(y * szer + x) * 4 + 2] = ptr[(pixel_y * szer + pixel_x) * 4 + 2]; // Red
-//                                ptr2[(y * szer + x) * 4 + 3] = 255; // Alpha (assuming 4-channel BGRA)
-//                            }
-
-//                //wstawPiksel(x, y, static_cast<int>(std::round(Wspolrzedne[x].alfa*B->x + Wspolrzedne[x].beta*B->x + Wspolrzedne[x].gamma*C->x)), static_cast<int>(std::round(Wspolrzedne[x].alfa*B->x + Wspolrzedne[x].beta*B->x + Wspolrzedne[x].gamma*C->x)) + 1, static_cast<int>(std::round(Wspolrzedne[x].alfa*B->x + Wspolrzedne[x].beta*B->x + Wspolrzedne[x].gamma*C->x)) + 2, 1);
-//            }
-//        przeciecia2.clear();
-//    }
-//}
-double MainWindow::Interpolacja(int x, int y, double dx){
-    return (1-dx)*x+dx*y;
-}
-
 void MainWindow::teksturowanie()
 {
-    unsigned char *ptr;
-    ptr = img->bits();
-    int wys = img->height();
-    int szer = img->width();
-    int minX = std::min({a.x,b.x,c.x});
-    int maxX = std::max({a.x,b.x,c.x});
-    int minY = std::min({a.y,b.y,c.y});
-    int maxY = std::max({a.y,b.y,c.y});
-
-    for(int y = minY; y < maxY; y++)
+    if (aInitialized && bInitialized && cInitialized && AInitialized && BInitialized && CInitialized)
     {
-        for(int x = minX; x < maxX; x++)
+        unsigned char *ptr;
+        ptr = orginal->bits();
+        int wys = img->height();
+        int szer = img->width();
+        std::vector<wspolrzedne> Wspolrzedne;
+        for(int y = 0; y < wys; y++)
         {
-            float alfa = (((x - a.x) * (c.y - a.y)) - ((c.x - a.x) * (y - a.y))) / (((b.x - a.x) * (c.y - a.y)) - ((c.x - a.x) * (b.y - b.y)));
-            float beta = (((b.x - a.x) * (y - a.y)) - ((x - a.x) * (b.y - a.y))) / (((b.x - a.x) * (c.y - a.y)) - ((c.x - a.x) * (b.y - b.y)));
-            float gamma = 1 - alfa - beta;
-            if (alfa > 0 && alfa < 1 && beta > 0 && beta < 1 && gamma > 0 && gamma < 1)
+            std::vector <int> przeciecia2;//przechowuje przecieciaprostej poziomej
+            for(int i=0;i<wielokat2.size()-1;i++)//szukanie przeciec
             {
-                float a = alfa * A.x + beta * B.x + gamma * C.x;
-                float b = alfa * A.y + beta * B.y + gamma * C.y;
-                int x = static_cast<int>(a);
-                int y = static_cast<int>(b);
-                int x2 = x + 1;
-                int y2 = y + 1;
-                a -=x;
-                b -=y;
-                if(y2 == wys)
-                    y2--;
-                if(x2 == szer)
-                    x2--;
+                if((wielokat2[i].y>y && wielokat2[i+1].y<=y) || (wielokat2[i].y<=y && wielokat2[i+1].y>y))
+                {
+                    int x = wielokat2[i].x + (y-wielokat2[i].y)*(wielokat2[i+1].x-wielokat2[i].x)/(wielokat2[i+1].y-wielokat2[i].y);
+                    przeciecia2.push_back(x);
+                }
+            }
+            if((wielokat2.back().y > y && wielokat2.front().y <= y) || (wielokat2.back().y <= y && wielokat2.front().y > y))
+            {
+                int x = wielokat2.back().x + (y - wielokat2.back().y) * (wielokat2.front().x - wielokat2.back().x) / (wielokat2.front().y - wielokat2.back().y);
+                przeciecia2.push_back(x);
+            }
+            std::sort(przeciecia2.begin(),przeciecia2.end());
 
-                int r2 = static_cast<int>(round(Interpolacja(static_cast<int>(Interpolacja(ptr[szer*4*(y-10) + 4*(x-10) + 2],ptr[szer*4*(y2-10) + 4*(x-10) + 2],b)),static_cast<int>(Interpolacja(ptr[szer*4*(y-10) + 4*(x2-10) + 2],ptr[szer*4*(y2-10) + 4*(x2-10) + 2],b)),a)));
-                int g2 = static_cast<int>(round(Interpolacja(static_cast<int>(Interpolacja(ptr[szer*4*(y-10) + 4*(x-10) + 1],ptr[szer*4*(y2-10) + 4*(x-10) + 1],b)),static_cast<int>(Interpolacja(ptr[szer*4*(y-10) + 4*(x2-10) + 1],ptr[szer*4*(y2-10) + 4*(x2-10) + 1],b)),a)));
-                int b2 = static_cast<int>(round(Interpolacja(static_cast<int>(Interpolacja(ptr[szer*4*(y-10) + 4*(x-10)],ptr[szer*4*(y2-10) + 4*(x-10)],b)),static_cast<int>(Interpolacja(ptr[szer*4*(y-10) + 4*(x2-10)],ptr[szer*4*(y2-10) + 4*(x2-10)],b)),a)));
-                wstawPiksel(x, y, r2, g2, b2, 1);
+            for(int i=0;i<przeciecia2.size();i+=2)
+            {
+                for(int x = przeciecia2[i]; x < przeciecia2[i+1]; x++)
+                {
+                    if((((B.y - C.y) * (A.x - C.x)) + ((C.x - B.x) * (A.y - C.y)))!=0)
+                    {
+                        double alfa = static_cast<double>(((x - C.x) * (B.y - C.y)) + ((C.x - B.x) * (y - C.y))) / (((B.y - C.y) * (A.x - C.x)) + ((C.x - B.x) * (A.y - C.y)));
+                        double beta = static_cast<double>(((A.x - C.x) * (y - C.y)) + ((x - C.x) * (C.y - A.y))) / (((B.y - C.y) * (A.x - C.x)) + ((C.x - B.x) * (A.y - C.y)));
+                        double gamma = 1.0 - alfa - beta;
+                        if (alfa >= 0  && beta >= 0 && beta < 1 && gamma >= 0 )
+                        {                           
+                            double x1 = alfa * a.x + beta * b.x + gamma * c.x;
+                            double y1 = alfa * a.y + beta * b.y + gamma * c.y;
+
+                            if (x1 >= 0 && x1 < szer && y1 >= 0 && y1 < wys)
+                            {
+                                int r2 = InterpolacjaDwuliniowa(x1,y1).r;
+                                int g2 = InterpolacjaDwuliniowa(x1,y1).g;
+                                int b2 = InterpolacjaDwuliniowa(x1,y1).b;
+
+                                wstawPiksel(x, y, r2, g2, b2, 1);
+                            }
+                        }
+                    }
+                }
+                przeciecia2.clear();
             }
         }
     }
-    update();
 }
+
+// Funkcja do interpolacji dwuliniowej
+Color MainWindow::InterpolacjaDwuliniowa( double x, double y) {
+    unsigned char *img;
+    img = orginal->bits();
+    int wys = orginal->height();
+    int szer = orginal->width();
+
+    int x0 = static_cast<int>(x);
+    int y0 = static_cast<int>(y);
+    int x1 = x0 + 1;
+    int y1 = y0 + 1;
+
+    double alpha = x - x0;
+    double beta = y - y0;
+
+    // Upewnij się, że punkty (x0, y0) i (x1, y1) są w granicach obrazu
+    if (x0 >= 0 && x1 < szer && y0 >= 0 && y1 < wys) {
+        // Oblicz wagi
+        double w00 = (1 - alpha) * (1 - beta);
+        double w01 = alpha * (1 - beta);
+        double w10 = (1 - alpha) * beta;
+        double w11 = alpha * beta;
+
+        // Pobierz kolory pikseli
+        Color c00, c01, c10,c11;
+        c00.r = img[szer*4*(y0-10) + 4*(x0-10)];
+        c00.g = img[szer*4*(y0-10) + 4*(x0-10) + 1];
+        c00.b = img[szer*4*(y0-10) + 4*(x0-10) + 2];
+        c01.r = img[szer*4*(y0-10) + 4*(x1-10)];
+        c01.g = img[szer*4*(y0-10) + 4*(x1-10) + 1];
+        c01.b = img[szer*4*(y0-10) + 4*(x1-10) + 2];
+        c10.r = img[szer*4*(y1-10) + 4*(x0-10)];
+        c10.g = img[szer*4*(y1-10) + 4*(x0-10) + 1];
+        c10.b = img[szer*4*(y1-10) + 4*(x0-10) + 2];
+        c11.r = img[szer*4*(y1-10) + 4*(x1-10)];
+        c11.g = img[szer*4*(y1-10) + 4*(x1-10) + 1];
+        c11.b = img[szer*4*(y1-10) + 4*(x1-10) + 2];
+
+        // Wykonaj interpolację kolorów
+        Color result;
+        result.r = static_cast<int>(w00 * c00.r + w01 * c01.r + w10 * c10.r + w11 * c11.r);
+        result.g = static_cast<int>(w00 * c00.g + w01 * c01.g + w10 * c10.g + w11 * c11.g);
+        result.b = static_cast<int>(w00 * c00.b + w01 * c01.b + w10 * c10.b + w11 * c11.b);
+
+        return result;
+    } else {
+        // Jeśli punkty nie mieszczą się w granicach obrazu, zwróć domyślny kolor lub obsłuż błąd
+        return Color{0, 0, 0}; // Czarny kolor w przypadku błędu
+    }
+}
+
+
+//void MainWindow::teksturowanie()
+//{
+//    unsigned char *ptr;
+//    ptr = orginal->bits();
+//    int wys = img->height();
+//    int szer = img->width();
+//    int minX = std::min({A.x,B.x,C.x});
+//    int maxX = std::max({A.x,B.x,C.x});
+//    int minY = std::min({A.y,B.y,C.y});
+//    int maxY = std::max({A.y,B.y,C.y});
+
+//    for(int y = minY; y < maxY; y++)
+//    {
+//        for(int x = minX; x < maxX; x++)
+//        {
+//            float alfa = (((x - A.x) * (A.y - A.y)) - ((C.x - A.x) * (y - A.y))) / (((B.x - A.x) * (C.y - A.y)) - ((C.x - A.x) * (B.y - B.y)));
+//            float beta = (((A.x - A.x) * (y - A.y)) - ((x - A.x) * (B.y - A.y))) / (((B.x - A.x) * (C.y - A.y)) - ((C.x - A.x) * (B.y - B.y)));
+//            float gamma = 1 - alfa - beta;
+//            if (alfa > 0 && alfa < 1 && beta > 0 && beta < 1 && gamma > 0 && gamma < 1)
+//            {
+//                float A = alfa * a.x + beta * b.x + gamma * c.x;
+//                float B = alfa * a.y + beta * b.y + gamma * c.y;
+//                int x = static_cast<int>(A);
+//                int y = static_cast<int>(B);
+//                int x2 = x + 1;
+//                int y2 = y + 1;
+//                A -=x;
+//                B -=y;
+//                if(y2 == wys)
+//                    y2--;
+//                if(x2 == szer)
+//                    x2--;
+
+//                int r2 = static_cast<int>(round(Interpolacja(static_cast<int>(Interpolacja(ptr[szer*4*(y) + 4*(x) + 2],ptr[szer*4*(y2) + 4*(x) + 2],B)),static_cast<int>(Interpolacja(ptr[szer*4*(y) + 4*(x2) + 2],ptr[szer*4*(y2) + 4*(x2) + 2],B)),A)));
+//                int g2 = static_cast<int>(round(Interpolacja(static_cast<int>(Interpolacja(ptr[szer*4*(y) + 4*(x) + 1],ptr[szer*4*(y2) + 4*(x) + 1],B)),static_cast<int>(Interpolacja(ptr[szer*4*(y) + 4*(x2) + 1],ptr[szer*4*(y2) + 4*(x2) + 1],B)),A)));
+//                int b2 = static_cast<int>(round(Interpolacja(static_cast<int>(Interpolacja(ptr[szer*4*(y) + 4*(x)],ptr[szer*4*(y2) + 4*(x)],B)),static_cast<int>(Interpolacja(ptr[szer*4*(y) + 4*(x2)],ptr[szer*4*(y2) + 4*(x2)],B)),A)));
+
+//                wstawPiksel(x, y, r2, g2, b2, 1);
+//            }
+//        }
+//    }
+//    update();
+//}

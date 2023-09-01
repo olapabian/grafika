@@ -3,6 +3,11 @@
 
 #include <QMainWindow>
 #include <vector>
+// Struktura przechowująca kolor piksela
+typedef struct Color {
+    int r, g, b;
+} Color;
+
 typedef struct point{
     int x;
     int y;
@@ -30,6 +35,12 @@ private:
     Ui::MainWindow *ui;
     point a,b,c,A,B,C;
     //point *Point;
+    bool aInitialized ;
+    bool bInitialized ;
+    bool cInitialized ;
+    bool AInitialized;
+    bool BInitialized;
+    bool CInitialized;
     bool isPressed=false;
     bool isPressed2=false;
     bool AisPressed=false;
@@ -44,7 +55,8 @@ private:
     std::vector<point> wielokat1;//wierzcholki wielokata
     std::vector<point> wielokat2;//wierzcholki wielokata
 private slots:
-    double Interpolacja(int x, int y, double dx);
+
+    Color InterpolacjaDwuliniowa( double x, double y);
     void paintEvent(QPaintEvent *event);
     void mousePressEvent(QMouseEvent *event);
     void mouseMoveEvent(QMouseEvent *event);

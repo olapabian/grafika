@@ -17,15 +17,12 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     licznik=0;
     licznik2=0;
     licznik3=0;
-
-    a.x = 0; b.x = 0; c.x = 0;
-    a.y = 0; b.y = 0; c.y = 0; // punkty na sowie
-
-    d.x = 0; e.x = 0; f.x = 0;
-    d.y = 0; e.y = 0; f.y = 0; // punkty na sowie
-
-    A.x = 0; B.x = 0; C.x = 0;
-    A.y = 0; B.y = 0; C.y = 0; // punkty na czarnym
+    aInitialized = false;
+    bInitialized = false;
+    cInitialized = false;
+    dInitialized = false;
+    eInitialized = false;
+    fInitialized = false;
 }
 
 
@@ -124,16 +121,19 @@ void MainWindow::mousePressEvent(QMouseEvent *event)
                 {
                     licznik++;
                     a=Point;
+                    aInitialized = true;
                 }
                 else  if(licznik==1)
                 {
                     licznik++;
                     b=Point;
+                    bInitialized = true;
                 }
                 else  if(licznik==2)
                 {
                     licznik++;
                     c=Point;
+                    cInitialized = true;
                     rysujTrojkat(0);
                 }
                 else if(xPom < a.x + 7 && xPom > a.x - 7 && yPom > a.y - 7 && yPom < a.y + 7)
@@ -156,16 +156,19 @@ void MainWindow::mousePressEvent(QMouseEvent *event)
                 {
                     licznik3++;
                     d=Point;
+                    dInitialized = true;
                 }
                 else  if(licznik3==1)
                 {
                     licznik3++;
                     e=Point;
+                    eInitialized = true;
                 }
                 else  if(licznik3==2)
                 {
                     licznik3++;
                     f=Point;
+                    fInitialized = true;
                     rysujTrojkat(2);
                 }
                 else if(xPom < d.x + 7 && xPom > d.x - 7 && yPom > d.y - 7 && yPom < d.y + 7)
@@ -381,7 +384,7 @@ void MainWindow::kwadrat(int X,int Y,int obrazek)
 }
 void MainWindow::rysujTrojkat(int wielkosc) //wielkosc litery 0 - mala 1 -duza
 {
-    if(wielkosc==0)
+    if(wielkosc==0 && aInitialized && bInitialized && cInitialized)
     {
         kreska2(b.x,b.y,a.x,a.y,wielkosc);
         kreska2(c.x,c.y,b.x,b.y,wielkosc);
@@ -393,7 +396,7 @@ void MainWindow::rysujTrojkat(int wielkosc) //wielkosc litery 0 - mala 1 -duza
 
         kwadrat(c.x,c.y,wielkosc);
     }
-    else
+    else if (dInitialized && eInitialized && fInitialized)
     {
 
         kreska2(e.x,e.y,d.x,d.y,wielkosc);

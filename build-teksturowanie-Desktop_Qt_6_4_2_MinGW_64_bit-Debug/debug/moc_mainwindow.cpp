@@ -28,11 +28,11 @@ namespace {
 struct qt_meta_stringdata_MainWindow_t {
     uint offsetsAndSizes[62];
     char stringdata0[11];
-    char stringdata1[13];
-    char stringdata2[1];
-    char stringdata3[2];
+    char stringdata1[23];
+    char stringdata2[6];
+    char stringdata3[1];
     char stringdata4[2];
-    char stringdata5[3];
+    char stringdata5[2];
     char stringdata6[11];
     char stringdata7[13];
     char stringdata8[6];
@@ -64,43 +64,43 @@ struct qt_meta_stringdata_MainWindow_t {
 Q_CONSTINIT static const qt_meta_stringdata_MainWindow_t qt_meta_stringdata_MainWindow = {
     {
         QT_MOC_LITERAL(0, 10),  // "MainWindow"
-        QT_MOC_LITERAL(11, 12),  // "Interpolacja"
-        QT_MOC_LITERAL(24, 0),  // ""
-        QT_MOC_LITERAL(25, 1),  // "x"
-        QT_MOC_LITERAL(27, 1),  // "y"
-        QT_MOC_LITERAL(29, 2),  // "dx"
-        QT_MOC_LITERAL(32, 10),  // "paintEvent"
-        QT_MOC_LITERAL(43, 12),  // "QPaintEvent*"
-        QT_MOC_LITERAL(56, 5),  // "event"
-        QT_MOC_LITERAL(62, 15),  // "mousePressEvent"
-        QT_MOC_LITERAL(78, 12),  // "QMouseEvent*"
-        QT_MOC_LITERAL(91, 14),  // "mouseMoveEvent"
-        QT_MOC_LITERAL(106, 17),  // "mouseReleaseEvent"
-        QT_MOC_LITERAL(124, 11),  // "wstawPiksel"
-        QT_MOC_LITERAL(136, 1),  // "r"
-        QT_MOC_LITERAL(138, 1),  // "g"
-        QT_MOC_LITERAL(140, 1),  // "b"
-        QT_MOC_LITERAL(142, 7),  // "obrazek"
-        QT_MOC_LITERAL(150, 7),  // "kreska2"
-        QT_MOC_LITERAL(158, 4),  // "finX"
-        QT_MOC_LITERAL(163, 4),  // "finY"
-        QT_MOC_LITERAL(168, 2),  // "sX"
-        QT_MOC_LITERAL(171, 2),  // "sY"
-        QT_MOC_LITERAL(174, 12),  // "rysujTrojkat"
-        QT_MOC_LITERAL(187, 8),  // "wielkosc"
-        QT_MOC_LITERAL(196, 7),  // "kwadrat"
-        QT_MOC_LITERAL(204, 1),  // "X"
-        QT_MOC_LITERAL(206, 1),  // "Y"
-        QT_MOC_LITERAL(208, 13),  // "teksturowanie"
-        QT_MOC_LITERAL(222, 6),  // "czysc1"
-        QT_MOC_LITERAL(229, 6)   // "czysc2"
+        QT_MOC_LITERAL(11, 22),  // "InterpolacjaDwuliniowa"
+        QT_MOC_LITERAL(34, 5),  // "Color"
+        QT_MOC_LITERAL(40, 0),  // ""
+        QT_MOC_LITERAL(41, 1),  // "x"
+        QT_MOC_LITERAL(43, 1),  // "y"
+        QT_MOC_LITERAL(45, 10),  // "paintEvent"
+        QT_MOC_LITERAL(56, 12),  // "QPaintEvent*"
+        QT_MOC_LITERAL(69, 5),  // "event"
+        QT_MOC_LITERAL(75, 15),  // "mousePressEvent"
+        QT_MOC_LITERAL(91, 12),  // "QMouseEvent*"
+        QT_MOC_LITERAL(104, 14),  // "mouseMoveEvent"
+        QT_MOC_LITERAL(119, 17),  // "mouseReleaseEvent"
+        QT_MOC_LITERAL(137, 11),  // "wstawPiksel"
+        QT_MOC_LITERAL(149, 1),  // "r"
+        QT_MOC_LITERAL(151, 1),  // "g"
+        QT_MOC_LITERAL(153, 1),  // "b"
+        QT_MOC_LITERAL(155, 7),  // "obrazek"
+        QT_MOC_LITERAL(163, 7),  // "kreska2"
+        QT_MOC_LITERAL(171, 4),  // "finX"
+        QT_MOC_LITERAL(176, 4),  // "finY"
+        QT_MOC_LITERAL(181, 2),  // "sX"
+        QT_MOC_LITERAL(184, 2),  // "sY"
+        QT_MOC_LITERAL(187, 12),  // "rysujTrojkat"
+        QT_MOC_LITERAL(200, 8),  // "wielkosc"
+        QT_MOC_LITERAL(209, 7),  // "kwadrat"
+        QT_MOC_LITERAL(217, 1),  // "X"
+        QT_MOC_LITERAL(219, 1),  // "Y"
+        QT_MOC_LITERAL(221, 13),  // "teksturowanie"
+        QT_MOC_LITERAL(235, 6),  // "czysc1"
+        QT_MOC_LITERAL(242, 6)   // "czysc2"
     },
     "MainWindow",
-    "Interpolacja",
+    "InterpolacjaDwuliniowa",
+    "Color",
     "",
     "x",
     "y",
-    "dx",
     "paintEvent",
     "QPaintEvent*",
     "event",
@@ -144,26 +144,26 @@ Q_CONSTINIT static const uint qt_meta_data_MainWindow[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    3,   86,    2, 0x08,    1 /* Private */,
-       6,    1,   93,    2, 0x08,    5 /* Private */,
-       9,    1,   96,    2, 0x08,    7 /* Private */,
-      11,    1,   99,    2, 0x08,    9 /* Private */,
-      12,    1,  102,    2, 0x08,   11 /* Private */,
-      13,    6,  105,    2, 0x08,   13 /* Private */,
-      18,    5,  118,    2, 0x08,   20 /* Private */,
-      23,    1,  129,    2, 0x08,   26 /* Private */,
-      25,    3,  132,    2, 0x08,   28 /* Private */,
-      28,    0,  139,    2, 0x08,   32 /* Private */,
-      29,    0,  140,    2, 0x08,   33 /* Private */,
-      30,    0,  141,    2, 0x08,   34 /* Private */,
+       1,    2,   86,    3, 0x08,    1 /* Private */,
+       6,    1,   91,    3, 0x08,    4 /* Private */,
+       9,    1,   94,    3, 0x08,    6 /* Private */,
+      11,    1,   97,    3, 0x08,    8 /* Private */,
+      12,    1,  100,    3, 0x08,   10 /* Private */,
+      13,    6,  103,    3, 0x08,   12 /* Private */,
+      18,    5,  116,    3, 0x08,   19 /* Private */,
+      23,    1,  127,    3, 0x08,   25 /* Private */,
+      25,    3,  130,    3, 0x08,   27 /* Private */,
+      28,    0,  137,    3, 0x08,   31 /* Private */,
+      29,    0,  138,    3, 0x08,   32 /* Private */,
+      30,    0,  139,    3, 0x08,   33 /* Private */,
 
  // slots: parameters
-    QMetaType::Double, QMetaType::Int, QMetaType::Int, QMetaType::Double,    3,    4,    5,
+    0x80000000 | 2, QMetaType::Double, QMetaType::Double,    4,    5,
     QMetaType::Void, 0x80000000 | 7,    8,
     QMetaType::Void, 0x80000000 | 10,    8,
     QMetaType::Void, 0x80000000 | 10,    8,
     QMetaType::Void, 0x80000000 | 10,    8,
-    QMetaType::Void, QMetaType::Int, QMetaType::Int, QMetaType::Int, QMetaType::Int, QMetaType::Int, QMetaType::Int,    3,    4,   14,   15,   16,   17,
+    QMetaType::Void, QMetaType::Int, QMetaType::Int, QMetaType::Int, QMetaType::Int, QMetaType::Int, QMetaType::Int,    4,    5,   14,   15,   16,   17,
     QMetaType::Void, QMetaType::Int, QMetaType::Int, QMetaType::Int, QMetaType::Int, QMetaType::Int,   19,   20,   21,   22,   17,
     QMetaType::Void, QMetaType::Int,   24,
     QMetaType::Void, QMetaType::Int, QMetaType::Int, QMetaType::Int,   26,   27,   17,
@@ -183,10 +183,9 @@ Q_CONSTINIT const QMetaObject MainWindow::staticMetaObject = { {
     qt_incomplete_metaTypeArray<qt_meta_stringdata_MainWindow_t,
         // Q_OBJECT / Q_GADGET
         QtPrivate::TypeAndForceComplete<MainWindow, std::true_type>,
-        // method 'Interpolacja'
+        // method 'InterpolacjaDwuliniowa'
+        QtPrivate::TypeAndForceComplete<Color, std::false_type>,
         QtPrivate::TypeAndForceComplete<double, std::false_type>,
-        QtPrivate::TypeAndForceComplete<int, std::false_type>,
-        QtPrivate::TypeAndForceComplete<int, std::false_type>,
         QtPrivate::TypeAndForceComplete<double, std::false_type>,
         // method 'paintEvent'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
@@ -239,8 +238,8 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         auto *_t = static_cast<MainWindow *>(_o);
         (void)_t;
         switch (_id) {
-        case 0: { double _r = _t->Interpolacja((*reinterpret_cast< std::add_pointer_t<int>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<double>>(_a[3])));
-            if (_a[0]) *reinterpret_cast< double*>(_a[0]) = std::move(_r); }  break;
+        case 0: { Color _r = _t->InterpolacjaDwuliniowa((*reinterpret_cast< std::add_pointer_t<double>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<double>>(_a[2])));
+            if (_a[0]) *reinterpret_cast< Color*>(_a[0]) = std::move(_r); }  break;
         case 1: _t->paintEvent((*reinterpret_cast< std::add_pointer_t<QPaintEvent*>>(_a[1]))); break;
         case 2: _t->mousePressEvent((*reinterpret_cast< std::add_pointer_t<QMouseEvent*>>(_a[1]))); break;
         case 3: _t->mouseMoveEvent((*reinterpret_cast< std::add_pointer_t<QMouseEvent*>>(_a[1]))); break;
