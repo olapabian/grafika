@@ -52,9 +52,9 @@ void MainWindow::paintEvent(QPaintEvent *)
         p.drawImage(10, 10, *Img);
     }
     else p.drawImage(10, 10, *img);
-//    p.drawImage(x, y, *img2);
+    p.drawImage(x, y, *img2);
 //    p.drawImage(x, y, *pqr);
-    p.drawImage(x, y, *PQR);
+//    p.drawImage(x, y, *PQR);
 }
 
 
@@ -514,8 +514,6 @@ void MainWindow::teksturowanie()
                             //SOWA
                             double x1 = alfa * a.x + beta * b.x + gamma * c.x;
                             double y1 = alfa * a.y + beta * b.y + gamma * c.y;
-
-
 
                             //teksturuje troajkat z sowy do pqr
                             if (x1 >= 0 && x1 < szer && y1 >= 0 && y1 < wys)
