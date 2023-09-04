@@ -3,6 +3,10 @@
 
 #include <QMainWindow>
 #include <vector>
+typedef struct Color {
+    int r, g, b;
+} Color;
+
 typedef struct point{
     int x;
     int y;
@@ -25,8 +29,9 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-    QImage *img, *img2, *Img, *orginal, *Orginal;
+    QImage *img, *img2, *Img, *orginal, *Orginal, *PQR, *pqr;
 private:
+    double n;
     Ui::MainWindow *ui;
     point a,b,c,d,e,f,A,B,C;
     int obraz=0; //0 - sowa  lub 1 - tygrys
@@ -54,8 +59,9 @@ private:
     std::vector<point> wielokat1;//wierzcholki wielokata
     std::vector<point> wielokat2;//wierzcholki wielokata
 private slots:
+    Color miksuj( int x, int y);
+    Color InterpolacjaDwuliniowa( double x, double y,int obraz);
     void czysc3();
-    double Interpolacja(int x, int y, double dx);
     void paintEvent(QPaintEvent *event);
     void mousePressEvent(QMouseEvent *event);
     void mouseMoveEvent(QMouseEvent *event);
@@ -69,5 +75,6 @@ private slots:
     void czysc2();
     void on_sowa_clicked();
     void on_tygrys_clicked();
+    void on_horizontalSlider_valueChanged(int value);
 };
 #endif // MAINWINDOW_H

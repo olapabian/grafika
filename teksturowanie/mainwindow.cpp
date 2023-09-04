@@ -428,7 +428,7 @@ void MainWindow::teksturowanie()
                         double alfa = static_cast<double>(((x - C.x) * (B.y - C.y)) + ((C.x - B.x) * (y - C.y))) / (((B.y - C.y) * (A.x - C.x)) + ((C.x - B.x) * (A.y - C.y)));
                         double beta = static_cast<double>(((A.x - C.x) * (y - C.y)) + ((x - C.x) * (C.y - A.y))) / (((B.y - C.y) * (A.x - C.x)) + ((C.x - B.x) * (A.y - C.y)));
                         double gamma = 1.0 - alfa - beta;
-                        if (alfa >= 0  && beta >= 0 && beta < 1 && gamma >= 0 )
+                        if (alfa >= 0 && alfa < 1 && beta >= 0 && beta < 1 && gamma >= 0 && gamma < 1)
                         {                           
                             double x1 = alfa * a.x + beta * b.x + gamma * c.x;
                             double y1 = alfa * a.y + beta * b.y + gamma * c.y;
