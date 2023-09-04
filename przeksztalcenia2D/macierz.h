@@ -5,9 +5,12 @@ class macierz
 {
 public:
     int h, w;
-    std::vector <double> tab;
-    macierz pomnoz(int h2, int w2, std::vector <double>tab2);
-    macierz(int h, int w, std::vector<double> &tab);
+    double *tab;
+    macierz *pomnoz(int h2, int w2, macierz *tab2);
+    void addValue(double value, int position);
+    void wypisz();
+    macierz(int h, int w);
+    macierz(int h, int w, double *tab2);
     macierz(const macierz& other);
     ~macierz();
 };

@@ -19,9 +19,10 @@ public:
     int wys=676;
     bool pierwszaOperacja=true;
 private:
+    macierz *przesuniecie, *rotacja, *skalowanie, *pochylenie, *powrot, *translacja;
     void przesun();
     int przeksztalcenie=0; //1 - przesuniecie  2 - rotacja 3 - skalowanie
-    macierz stworzMacierze();
+    macierz *stworzMacierze();
     void stworzPrzesuniecie();
     void edytujPrzesuniecie(int x,int y/*wartosc wartosc skalownie po x i y nie sa to punkt pol*/);
     void stworzRotacje();

@@ -1,23 +1,59 @@
 #include "macierz.h"
 #include <iostream>
 
-macierz::macierz(int h, int w, std::vector<double> &tab)
+macierz::macierz(int h, int w, double *tab)
 {
     this->h = h;
     this->w = w;
+    this->tab = new double[h*w];
     for(int i=0;i<h*w;++i)
     {
-        this->tab.push_back(tab[i]);
+         this->tab[i] = tab[i];
+    }
+}
+macierz::macierz(int h, int w)
+{
+    this->h = h;
+    this->w = w;
+    this->tab = new double[h*w];
+    for(int i=0;i<h*w;++i)
+    {
+        if(h==w)//przekatna
+        {
+            this->tab[i] = 1;
+        }
+        else this->tab[i] = 0;
     }
 }
 macierz::~macierz()
 {
-    tab.clear();
-}
+    delete[] tab;
 
-macierz macierz::pomnoz(int h2, int w2, std::vector <double>tab2)
+}
+macierz::macierz(const macierz& other)
 {
-    std::vector <double> Vwynik;
+    h = other.h;
+    w = other.w;
+    tab = new double[h * w];
+    for (int i = 0; i < h * w; ++i)
+    {
+        tab[i] = other.tab[i];
+    }
+}
+void macierz::addValue( double value, int position)
+{
+    tab[position] = value;
+}
+void macierz::wypisz()
+{
+    for(int i=0;i<h*w;++i)
+    {
+        std::cout<<tab[i]<<" ";
+    }
+}
+macierz *macierz::pomnoz(int h2, int w2, macierz *tab2)
+{
+    macierz *wynik = new macierz(h,w2);
     // kolumny pierwszej == wiersze drugiej
     if(w != h2)
     {
@@ -32,13 +68,13 @@ macierz macierz::pomnoz(int h2, int w2, std::vector <double>tab2)
                 double s = 0;
                 for(int k = 0; k < h2; k++)
                 {
-                    s += tab[w*i + k] * tab2[w2*k + j];
+                    s += tab[w*i + k] * tab2->tab[w2*k + j];
                 }
-                Vwynik.push_back(s);
+                wynik->addValue(s,w2*i + j);
             }
         }
     }
-    macierz wynik = macierz(h,w2,Vwynik);
+
     return wynik;
 }
 

@@ -247,6 +247,7 @@ debug/moc_mainwindow.cpp: ../przeksztalcenia2D/mainwindow.h \
 		C:/Qt/6.4.2/mingw_64/include/QtGui/QTransform \
 		C:/Qt/6.4.2/mingw_64/include/QtCore/qnativeinterface.h \
 		C:/Qt/6.4.2/mingw_64/include/QtWidgets/qtabwidget.h \
+		../przeksztalcenia2D/macierz.h \
 		debug/moc_predefs.h \
 		C:/Qt/6.4.2/mingw_64/bin/moc.exe
 	C:\Qt\6.4.2\mingw_64\bin\moc.exe $(DEFINES) --include C:/Users/User/Desktop/grafika/build-przeksztalcenia2D-Desktop_Qt_6_4_2_MinGW_64_bit-Debug/debug/moc_predefs.h -IC:/Qt/6.4.2/mingw_64/mkspecs/win32-g++ -IC:/Users/User/Desktop/grafika/przeksztalcenia2D -IC:/Qt/6.4.2/mingw_64/include -IC:/Qt/6.4.2/mingw_64/include/QtWidgets -IC:/Qt/6.4.2/mingw_64/include/QtGui -IC:/Qt/6.4.2/mingw_64/include/QtCore -I. -IC:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++ -IC:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/x86_64-w64-mingw32 -IC:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/backward -IC:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include -IC:/Qt/Tools/mingw1120_64/lib/gcc/x86_64-w64-mingw32/11.2.0/include-fixed -IC:/Qt/Tools/mingw1120_64/x86_64-w64-mingw32/include ..\przeksztalcenia2D\mainwindow.h -o debug\moc_mainwindow.cpp
@@ -412,6 +413,7 @@ debug/main.o: ../przeksztalcenia2D/main.cpp ../przeksztalcenia2D/mainwindow.h \
 		C:/Qt/6.4.2/mingw_64/include/QtGui/QTransform \
 		C:/Qt/6.4.2/mingw_64/include/QtCore/qnativeinterface.h \
 		C:/Qt/6.4.2/mingw_64/include/QtWidgets/qtabwidget.h \
+		../przeksztalcenia2D/macierz.h \
 		C:/Qt/6.4.2/mingw_64/include/QtWidgets/QApplication \
 		C:/Qt/6.4.2/mingw_64/include/QtWidgets/qapplication.h \
 		C:/Qt/6.4.2/mingw_64/include/QtCore/qcoreapplication.h \
@@ -575,50 +577,12 @@ debug/mainwindow.o: ../przeksztalcenia2D/mainwindow.cpp ../przeksztalcenia2D/mai
 		C:/Qt/6.4.2/mingw_64/include/QtGui/QTransform \
 		C:/Qt/6.4.2/mingw_64/include/QtCore/qnativeinterface.h \
 		C:/Qt/6.4.2/mingw_64/include/QtWidgets/qtabwidget.h \
+		../przeksztalcenia2D/macierz.h \
 		ui_mainwindow.h \
-		C:/Qt/6.4.2/mingw_64/include/QtCore/QVariant \
-		C:/Qt/6.4.2/mingw_64/include/QtWidgets/QApplication \
-		C:/Qt/6.4.2/mingw_64/include/QtWidgets/qapplication.h \
-		C:/Qt/6.4.2/mingw_64/include/QtCore/qcoreapplication.h \
-		C:/Qt/6.4.2/mingw_64/include/QtCore/qeventloop.h \
-		C:/Qt/6.4.2/mingw_64/include/QtCore/qcoreapplication_platform.h \
-		C:/Qt/6.4.2/mingw_64/include/QtCore/qjnitypes.h \
-		C:/Qt/6.4.2/mingw_64/include/QtCore/qfuture.h \
-		C:/Qt/6.4.2/mingw_64/include/QtCore/qfutureinterface.h \
-		C:/Qt/6.4.2/mingw_64/include/QtCore/qmutex.h \
-		C:/Qt/6.4.2/mingw_64/include/QtCore/qtsan_impl.h \
-		C:/Qt/6.4.2/mingw_64/include/QtCore/qresultstore.h \
-		C:/Qt/6.4.2/mingw_64/include/QtCore/qfuture_impl.h \
-		C:/Qt/6.4.2/mingw_64/include/QtCore/qthreadpool.h \
-		C:/Qt/6.4.2/mingw_64/include/QtCore/qthread.h \
-		C:/Qt/6.4.2/mingw_64/include/QtCore/qdeadlinetimer.h \
-		C:/Qt/6.4.2/mingw_64/include/QtCore/qelapsedtimer.h \
-		C:/Qt/6.4.2/mingw_64/include/QtCore/qrunnable.h \
-		C:/Qt/6.4.2/mingw_64/include/QtCore/qexception.h \
-		C:/Qt/6.4.2/mingw_64/include/QtCore/qpromise.h \
-		C:/Qt/6.4.2/mingw_64/include/QtGui/qguiapplication.h \
-		C:/Qt/6.4.2/mingw_64/include/QtGui/qinputmethod.h \
-		C:/Qt/6.4.2/mingw_64/include/QtCore/qlocale.h \
-		C:/Qt/6.4.2/mingw_64/include/QtGui/qguiapplication_platform.h \
-		C:/Qt/6.4.2/mingw_64/include/QtWidgets/QLabel \
-		C:/Qt/6.4.2/mingw_64/include/QtWidgets/qlabel.h \
-		C:/Qt/6.4.2/mingw_64/include/QtWidgets/qframe.h \
-		C:/Qt/6.4.2/mingw_64/include/QtGui/qpicture.h \
-		C:/Qt/6.4.2/mingw_64/include/QtGui/qtextdocument.h \
-		C:/Qt/6.4.2/mingw_64/include/QtWidgets/QMenuBar \
-		C:/Qt/6.4.2/mingw_64/include/QtWidgets/qmenubar.h \
-		C:/Qt/6.4.2/mingw_64/include/QtWidgets/qmenu.h \
-		C:/Qt/6.4.2/mingw_64/include/QtWidgets/QSlider \
-		C:/Qt/6.4.2/mingw_64/include/QtWidgets/qslider.h \
-		C:/Qt/6.4.2/mingw_64/include/QtWidgets/qabstractslider.h \
-		C:/Qt/6.4.2/mingw_64/include/QtWidgets/QStatusBar \
-		C:/Qt/6.4.2/mingw_64/include/QtWidgets/qstatusbar.h \
-		C:/Qt/6.4.2/mingw_64/include/QtWidgets/QWidget \
 		C:/Qt/6.4.2/mingw_64/include/QtGui/QPainter \
 		C:/Qt/6.4.2/mingw_64/include/QtGui/qpainter.h \
 		C:/Qt/6.4.2/mingw_64/include/QtGui/qtextoption.h \
 		C:/Qt/6.4.2/mingw_64/include/QtGui/qpen.h \
-		../przeksztalcenia2D/macierz.h \
 		../przeksztalcenia2D/macierz.cpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\mainwindow.o ..\przeksztalcenia2D\mainwindow.cpp
 
