@@ -42,9 +42,8 @@ macierz *MainWindow::stworzMacierze() //zwracja tablice 3x1 z przesunieciami po 
 
 ////////////////////przesuniecie/////////////////////////////
 
-    przesuniecie->addValue(1,0);    przesuniecie->addValue(0,1);    przesuniecie->addValue(ui->LewoPrawo->value()-272,2);
-    przesuniecie->addValue(0,3);    przesuniecie->addValue(1,4);    przesuniecie->addValue(ui->GoraDol->value()-338,5);
-    przesuniecie->addValue(0,6);    przesuniecie->addValue(0,7);    przesuniecie->addValue(1,8);
+    przesuniecie->addValue(ui->LewoPrawo->value()-272,2);
+    przesuniecie->addValue(ui->GoraDol->value()-338,5);
 
 
 
@@ -52,38 +51,36 @@ macierz *MainWindow::stworzMacierze() //zwracja tablice 3x1 z przesunieciami po 
 
     // do powrot na dobre miejsce
 
-    powrot->addValue(1,0);    powrot->addValue(0,1);    powrot->addValue(272,2);
-    powrot->addValue(0,3);    powrot->addValue(1,4);    powrot->addValue(338,5);
-    powrot->addValue(0,6);    powrot->addValue(0,7);    powrot->addValue(1,8);
+    powrot->addValue(272,2);
+    powrot->addValue(338,5);
+
 
 
     //rotacja wzgl 0 0
-    rotacja->addValue(std::cos(ui->Rotacja->value()*M_PI/180.0),0);    rotacja->addValue(-std::sin(ui->Rotacja->value()*M_PI/180.0),1);      rotacja->addValue(0,2);
-    rotacja->addValue(std::sin(ui->Rotacja->value()*M_PI/180.0),3);    rotacja->addValue(std::cos(ui->Rotacja->value()*M_PI/180.0),4);       rotacja->addValue(0,5);
-    rotacja->addValue(0,6);                                            rotacja->addValue(0,7);                                               rotacja->addValue(1,8);
+    rotacja->addValue(std::cos(ui->Rotacja->value()*M_PI/180.0),0);    rotacja->addValue(-std::sin(ui->Rotacja->value()*M_PI/180.0),1);
+    rotacja->addValue(std::sin(ui->Rotacja->value()*M_PI/180.0),3);    rotacja->addValue(std::cos(ui->Rotacja->value()*M_PI/180.0),4);
+
 
 
     // do translacja do rogu
-    translacja->addValue(1,0);    translacja->addValue(0,1);    translacja->addValue(-272,2);
-    translacja->addValue(0,3);    translacja->addValue(1,4);    translacja->addValue(-338,5);
-    translacja->addValue(0,6);    translacja->addValue(0,7);    translacja->addValue(1,8);
+    translacja->addValue(-272,2);
+    translacja->addValue(-338,5);
+
 
 
 ///////////////////skalowanie////////////////////////////
 
     //skalowanie wzgledem 0 0
-    skalowanie->addValue(ui->Skalownie->value()/100.0,0);    skalowanie->addValue(0,1);                                 skalowanie->addValue(0,2);
-    skalowanie->addValue(0,3);                               skalowanie->addValue(ui->Skalowanie2->value()/100.0,4);    skalowanie->addValue(0,5);
-    skalowanie->addValue(0,6);                               skalowanie->addValue(0,7);                                 skalowanie->addValue(1,8);
+    skalowanie->addValue(ui->Skalownie->value()/100.0,0);
+    skalowanie->addValue(ui->Skalowanie2->value()/100.0,4);
 
 
 ///////////////////////pochylenie//////////////////////////
 
 
     //pochylenie
-    pochylenie->addValue(1,0);                                        pochylenie->addValue(ui->horizontalSlider_6->value()/100.0,1);      pochylenie->addValue(0,2);
-    pochylenie->addValue(ui->horizontalSlider_7->value()/100.0,3);    pochylenie->addValue(1,4);                                          pochylenie->addValue(0,5);
-    pochylenie->addValue(0,6);                                        pochylenie->addValue(0,7);                                          pochylenie->addValue(1,8);
+    pochylenie->addValue(ui->horizontalSlider_6->value()/100.0,1);
+    pochylenie->addValue(ui->horizontalSlider_7->value()/100.0,3);
 
 
 /////////////////////////////////////////////////

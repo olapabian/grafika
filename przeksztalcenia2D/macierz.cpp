@@ -16,13 +16,17 @@ macierz::macierz(int h, int w)
     this->h = h;
     this->w = w;
     this->tab = new double[h*w];
-    for(int i=0;i<h*w;++i)
+    for(int i=0;i<h;++i)
     {
-        if(h==w)//przekatna
+        for(int j=0;j<w;++j)
         {
-            this->tab[i] = 1;
+            if(i==j)//przekatna
+            {
+                this->tab[i*w+j] = 1;
+            }
+            else this->tab[i*w+j] = 0;
         }
-        else this->tab[i] = 0;
+
     }
 }
 macierz::~macierz()

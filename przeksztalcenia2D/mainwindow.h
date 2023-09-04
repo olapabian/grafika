@@ -21,7 +21,7 @@ public:
 private:
     macierz *przesuniecie, *rotacja, *skalowanie, *pochylenie, *powrot, *translacja;
     void przesun();
-    int przeksztalcenie=0; //1 - przesuniecie  2 - rotacja 3 - skalowanie
+    int przeksztalcenie=0; //1 - przesuniecie  2 - rotacja 3 - skalowanie 4 - pochylenie
     macierz *stworzMacierze();
     void stworzPrzesuniecie();
     void edytujPrzesuniecie(int x,int y/*wartosc wartosc skalownie po x i y nie sa to punkt pol*/);
