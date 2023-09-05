@@ -41,7 +41,7 @@ public:
     QLabel *label_11;
     QLabel *label_12;
     QLabel *label_13;
-    QSlider *RotacjY;
+    QSlider *RotacjaY;
     QLabel *label_14;
     QSlider *RotacjaZ;
     QLabel *label_15;
@@ -144,17 +144,17 @@ public:
         label_13 = new QLabel(centralwidget);
         label_13->setObjectName("label_13");
         label_13->setGeometry(QRect(560, 150, 21, 21));
-        RotacjY = new QSlider(centralwidget);
-        RotacjY->setObjectName("RotacjY");
-        RotacjY->setGeometry(QRect(580, 160, 160, 18));
-        RotacjY->setMinimum(0);
-        RotacjY->setMaximum(360);
-        RotacjY->setPageStep(1);
-        RotacjY->setValue(0);
-        RotacjY->setSliderPosition(0);
-        RotacjY->setOrientation(Qt::Horizontal);
-        RotacjY->setTickPosition(QSlider::NoTicks);
-        RotacjY->setTickInterval(1);
+        RotacjaY = new QSlider(centralwidget);
+        RotacjaY->setObjectName("RotacjaY");
+        RotacjaY->setGeometry(QRect(580, 160, 160, 18));
+        RotacjaY->setMinimum(0);
+        RotacjaY->setMaximum(360);
+        RotacjaY->setPageStep(1);
+        RotacjaY->setValue(0);
+        RotacjaY->setSliderPosition(0);
+        RotacjaY->setOrientation(Qt::Horizontal);
+        RotacjaY->setTickPosition(QSlider::NoTicks);
+        RotacjaY->setTickInterval(1);
         label_14 = new QLabel(centralwidget);
         label_14->setObjectName("label_14");
         label_14->setGeometry(QRect(560, 180, 21, 21));
@@ -178,10 +178,11 @@ public:
         SkalowanieZ = new QSlider(centralwidget);
         SkalowanieZ->setObjectName("SkalowanieZ");
         SkalowanieZ->setGeometry(QRect(580, 300, 160, 18));
-        SkalowanieZ->setMaximum(200);
+        SkalowanieZ->setMinimum(1);
+        SkalowanieZ->setMaximum(10);
         SkalowanieZ->setPageStep(1);
-        SkalowanieZ->setValue(100);
-        SkalowanieZ->setSliderPosition(100);
+        SkalowanieZ->setValue(1);
+        SkalowanieZ->setSliderPosition(1);
         SkalowanieZ->setOrientation(Qt::Horizontal);
         label_17 = new QLabel(centralwidget);
         label_17->setObjectName("label_17");
@@ -217,7 +218,7 @@ public:
         label_14->setText(QCoreApplication::translate("MainWindow", "Z", nullptr));
         label_15->setText(QCoreApplication::translate("MainWindow", "X", nullptr));
         label_16->setText(QCoreApplication::translate("MainWindow", "Y", nullptr));
-        label_17->setText(QCoreApplication::translate("MainWindow", "Y", nullptr));
+        label_17->setText(QCoreApplication::translate("MainWindow", "Z", nullptr));
     } // retranslateUi
 
 };

@@ -15,11 +15,17 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     img2 = new QImage(500, 500, QImage::Format_RGB32);
     przesuniecie =new  macierz(4,4);
     wynik = new macierz(4,4);
-    rotacja =     new  macierz(4,4);
+    rotacjaX =     new  macierz(4,4);
+    rotacjaY =     new  macierz(4,4);
+    rotacjaZ =     new  macierz(4,4);
     skalowanie =  new  macierz(4,4);
     pochylenie =  new  macierz(4,4);
     powrot=       new  macierz(4,4);
+    powrotX=       new  macierz(4,4);
+    powrotY=       new  macierz(4,4);
     translacja=   new  macierz(4,4);    
+    translacjaX=   new  macierz(4,4);
+    translacjaY=   new  macierz(4,4);
     rysujSzescian();
 }
 
@@ -110,7 +116,7 @@ void MainWindow::rysujSzescian()
     point p;
     p.x=200;
     p.y=200;
-    p.z=0;
+    p.z=1;
     p.X=p.x*d/(p.z+d);
     p.Y=p.y*d/(p.z+d);
     Wierzcholki.push_back(p);
@@ -118,7 +124,7 @@ void MainWindow::rysujSzescian()
 
     p.x=200;
     p.y=300;
-    p.z=0;
+    p.z=1;
     p.X=p.x*d/(p.z+d);
     p.Y=p.y*d/(p.z+d);
     Wierzcholki.push_back(p);
@@ -126,7 +132,7 @@ void MainWindow::rysujSzescian()
 
     p.x=300;
     p.y=200;
-    p.z=0;
+    p.z=1;
     p.X=p.x*d/(p.z+d);
     p.Y=p.y*d/(p.z+d);
     Wierzcholki.push_back(p);
@@ -134,7 +140,7 @@ void MainWindow::rysujSzescian()
 
     p.x=300;
     p.y=300;
-    p.z=0;
+    p.z=1;
     p.X=p.x*d/(p.z+d);
     p.Y=p.y*d/(p.z+d);
     Wierzcholki.push_back(p);
@@ -165,7 +171,7 @@ void MainWindow::rysujSzescian()
     //wierzchloek perspektywiczny dla wierzcholka 0
     p.x=Wierzcholki[0].x;
     p.y=Wierzcholki[0].y;
-    p.z=Wierzcholki[0].z+2;
+    p.z=-Wierzcholki[0].z;
     p.X=p.x*d/(p.z+d);
     p.Y=p.y*d/(p.z+d);
     Wierzcholki.push_back(p);
@@ -180,7 +186,7 @@ void MainWindow::rysujSzescian()
     //wierzchloek perspektywiczny dla wierzcholka 1
     p.x=Wierzcholki[1].x;
     p.y=Wierzcholki[1].y;
-    p.z=Wierzcholki[1].z+2;
+    p.z=-Wierzcholki[1].z;
     p.X=p.x*d/(p.z+d);
     p.Y=p.y*d/(p.z+d);
     Wierzcholki.push_back(p);
@@ -194,7 +200,7 @@ void MainWindow::rysujSzescian()
     //wierzchloek perspektywiczny dla wierzcholka 2
     p.x=Wierzcholki[2].x;
     p.y=Wierzcholki[2].y;
-    p.z=Wierzcholki[2].z+2;
+    p.z=-Wierzcholki[2].z;
     p.X=p.x*d/(p.z+d);
     p.Y=p.y*d/(p.z+d);
     Wierzcholki.push_back(p);
@@ -208,7 +214,7 @@ void MainWindow::rysujSzescian()
     //wierzchloek perspektywiczny dla wierzcholka 3
     p.x=Wierzcholki[3].x;
     p.y=Wierzcholki[3].y;
-    p.z=Wierzcholki[3].z+2;
+    p.z=-Wierzcholki[3].z;
     p.X=p.x*d/(p.z+d);
     p.Y=p.y*d/(p.z+d);
     Wierzcholki.push_back(p);
@@ -250,51 +256,58 @@ macierz* MainWindow::stworzMacierze()
     przesuniecie->addValue(static_cast<double>(ui->GoraDol->value()-250),7);
     przesuniecie->addValue(static_cast<double>(ui->PrzodTyl->value()),11);
 
-///////////////////rotacja////////////////////////////
-
-//    // do powrot na dobre miejsce
-
-//    powrot->addValue(272,2);
-//    powrot->addValue(338,5);
+///////////////////rotacjaX////////////////////////////
 
 
 
-//    //rotacja wzgl 0 0
-//    rotacja->addValue(std::cos(ui->Rotacja->value()*M_PI/180.0),0);    rotacja->addValue(-std::sin(ui->Rotacja->value()*M_PI/180.0),1);
-//    rotacja->addValue(std::sin(ui->Rotacja->value()*M_PI/180.0),3);    rotacja->addValue(std::cos(ui->Rotacja->value()*M_PI/180.0),4);
+    //rotacja wzgl 0 0
+    rotacjaX->addValue(std::cos(ui->RotacjaX->value()*M_PI/180.0),5);    rotacjaX->addValue((-1)*std::sin(ui->RotacjaX->value()*M_PI/180.0),6);
+    rotacjaX->addValue(std::sin(ui->RotacjaX->value()*M_PI/180.0),9);    rotacjaX->addValue(std::cos(ui->RotacjaX->value()*M_PI/180.0),10);
 
 
 
-//    // do translacja do rogu
-//    translacja->addValue(-272,2);
-//    translacja->addValue(-338,5);
+///////////////////rotacjaY////////////////////////////
 
+    powrotY->addValue(250,3); //po x i z
+    powrotY->addValue(0.5,11);
+
+    rotacjaY->addValue(std::cos(ui->RotacjaY->value()*M_PI/180.0),0);    rotacjaY->addValue(-std::sin(ui->RotacjaY->value()*M_PI/180.0),8);
+    rotacjaY->addValue(std::sin(ui->RotacjaY->value()*M_PI/180.0),2);    rotacjaY->addValue( std::cos(ui->RotacjaY->value()*M_PI/180.0),10);
+
+    translacjaY->addValue(-250,3);
+    translacjaY->addValue(-0.5,11);
+
+
+    ///////////////////rotacjaZ////////////////////////////
+
+    powrot->addValue(250,3);//przesuwam sie po x i y
+    powrot->addValue(250,7);
+
+    rotacjaZ->addValue(std::cos(ui->RotacjaZ->value()*M_PI/180.0),0);    rotacjaZ->addValue(-std::sin(ui->RotacjaZ->value()*M_PI/180.0),1);
+    rotacjaZ->addValue(std::sin(ui->RotacjaZ->value()*M_PI/180.0),4);    rotacjaZ->addValue( std::cos(ui->RotacjaZ->value()*M_PI/180.0),5);
+
+    translacja->addValue(-250,3);
+    translacja->addValue(-250,7);
 
 
 /////////////////////skalowanie////////////////////////////
 
-//    //skalowanie wzgledem 0 0
-//    skalowanie->addValue(ui->Skalownie->value()/100.0,0);
-//    skalowanie->addValue(ui->Skalowanie2->value()/100.0,4);
+    skalowanie->addValue(ui->SkalownieX->value()/100.0,0);
+    skalowanie->addValue(ui->Skalowanie2->value()/100.0,5);
+    skalowanie->addValue(ui->SkalowanieZ->value(),10);
 
 
-/////////////////////////pochylenie//////////////////////////
-
-
-//    //pochylenie
-//    pochylenie->addValue(ui->horizontalSlider_6->value()/100.0,1);
-//    pochylenie->addValue(ui->horizontalSlider_7->value()/100.0,3);
 
 
 /////////////////////////////////////////////////
-//    macierz *wynik = przesuniecie->pomnoz(3,3,powrot->pomnoz(3,3,rotacja->pomnoz(3,3,translacja->pomnoz(3,3,powrot->pomnoz(3,3,skalowanie->pomnoz(3,3,translacja->pomnoz(3,3,powrot->pomnoz(3,3,pochylenie->pomnoz(3,3,translacja)))))))));
-    wynik = przesuniecie->pomnoz(4,4,pochylenie);
+    wynik = przesuniecie->pomnoz(4,4,powrot->pomnoz(4,4,rotacjaX->pomnoz(4,4,translacja->pomnoz(4,4,powrotY->pomnoz(4,4,rotacjaY->pomnoz(4,4,translacjaY->pomnoz(4,4,powrot->pomnoz(4,4,rotacjaZ->pomnoz(4,4,translacja->pomnoz(4,4,powrot->pomnoz(4,4,skalowanie->pomnoz(4,4,translacja))))))))))));
     return wynik;
 }
 void MainWindow::przesun()
 {
 
     macierz *m = stworzMacierze();//4x4
+
     //pozamieniam  punkty wierzcholki krawedzi i narysuje szescian
     macierz *p = new macierz(4,1);
     macierz *wynik2;
@@ -304,7 +317,7 @@ void MainWindow::przesun()
         p->addValue(static_cast<double>(Wierzcholki[i].y),1);
         p->addValue(static_cast<double>(Wierzcholki[i].z),2);
         p->addValue(1,3);
-//        p->wypisz();
+
         wynik2 = m->pomnoz(4,1,p);
 
         NoweWierzcholki[i].z=wynik2->tab[2];
@@ -440,7 +453,7 @@ void MainWindow::on_RotacjaX_valueChanged(int value)
 }
 
 
-void MainWindow::on_RotacjY_valueChanged(int value)
+void MainWindow::on_RotacjaY_valueChanged(int value)
 {
     przesun();
 }

@@ -29,12 +29,12 @@ public:
     int wys=676;
     bool pierwszaOperacja=true;
 private:
-    int d=500;
+    int d=30;
     std::vector <point> Wierzcholki;
     std::vector <point> NoweWierzcholki;
     std::vector <krawedz> Krawedzie;
     macierz *wynik;
-    macierz *szescian, *przesuniecie, *rotacja, *skalowanie, *pochylenie, *powrot, *translacja;
+    macierz  *przesuniecie, *rotacjaX, *rotacjaY, *rotacjaZ, *skalowanie, *pochylenie, *powrot, *powrotX, *powrotY, *translacja, *translacjaX, *translacjaY;
     void przesun();
     void rysujSzescian();
     void rysujSzescian2();
@@ -50,7 +50,7 @@ private slots:
     void on_GoraDol_valueChanged(int value);
     void on_PrzodTyl_valueChanged(int value);
     void on_RotacjaX_valueChanged(int value);
-    void on_RotacjY_valueChanged(int value);
+    void on_RotacjaY_valueChanged(int value);
     void on_RotacjaZ_valueChanged(int value);
     void on_SkalownieX_valueChanged(int value);
     void on_Skalowanie2_valueChanged(int value);

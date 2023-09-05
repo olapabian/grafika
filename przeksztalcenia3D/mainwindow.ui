@@ -322,7 +322,7 @@
      <string>Y</string>
     </property>
    </widget>
-   <widget class="QSlider" name="RotacjY">
+   <widget class="QSlider" name="RotacjaY">
     <property name="geometry">
      <rect>
       <x>580</x>
@@ -438,17 +438,20 @@
       <height>18</height>
      </rect>
     </property>
+    <property name="minimum">
+     <number>1</number>
+    </property>
     <property name="maximum">
-     <number>200</number>
+     <number>10</number>
     </property>
     <property name="pageStep">
      <number>1</number>
     </property>
     <property name="value">
-     <number>100</number>
+     <number>1</number>
     </property>
     <property name="sliderPosition">
-     <number>100</number>
+     <number>1</number>
     </property>
     <property name="orientation">
      <enum>Qt::Horizontal</enum>
@@ -464,7 +467,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>Y</string>
+     <string>Z</string>
     </property>
    </widget>
   </widget>

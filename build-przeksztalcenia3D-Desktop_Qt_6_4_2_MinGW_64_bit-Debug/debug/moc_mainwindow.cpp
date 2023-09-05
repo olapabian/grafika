@@ -37,7 +37,7 @@ struct qt_meta_stringdata_MainWindow_t {
     char stringdata7[24];
     char stringdata8[25];
     char stringdata9[25];
-    char stringdata10[24];
+    char stringdata10[25];
     char stringdata11[25];
     char stringdata12[27];
     char stringdata13[28];
@@ -57,11 +57,11 @@ Q_CONSTINIT static const qt_meta_stringdata_MainWindow_t qt_meta_stringdata_Main
         QT_MOC_LITERAL(75, 23),  // "on_GoraDol_valueChanged"
         QT_MOC_LITERAL(99, 24),  // "on_PrzodTyl_valueChanged"
         QT_MOC_LITERAL(124, 24),  // "on_RotacjaX_valueChanged"
-        QT_MOC_LITERAL(149, 23),  // "on_RotacjY_valueChanged"
-        QT_MOC_LITERAL(173, 24),  // "on_RotacjaZ_valueChanged"
-        QT_MOC_LITERAL(198, 26),  // "on_SkalownieX_valueChanged"
-        QT_MOC_LITERAL(225, 27),  // "on_Skalowanie2_valueChanged"
-        QT_MOC_LITERAL(253, 27)   // "on_SkalowanieZ_valueChanged"
+        QT_MOC_LITERAL(149, 24),  // "on_RotacjaY_valueChanged"
+        QT_MOC_LITERAL(174, 24),  // "on_RotacjaZ_valueChanged"
+        QT_MOC_LITERAL(199, 26),  // "on_SkalownieX_valueChanged"
+        QT_MOC_LITERAL(226, 27),  // "on_Skalowanie2_valueChanged"
+        QT_MOC_LITERAL(254, 27)   // "on_SkalowanieZ_valueChanged"
     },
     "MainWindow",
     "paintEvent",
@@ -73,7 +73,7 @@ Q_CONSTINIT static const qt_meta_stringdata_MainWindow_t qt_meta_stringdata_Main
     "on_GoraDol_valueChanged",
     "on_PrzodTyl_valueChanged",
     "on_RotacjaX_valueChanged",
-    "on_RotacjY_valueChanged",
+    "on_RotacjaY_valueChanged",
     "on_RotacjaZ_valueChanged",
     "on_SkalownieX_valueChanged",
     "on_Skalowanie2_valueChanged",
@@ -150,7 +150,7 @@ Q_CONSTINIT const QMetaObject MainWindow::staticMetaObject = { {
         // method 'on_RotacjaX_valueChanged'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         QtPrivate::TypeAndForceComplete<int, std::false_type>,
-        // method 'on_RotacjY_valueChanged'
+        // method 'on_RotacjaY_valueChanged'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         QtPrivate::TypeAndForceComplete<int, std::false_type>,
         // method 'on_RotacjaZ_valueChanged'
@@ -181,7 +181,7 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 3: _t->on_GoraDol_valueChanged((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
         case 4: _t->on_PrzodTyl_valueChanged((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
         case 5: _t->on_RotacjaX_valueChanged((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
-        case 6: _t->on_RotacjY_valueChanged((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
+        case 6: _t->on_RotacjaY_valueChanged((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
         case 7: _t->on_RotacjaZ_valueChanged((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
         case 8: _t->on_SkalownieX_valueChanged((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
         case 9: _t->on_Skalowanie2_valueChanged((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
