@@ -29,7 +29,7 @@ public:
     int wys=676;
     bool pierwszaOperacja=true;
 private:
-    int d=30;
+    int d=360;
     std::vector <point> Wierzcholki;
     std::vector <point> NoweWierzcholki;
     std::vector <krawedz> Krawedzie;

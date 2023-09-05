@@ -6,6 +6,7 @@
 #include "macierz.h"
 #include "macierz.cpp"
 #include <math.h>
+#include <cstdlib>
 using namespace std;
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
 {
@@ -268,14 +269,13 @@ macierz* MainWindow::stworzMacierze()
 
 ///////////////////rotacjaY////////////////////////////
 
-    powrotY->addValue(250,3); //po x i z
-    powrotY->addValue(0.5,11);
+
+
 
     rotacjaY->addValue(std::cos(ui->RotacjaY->value()*M_PI/180.0),0);    rotacjaY->addValue(-std::sin(ui->RotacjaY->value()*M_PI/180.0),8);
     rotacjaY->addValue(std::sin(ui->RotacjaY->value()*M_PI/180.0),2);    rotacjaY->addValue( std::cos(ui->RotacjaY->value()*M_PI/180.0),10);
 
-    translacjaY->addValue(-250,3);
-    translacjaY->addValue(-0.5,11);
+
 
 
     ///////////////////rotacjaZ////////////////////////////
@@ -300,7 +300,7 @@ macierz* MainWindow::stworzMacierze()
 
 
 /////////////////////////////////////////////////
-    wynik = przesuniecie->pomnoz(4,4,powrot->pomnoz(4,4,rotacjaX->pomnoz(4,4,translacja->pomnoz(4,4,powrotY->pomnoz(4,4,rotacjaY->pomnoz(4,4,translacjaY->pomnoz(4,4,powrot->pomnoz(4,4,rotacjaZ->pomnoz(4,4,translacja->pomnoz(4,4,powrot->pomnoz(4,4,skalowanie->pomnoz(4,4,translacja))))))))))));
+    wynik = przesuniecie->pomnoz(4,4,powrot->pomnoz(4,4,rotacjaX->pomnoz(4,4,translacja->pomnoz(4,4,powrot->pomnoz(4,4,rotacjaY->pomnoz(4,4,translacja->pomnoz(4,4,powrot->pomnoz(4,4,rotacjaZ->pomnoz(4,4,translacja->pomnoz(4,4,powrot->pomnoz(4,4,skalowanie->pomnoz(4,4,translacja))))))))))));
     return wynik;
 }
 void MainWindow::przesun()

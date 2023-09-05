@@ -126,8 +126,8 @@ public:
         PrzodTyl = new QSlider(centralwidget);
         PrzodTyl->setObjectName("PrzodTyl");
         PrzodTyl->setGeometry(QRect(580, 80, 160, 18));
-        PrzodTyl->setMinimum(-250);
-        PrzodTyl->setMaximum(250);
+        PrzodTyl->setMinimum(-90);
+        PrzodTyl->setMaximum(90);
         PrzodTyl->setPageStep(10);
         PrzodTyl->setValue(0);
         PrzodTyl->setSliderPosition(0);
@@ -179,7 +179,7 @@ public:
         SkalowanieZ->setObjectName("SkalowanieZ");
         SkalowanieZ->setGeometry(QRect(580, 300, 160, 18));
         SkalowanieZ->setMinimum(1);
-        SkalowanieZ->setMaximum(10);
+        SkalowanieZ->setMaximum(180);
         SkalowanieZ->setPageStep(1);
         SkalowanieZ->setValue(1);
         SkalowanieZ->setSliderPosition(1);
