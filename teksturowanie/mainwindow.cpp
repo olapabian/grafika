@@ -57,7 +57,7 @@ void MainWindow::paintEvent(QPaintEvent *)
 void MainWindow::czysc1()
 {
     unsigned char *ptr2 = orginal->bits();
-    unsigned char *ptr = img->bits();
+    unsigned char *ptr = img2->bits();
     int szer = img->width();
     int wys = img->height();
     for(int y=0;y<wys;++y)

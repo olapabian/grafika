@@ -21,14 +21,7 @@ public:
 private:
     macierz *przesuniecie, *rotacja, *skalowanie, *pochylenie, *powrot, *translacja;
     void przesun();
-    int przeksztalcenie=0; //1 - przesuniecie  2 - rotacja 3 - skalowanie 4 - pochylenie
     macierz *stworzMacierze();
-    void stworzPrzesuniecie();
-    void edytujPrzesuniecie(int x,int y/*wartosc wartosc skalownie po x i y nie sa to punkt pol*/);
-    void stworzRotacje();
-    void edytujRotacje(double wartosc);
-    void stworzSkalowanie();
-    void edytujSkalowanie(int x,int y/*wartosc pol*/);
     Ui::MainWindow *ui;
 private slots:
     void paintEvent(QPaintEvent *event);
