@@ -26,7 +26,7 @@ QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 namespace {
 struct qt_meta_stringdata_MainWindow_t {
-    uint offsetsAndSizes[40];
+    uint offsetsAndSizes[44];
     char stringdata0[11];
     char stringdata1[15];
     char stringdata2[1];
@@ -47,6 +47,8 @@ struct qt_meta_stringdata_MainWindow_t {
     char stringdata17[20];
     char stringdata18[8];
     char stringdata19[21];
+    char stringdata20[20];
+    char stringdata21[24];
 };
 #define QT_MOC_LITERAL(ofs, len) \
     uint(sizeof(qt_meta_stringdata_MainWindow_t::offsetsAndSizes) + ofs), len 
@@ -71,7 +73,9 @@ Q_CONSTINIT static const qt_meta_stringdata_MainWindow_t qt_meta_stringdata_Main
         QT_MOC_LITERAL(285, 27),  // "on_SkalowanieZ_valueChanged"
         QT_MOC_LITERAL(313, 19),  // "on_Widoczne_clicked"
         QT_MOC_LITERAL(333, 7),  // "checked"
-        QT_MOC_LITERAL(341, 20)   // "on_Wszystkie_clicked"
+        QT_MOC_LITERAL(341, 20),  // "on_Wszystkie_clicked"
+        QT_MOC_LITERAL(362, 19),  // "on_Tekstura_clicked"
+        QT_MOC_LITERAL(382, 23)   // "on_UsunTekstura_clicked"
     },
     "MainWindow",
     "widoczneSciany",
@@ -92,7 +96,9 @@ Q_CONSTINIT static const qt_meta_stringdata_MainWindow_t qt_meta_stringdata_Main
     "on_SkalowanieZ_valueChanged",
     "on_Widoczne_clicked",
     "checked",
-    "on_Wszystkie_clicked"
+    "on_Wszystkie_clicked",
+    "on_Tekstura_clicked",
+    "on_UsunTekstura_clicked"
 };
 #undef QT_MOC_LITERAL
 } // unnamed namespace
@@ -103,7 +109,7 @@ Q_CONSTINIT static const uint qt_meta_data_MainWindow[] = {
       10,       // revision
        0,       // classname
        0,    0, // classinfo
-      15,   14, // methods
+      17,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -111,21 +117,23 @@ Q_CONSTINIT static const uint qt_meta_data_MainWindow[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    0,  104,    2, 0x08,    1 /* Private */,
-       3,    0,  105,    2, 0x08,    2 /* Private */,
-       4,    1,  106,    2, 0x08,    3 /* Private */,
-       6,    0,  109,    2, 0x08,    5 /* Private */,
-       7,    1,  110,    2, 0x08,    6 /* Private */,
-       9,    1,  113,    2, 0x08,    8 /* Private */,
-      10,    1,  116,    2, 0x08,   10 /* Private */,
-      11,    1,  119,    2, 0x08,   12 /* Private */,
-      12,    1,  122,    2, 0x08,   14 /* Private */,
-      13,    1,  125,    2, 0x08,   16 /* Private */,
-      14,    1,  128,    2, 0x08,   18 /* Private */,
-      15,    1,  131,    2, 0x08,   20 /* Private */,
-      16,    1,  134,    2, 0x08,   22 /* Private */,
-      17,    1,  137,    2, 0x08,   24 /* Private */,
-      19,    0,  140,    2, 0x08,   26 /* Private */,
+       1,    0,  116,    2, 0x08,    1 /* Private */,
+       3,    0,  117,    2, 0x08,    2 /* Private */,
+       4,    1,  118,    2, 0x08,    3 /* Private */,
+       6,    0,  121,    2, 0x08,    5 /* Private */,
+       7,    1,  122,    2, 0x08,    6 /* Private */,
+       9,    1,  125,    2, 0x08,    8 /* Private */,
+      10,    1,  128,    2, 0x08,   10 /* Private */,
+      11,    1,  131,    2, 0x08,   12 /* Private */,
+      12,    1,  134,    2, 0x08,   14 /* Private */,
+      13,    1,  137,    2, 0x08,   16 /* Private */,
+      14,    1,  140,    2, 0x08,   18 /* Private */,
+      15,    1,  143,    2, 0x08,   20 /* Private */,
+      16,    1,  146,    2, 0x08,   22 /* Private */,
+      17,    1,  149,    2, 0x08,   24 /* Private */,
+      19,    0,  152,    2, 0x08,   26 /* Private */,
+      20,    0,  153,    2, 0x08,   27 /* Private */,
+      21,    0,  154,    2, 0x08,   28 /* Private */,
 
  // slots: parameters
     QMetaType::Void,
@@ -142,6 +150,8 @@ Q_CONSTINIT static const uint qt_meta_data_MainWindow[] = {
     QMetaType::Void, QMetaType::Int,    8,
     QMetaType::Void, QMetaType::Int,    8,
     QMetaType::Void, QMetaType::Bool,   18,
+    QMetaType::Void,
+    QMetaType::Void,
     QMetaType::Void,
 
        0        // eod
@@ -196,6 +206,10 @@ Q_CONSTINIT const QMetaObject MainWindow::staticMetaObject = { {
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         QtPrivate::TypeAndForceComplete<bool, std::false_type>,
         // method 'on_Wszystkie_clicked'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'on_Tekstura_clicked'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'on_UsunTekstura_clicked'
         QtPrivate::TypeAndForceComplete<void, std::false_type>
     >,
     nullptr
@@ -222,6 +236,8 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 12: _t->on_SkalowanieZ_valueChanged((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
         case 13: _t->on_Widoczne_clicked((*reinterpret_cast< std::add_pointer_t<bool>>(_a[1]))); break;
         case 14: _t->on_Wszystkie_clicked(); break;
+        case 15: _t->on_Tekstura_clicked(); break;
+        case 16: _t->on_UsunTekstura_clicked(); break;
         default: ;
         }
     }
@@ -246,13 +262,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 15)
+        if (_id < 17)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 15;
+        _id -= 17;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 15)
+        if (_id < 17)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 15;
+        _id -= 17;
     }
     return _id;
 }

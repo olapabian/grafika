@@ -27,7 +27,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     translacja=   new  macierz(4,4);
     translacjaX=   new  macierz(4,4);
     translacjaY=   new  macierz(4,4);
-    Bufor = new macierz(500,500);
     rysujSzescian();
 }
 
@@ -38,7 +37,6 @@ MainWindow::~MainWindow()
     Krawedzie.clear();
     NoweWierzcholki.clear();
     Sciany.clear();
-    delete Bufor;
     delete wynik;
     delete  przesuniecie;// rotacja,skalowanie, pochylenie, powrot, translacja;
     delete ui;
@@ -120,69 +118,45 @@ void MainWindow::widoczneSciany(){
     }
 }
 
-void MainWindow::rysujSzescian2()
+void MainWindow::rysujPoScianach()
 {
     czysc2();
-    if(!ch)
+    if(!czyTekstura)
     {
-        for(int i=0;i<Krawedzie.size();++i)
+        if(ch)
         {
-            kreska2(Krawedzie[i].a.X,Krawedzie[i].a.Y,Krawedzie[i].b.X,Krawedzie[i].b.Y,1);
+            for(int i=0;i<WidoczneSciany.size();++i)
+            {
+                for(int j=0;j<WidoczneSciany[i].Krawedzie.size();++j)
+                {
+                    kreska2(WidoczneSciany[i].Krawedzie[j].a.X,WidoczneSciany[i].Krawedzie[j].a.Y,WidoczneSciany[i].Krawedzie[j].b.X,WidoczneSciany[i].Krawedzie[j].b.Y,1);
+                }
+            }
+        }
+        else
+        {
+            for(int i=0;i<Sciany.size();++i)
+            {
+                for(int j=0;j<Sciany[i].Krawedzie.size();++j)
+                {
+                    kreska2(Sciany[i].Krawedzie[j].a.X,Sciany[i].Krawedzie[j].a.Y,Sciany[i].Krawedzie[j].b.X,Sciany[i].Krawedzie[j].b.Y,1);
+                }
+            }
         }
     }
     else
     {
-        rysujPoScianach();
-//        int minZ,maxZ,minX,maxX,minY,maxY;
-//        for(int y=0; y<500; ++y)
-//        {
-//            for(int x = 0; x<500; ++x)
-//            {
-//                Bufor->addValue(1000,y*500 + x);
-//            }
-//        }
-//        for(int i=0;i<Krawedzie.size();++i)
-//        {
-//            minZ=std::min(Krawedzie[i].a.z,Krawedzie[i].b.z) ;
-//            maxZ=std::max(Krawedzie[i].a.z,Krawedzie[i].b.z);
-//            minX=std::min(Krawedzie[i].a.X,Krawedzie[i].b.X) ;
-//            maxX=std::max(Krawedzie[i].a.X,Krawedzie[i].b.X);
-//            minY=std::min(Krawedzie[i].a.Y,Krawedzie[i].b.Y) ;
-//            maxY=std::max(Krawedzie[i].a.Y,Krawedzie[i].b.Y);
-//            int x = Krawedzie[i].a.X;
-//            int y = Krawedzie[i].a.Y;
-//            kreskaBufor(maxX,maxY,minX,minY,minZ,maxZ);
-
-//        }
-//        for(int i=0;i<Sciany.size();++i)
-//        {
-//            for(int j=0;j<Sciany[i].Punkty.size();++j)
-//            {
-//                int z = Sciany[i].Punkty[j].z;
-//                int x = Sciany[i].Punkty[j].X;
-//                int y = Sciany[i].Punkty[j].Y;
-//                wstawPiksel(x,y,255,0,0,1);
-//                //                rysujPoScianach();
-//                if(z<Bufor.tab[y*500 + x])
-//                {
-//                    Bufor.addValue(z,y*500 + x);
-//                }
-//            }
-//        }
+        //to nie tylko kreski sie rysuja tylko wyswietla sie zlozony obraz tych wszystkich o jezu
+        //i tu beda tylko te widoczne bo oswietlenie
     }
+
     WidoczneSciany.clear();
     Sciany.clear();
     repaint();
 }
-void MainWindow::rysujPoScianach()
+void MainWindow::nalozTeksture()
 {
-    for(int i=0;i<WidoczneSciany.size();++i)
-    {
-        for(int j=0;j<WidoczneSciany[i].Krawedzie.size();++j)
-        {
-            kreska2(WidoczneSciany[i].Krawedzie[j].a.X,WidoczneSciany[i].Krawedzie[j].a.Y,WidoczneSciany[i].Krawedzie[j].b.X,WidoczneSciany[i].Krawedzie[j].b.Y,1);
-        }
-    }
+    //dla kazdej sciany rysuje na pomocniczym obrazku
 }
 void MainWindow::rysujSzescian()
 {
@@ -319,8 +293,25 @@ void MainWindow::rysujSzescian()
     k.b=Wierzcholki[7];
     Krawedzie.push_back(k);
 
+    sciana S0(Krawedzie[0],Krawedzie[1],Krawedzie[2],Krawedzie[3],d,NoweWierzcholki[0],NoweWierzcholki[2],NoweWierzcholki[3],NoweWierzcholki[1]);
+    Sciany.push_back(S0);
 
-    rysujSzescian2();
+    sciana S1(Krawedzie[11],Krawedzie[6],Krawedzie[2],Krawedzie[7],d,NoweWierzcholki[2],NoweWierzcholki[6],NoweWierzcholki[7],NoweWierzcholki[3]);
+    Sciany.push_back(S1);
+
+    sciana S2(Krawedzie[8],Krawedzie[9],Krawedzie[11],Krawedzie[10],d,NoweWierzcholki[6],NoweWierzcholki[4],NoweWierzcholki[5],NoweWierzcholki[7]);
+    Sciany.push_back(S2);
+
+    sciana S3(Krawedzie[8],Krawedzie[5],Krawedzie[0],Krawedzie[4],d,NoweWierzcholki[4],NoweWierzcholki[0],NoweWierzcholki[1],NoweWierzcholki[5]);
+    Sciany.push_back(S3);
+
+    sciana S4(Krawedzie[5],Krawedzie[3],Krawedzie[7],Krawedzie[9],d,NoweWierzcholki[1],NoweWierzcholki[3],NoweWierzcholki[7],NoweWierzcholki[5]);
+    Sciany.push_back(S4);
+
+    sciana S5(Krawedzie[4],Krawedzie[1],Krawedzie[6],Krawedzie[10],d,NoweWierzcholki[4],NoweWierzcholki[6],NoweWierzcholki[2],NoweWierzcholki[0]);
+    Sciany.push_back(S5);
+    widoczneSciany();
+    rysujPoScianach();
     update();
 }
 macierz* MainWindow::stworzMacierze()
@@ -448,7 +439,11 @@ void MainWindow::przesun()
     sciana S5(Krawedzie[4],Krawedzie[1],Krawedzie[6],Krawedzie[10],d,NoweWierzcholki[4],NoweWierzcholki[6],NoweWierzcholki[2],NoweWierzcholki[0]);
     Sciany.push_back(S5);
     widoczneSciany();
-    rysujSzescian2();
+    if(czyTekstura)
+    {
+        nalozTeksture();
+    }
+    rysujPoScianach();
     delete wynik2,p,m;
     repaint();
 }
@@ -522,122 +517,6 @@ void MainWindow::kreska2(int finX,int finY,int sX, int sY,int obrazek) //obrazek
     }
     update();
 }
-void MainWindow::kreskaBufor(int finX,int finY,int sX, int sY,int minZ,int maxZ) //obrazek 0 - pierszy 1 - drugi
-{
-
-        float a=1,b=0;
-        int x,y;
-        if(sX==finX)//pionowa
-        {
-            x=sX;
-            if(sY<=finY)
-            {
-                for(int y=sY;y<=finY;++y)
-                {
-                    for(int z=minZ;z<maxZ;z++)
-                    {
-                    if(z<Bufor->tab[y*500 + x])
-                    {
-                        wstawPiksel((int)floor(x+0.5),y,255,0,0,1);
-                        Bufor->addValue(z,y*500 + x);
-                    }
-                    }
-                }
-            }
-            else
-            {
-                for(int y=finY;y<=sY;++y)
-                {
-                    for(int z=minZ;z<maxZ;z++)
-                    {
-                    if(z<Bufor->tab[y*500 + x])
-                    {
-                        wstawPiksel((int)floor(x+0.5),y,255,0,0,1);
-                        Bufor->addValue(z,y*500 + x);
-                    }
-                    }
-                }
-            }
-        }
-        else
-        {
-            a=float(finY-sY)/float(finX-sX);
-            b=sY-a*sX;
-            if(abs(a)<=1)
-            {
-                y=sY;
-                if(sX>finX)
-                {
-                    for(int x=finX;x<=sX;++x)
-                    {
-                        y=a*x+b;
-                        for(int z=minZ;z<maxZ;z++)
-                        {
-                        if(z<Bufor->tab[y*500 + x])
-                        {
-                            wstawPiksel(x,(int)floor(y+0.5),255,0,0,1);
-                            Bufor->addValue(z,y*500 + x);
-                        }
-                        }
-                    }
-                }
-                else
-                {
-                    for(int x=sX;x<=finX;++x)
-                    {
-
-                        y=a*x+b;
-                        for(int z=minZ;z<maxZ;z++)
-                        {
-                        if(z<Bufor->tab[y*500 + x])
-                        {
-                            wstawPiksel(x,(int)floor(y+0.5),255,0,0,1);
-                            Bufor->addValue(z,y*500 + x);
-                        }
-                        }
-                    }
-                }
-
-            }
-            else
-            {
-                if(sY<=finY)
-                {
-                    for(int y=sY;y<=finY;++y)
-                    {
-                        x=(y-b)/a;
-                        for(int z=minZ;z<maxZ;z++)
-                        {
-                        if(z<Bufor->tab[y*500 + x])
-                        {
-                            wstawPiksel((int)floor(x+0.5),y,255,0,0,1);
-                            Bufor->addValue(z,y*500 + x);
-                        }
-                        }
-                    }
-                }
-                else
-                {
-                    for(int y=finY;y<=sY;++y)
-                    {
-                        x=(y-b)/a;
-                        for(int z=minZ;z<maxZ;z++)
-                        {
-                        if(z<Bufor->tab[y*500 + x])
-                        {
-                            wstawPiksel((int)floor(x+0.5),y,255,0,0,1);
-                            Bufor->addValue(z,y*500 + x);
-                        }
-                        }
-                    }
-                }
-            }
-        }
-
-
-    update();
-}
-
 
 void MainWindow::on_LewoPrawo_valueChanged(int value)
 {
@@ -706,5 +585,17 @@ void MainWindow::on_Wszystkie_clicked()
 {
     ch=false;
     przesun();
+}
+
+
+void MainWindow::on_Tekstura_clicked()
+{
+    czyTekstura = true;
+}
+
+
+void MainWindow::on_UsunTekstura_clicked()
+{
+    czyTekstura = false;
 }
 

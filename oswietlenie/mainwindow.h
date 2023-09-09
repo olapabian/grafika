@@ -21,7 +21,6 @@ public:
     bool pierwszaOperacja=true;
 private:
     int d=360;
-    macierz *Bufor;
     std::vector <point> Wierzcholki;
     std::vector <point> NoweWierzcholki;
     std::vector <krawedz> Krawedzie;
@@ -31,16 +30,16 @@ private:
     macierz  *przesuniecie, *rotacjaX, *rotacjaY, *rotacjaZ, *skalowanie, *pochylenie, *powrot, *powrotX, *powrotY, *translacja, *translacjaX, *translacjaY;
     void przesun();
     void rysujSzescian();
-    void rysujSzescian2();
     void kreska2(int finX,int finY,int sX, int sY,int obrazek);
-    void kreskaBufor(int finX,int finY,int sX, int sY,int minZ,int maxZ);
 
     void kwardrat(int X,int Y,int obrazek);
     void wstawPiksel(int x,int y, int r, int g, int b,int obrazek);
     bool ch=false;
+    bool czyTekstura = false;
     macierz *stworzMacierze();
     Ui::MainWindow *ui;
 private slots:
+    void nalozTeksture();
     void widoczneSciany();
     void rysujPoScianach();
     void paintEvent(QPaintEvent*);
@@ -56,5 +55,7 @@ private slots:
     void on_SkalowanieZ_valueChanged(int value);
     void on_Widoczne_clicked(bool checked);
     void on_Wszystkie_clicked();
+    void on_Tekstura_clicked();
+    void on_UsunTekstura_clicked();
 };
 #endif // MAINWINDOW_H

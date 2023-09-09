@@ -51,6 +51,8 @@ public:
     QLabel *label_16;
     QLabel *label_15;
     QLabel *label_7;
+    QPushButton *Tekstura;
+    QPushButton *UsunTekstura;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -141,7 +143,7 @@ public:
         label_12->setGeometry(QRect(550, 160, 21, 21));
         Widoczne = new QPushButton(centralwidget);
         Widoczne->setObjectName("Widoczne");
-        Widoczne->setGeometry(QRect(570, 400, 181, 21));
+        Widoczne->setGeometry(QRect(560, 380, 181, 21));
         GoraDol = new QSlider(centralwidget);
         GoraDol->setObjectName("GoraDol");
         GoraDol->setGeometry(QRect(570, 90, 160, 18));
@@ -152,7 +154,7 @@ public:
         GoraDol->setOrientation(Qt::Horizontal);
         Wszystkie = new QPushButton(centralwidget);
         Wszystkie->setObjectName("Wszystkie");
-        Wszystkie->setGeometry(QRect(570, 460, 181, 21));
+        Wszystkie->setGeometry(QRect(560, 410, 181, 21));
         LewoPrawo = new QSlider(centralwidget);
         LewoPrawo->setObjectName("LewoPrawo");
         LewoPrawo->setGeometry(QRect(570, 60, 160, 18));
@@ -196,6 +198,12 @@ public:
         label_7 = new QLabel(centralwidget);
         label_7->setObjectName("label_7");
         label_7->setGeometry(QRect(530, 80, 31, 21));
+        Tekstura = new QPushButton(centralwidget);
+        Tekstura->setObjectName("Tekstura");
+        Tekstura->setGeometry(QRect(560, 460, 181, 21));
+        UsunTekstura = new QPushButton(centralwidget);
+        UsunTekstura->setObjectName("UsunTekstura");
+        UsunTekstura->setGeometry(QRect(560, 490, 181, 21));
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName("menubar");
@@ -230,6 +238,8 @@ public:
         label_16->setText(QCoreApplication::translate("MainWindow", "Y", nullptr));
         label_15->setText(QCoreApplication::translate("MainWindow", "X", nullptr));
         label_7->setText(QCoreApplication::translate("MainWindow", "G\303\263ra", nullptr));
+        Tekstura->setText(QCoreApplication::translate("MainWindow", "Tekstura", nullptr));
+        UsunTekstura->setText(QCoreApplication::translate("MainWindow", "Bez Tekstury", nullptr));
     } // retranslateUi
 
 };
