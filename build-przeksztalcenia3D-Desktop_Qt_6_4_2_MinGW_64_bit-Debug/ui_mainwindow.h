@@ -14,6 +14,7 @@
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
+#include <QtWidgets/QPushButton>
 #include <QtWidgets/QSlider>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QWidget>
@@ -48,6 +49,8 @@ public:
     QLabel *label_16;
     QSlider *SkalowanieZ;
     QLabel *label_17;
+    QPushButton *Widoczne;
+    QPushButton *Wszystkie;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -187,6 +190,12 @@ public:
         label_17 = new QLabel(centralwidget);
         label_17->setObjectName("label_17");
         label_17->setGeometry(QRect(560, 290, 21, 21));
+        Widoczne = new QPushButton(centralwidget);
+        Widoczne->setObjectName("Widoczne");
+        Widoczne->setGeometry(QRect(580, 360, 181, 21));
+        Wszystkie = new QPushButton(centralwidget);
+        Wszystkie->setObjectName("Wszystkie");
+        Wszystkie->setGeometry(QRect(580, 420, 181, 21));
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName("menubar");
@@ -219,6 +228,8 @@ public:
         label_15->setText(QCoreApplication::translate("MainWindow", "X", nullptr));
         label_16->setText(QCoreApplication::translate("MainWindow", "Y", nullptr));
         label_17->setText(QCoreApplication::translate("MainWindow", "Z", nullptr));
+        Widoczne->setText(QCoreApplication::translate("MainWindow", "Rysuj tylko widoczne", nullptr));
+        Wszystkie->setText(QCoreApplication::translate("MainWindow", "Rysuj Wszystkie", nullptr));
     } // retranslateUi
 
 };

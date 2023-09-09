@@ -7,7 +7,7 @@
 *****************************************************************************/
 
 #include <memory>
-#include "../../przeksztalcenia3D/mainwindow.h"
+#include "../../oswietlenie/mainwindow.h"
 #include <QtCore/qmetatype.h>
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'mainwindow.h' doesn't include <QObject>."

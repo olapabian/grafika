@@ -24,7 +24,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     powrot=       new  macierz(4,4);
     powrotX=       new  macierz(4,4);
     powrotY=       new  macierz(4,4);
-    translacja=   new  macierz(4,4);    
+    translacja=   new  macierz(4,4);
     translacjaX=   new  macierz(4,4);
     translacjaY=   new  macierz(4,4);
     Bufor = new macierz(500,500);
@@ -133,7 +133,42 @@ void MainWindow::rysujSzescian2()
     else
     {
         rysujPoScianach();
+//        int minZ,maxZ,minX,maxX,minY,maxY;
+//        for(int y=0; y<500; ++y)
+//        {
+//            for(int x = 0; x<500; ++x)
+//            {
+//                Bufor->addValue(1000,y*500 + x);
+//            }
+//        }
+//        for(int i=0;i<Krawedzie.size();++i)
+//        {
+//            minZ=std::min(Krawedzie[i].a.z,Krawedzie[i].b.z) ;
+//            maxZ=std::max(Krawedzie[i].a.z,Krawedzie[i].b.z);
+//            minX=std::min(Krawedzie[i].a.X,Krawedzie[i].b.X) ;
+//            maxX=std::max(Krawedzie[i].a.X,Krawedzie[i].b.X);
+//            minY=std::min(Krawedzie[i].a.Y,Krawedzie[i].b.Y) ;
+//            maxY=std::max(Krawedzie[i].a.Y,Krawedzie[i].b.Y);
+//            int x = Krawedzie[i].a.X;
+//            int y = Krawedzie[i].a.Y;
+//            kreskaBufor(maxX,maxY,minX,minY,minZ,maxZ);
 
+//        }
+//        for(int i=0;i<Sciany.size();++i)
+//        {
+//            for(int j=0;j<Sciany[i].Punkty.size();++j)
+//            {
+//                int z = Sciany[i].Punkty[j].z;
+//                int x = Sciany[i].Punkty[j].X;
+//                int y = Sciany[i].Punkty[j].Y;
+//                wstawPiksel(x,y,255,0,0,1);
+//                //                rysujPoScianach();
+//                if(z<Bufor.tab[y*500 + x])
+//                {
+//                    Bufor.addValue(z,y*500 + x);
+//                }
+//            }
+//        }
     }
     WidoczneSciany.clear();
     Sciany.clear();
