@@ -174,8 +174,10 @@ void MainWindow::widoczneSciany(){
 
 void MainWindow::rysujPoScianach()
 {
-
-
+    if(!czyTekstura)
+    {
+        czysc2();
+    }
     if(ch)
     {
         for(int i=0;i<WidoczneSciany.size();++i)
@@ -202,6 +204,44 @@ void MainWindow::rysujPoScianach()
     Sciany.clear();
     repaint();
 }
+Oswietlenie MainWindow::oswietlenie(int i)
+{
+    Oswietlenie o;
+    float w1[3] = {(float)WidoczneSciany[i].Punkty[1].x - (float)WidoczneSciany[i].Punkty[0].x, (float)WidoczneSciany[i].Punkty[1].y - (float)WidoczneSciany[i].Punkty[0].y, (float)WidoczneSciany[i].Punkty[1].z - (float)WidoczneSciany[i].Punkty[0].z};
+    float w2[3] = {(float)WidoczneSciany[i].Punkty[3].x - (float)WidoczneSciany[i].Punkty[0].x, (float)WidoczneSciany[i].Punkty[3].y - (float)WidoczneSciany[i].Punkty[0].y, (float)WidoczneSciany[i].Punkty[3].z - (float)WidoczneSciany[i].Punkty[0].z};
+
+    //wektor prostopadly do tej sciany liczymy iloczyn wektorowy dwoch powyzszych
+    float wSciany[3] = {w2[1] * w1[2] - (w1[1] * w2[2]),
+                        w2[2] * w1[0] - (w1[2] * w2[0]),
+                        w2[0] * w1[1] - (w1[0] * w2[1])};
+
+    float wObserwatora[3] = { (float)WidoczneSciany[i].Punkty[0].x - 0,
+                              (float)WidoczneSciany[i].Punkty[0].y - 0,
+                              (float)WidoczneSciany[i].Punkty[0].z + d};
+    //swiatlo ze srodka prawej strony
+    float wSwiatla[3] = {(float)WidoczneSciany[i].Punkty[0].x - 0,
+                             (float)WidoczneSciany[i].Punkty[0].y - 500,
+                             (float)WidoczneSciany[i].Punkty[0].z - 500};
+    float dWektoraSciany = sqrt(wSciany[0] * wSciany[0] + wSciany[1] * wSciany[1] + wSciany[2] * wSciany[2]);
+    float dWektoraSwiatla = sqrt(wSwiatla[0] * wSwiatla[0] + wSwiatla[1] * wSwiatla[1] + wSwiatla[2] * wSwiatla[2]);
+
+    //to jest cosB iloczyna skalarny wektora swiatla i wektora normalnego sciany
+    o.cosB =  ((wSciany[0]/dWektoraSciany) * (wSwiatla[0]/dWektoraSwiatla))
+            + ((wSciany[1]/dWektoraSciany) * (wSwiatla[1]/dWektoraSwiatla))
+            + ((wSciany[2]/dWektoraSciany) * (wSwiatla[2]/dWektoraSwiatla));
+
+    //WEKTRO SWIATLA ROZPROSZONEGO
+    float wR[3] = {2 * o.cosB * wSciany[0] - wSwiatla[0],
+                  2 * o.cosB * wSciany[1] - wSwiatla[1],
+                  2 * o.cosB * wSciany[2] - wSwiatla[2]};
+    float dWektoraObserwatora = sqrt(wObserwatora[0] * wObserwatora[0] + wObserwatora[1] * wObserwatora[1] + wObserwatora[2] * wObserwatora[2]);
+    float dlugoscWektoraR = sqrt(wR[0] * wR[0] + wR[1] * wR[1] + wR[2] * wR[2]);
+    //iloczyn wektorowy swaital rozproszonego i obserwatora
+    o.cosA = ((wObserwatora[0]/dWektoraObserwatora) * (wR[0]/dlugoscWektoraR))
+                   + ((wObserwatora[1]/dWektoraObserwatora) * (wR[1]/dlugoscWektoraR))
+                   + ((wObserwatora[2]/dWektoraObserwatora) * (wR[2]/dlugoscWektoraR));
+    return o;
+}
 void MainWindow::nalozTeksture()
 {
     //trojakt "dolny"
@@ -216,6 +256,10 @@ void MainWindow::nalozTeksture()
         p.y=WidoczneSciany[i].Punkty[0].Y;
         wielokat2.push_back(p);
 
+        p.x=WidoczneSciany[i].Punkty[1].X;
+        p.y=WidoczneSciany[i].Punkty[1].Y;
+        wielokat2.push_back(p);
+
         p.x=WidoczneSciany[i].Punkty[2].X;
         p.y=WidoczneSciany[i].Punkty[2].Y;
         wielokat2.push_back(p);
@@ -223,7 +267,7 @@ void MainWindow::nalozTeksture()
         p.x=WidoczneSciany[i].Punkty[3].X;
         p.y=WidoczneSciany[i].Punkty[3].Y;
         wielokat2.push_back(p);
-
+        Oswietlenie o = oswietlenie(i);
 
         for(int y = 0; y < wys; y++)
         {
@@ -247,10 +291,19 @@ void MainWindow::nalozTeksture()
             {
                 for(int x = przeciecia2[i]; x <= przeciecia2[i+1]; x++)
                 {
-                    if((((wielokat2[1].y - wielokat2[2].y) * (wielokat2[0].x - wielokat2[2].x)) + ((wielokat2[2].x - wielokat2[1].x) * (wielokat2[0].y - wielokat2[2].y)))!=0)
-                    {
-                        wstawPiksel(x, y, 0, 0, 255, 1);
-                    }
+                    double Ia = 0.7;
+                    double ka = 0.4; //wspoloczynnik odbicia swiatla tla
+                    double kd = 0.4; //wspoloczynnik odbicia swiatla rozproszonego
+                    double ks = 0.4; //wspoloczynnik odbicia swiatla kierunkowego
+                          //c * ka * Ia
+                    int pierwotne_r = 0;
+                    int pierwotne_g = 0;
+                    int pierwotne_b = 255;
+                    int r = pierwotne_r * ka * Ia + pierwotne_r * kd * o.cosB + ks * std::pow(o.cosA,30);
+                    int g = pierwotne_g * ka * Ia + pierwotne_g * kd * o.cosB + ks * std::pow(o.cosA,30);
+                    int b = pierwotne_b * ka * Ia + pierwotne_b * kd * o.cosB + ks * std::pow(o.cosA,30);
+
+                    wstawPiksel(x, y, r, g, b, 1);
                 }
                 przeciecia2.clear();
             }
@@ -258,47 +311,7 @@ void MainWindow::nalozTeksture()
         wielokat2.clear();
     }
 
-    for(int i=0;i<WidoczneSciany.size();++i)
-    {
-        //"gorny"
-        for(int j=0;j<3;++j)
-        {
-            p.x=WidoczneSciany[i].Punkty[j].X;
-            p.y=WidoczneSciany[i].Punkty[j].Y;
-            wielokat2.push_back(p);
-        }
-        for(int y = 0; y < wys; y++)
-        {
-            std::vector <int> przeciecia2;//przechowuje przecieciaprostej poziomej
-            for(int i=0;i<wielokat2.size()-1;i++)//szukanie przeciec
-            {
-                if((wielokat2[i].y>y && wielokat2[i+1].y<=y) || (wielokat2[i].y<=y && wielokat2[i+1].y>y))
-                {
-                    int x = wielokat2[i].x + (y-wielokat2[i].y)*(wielokat2[i+1].x-wielokat2[i].x)/(wielokat2[i+1].y-wielokat2[i].y);
-                    przeciecia2.push_back(x);
-                }
-            }
-            if((wielokat2.back().y > y && wielokat2.front().y <= y) || (wielokat2.back().y <= y && wielokat2.front().y > y))
-            {
-                int x = wielokat2.back().x + (y - wielokat2.back().y) * (wielokat2.front().x - wielokat2.back().x) / (wielokat2.front().y - wielokat2.back().y);
-                przeciecia2.push_back(x);
-            }
-            std::sort(przeciecia2.begin(),przeciecia2.end());
 
-            for(int i=0;i<przeciecia2.size();i+=2)
-            {
-                for(int x = przeciecia2[i]; x <= przeciecia2[i+1]; x++)
-                {
-                    if((((wielokat2[1].y - wielokat2[2].y) * (wielokat2[0].x - wielokat2[2].x)) + ((wielokat2[2].x - wielokat2[1].x) * (wielokat2[0].y - wielokat2[2].y)))!=0)
-                    {
-                        wstawPiksel(x, y, 0, 0, 255, 1);
-                    }
-                }
-                przeciecia2.clear();
-            }
-        }
-        wielokat2.clear();
-    }
     repaint();
 }
 

@@ -7,6 +7,11 @@
 typedef struct Color {
     int r, g, b;
 } Color;
+typedef struct Oswietlenie {
+    double cosB;
+    double cosA;
+} Oswietlenie;
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -44,6 +49,7 @@ private:
     macierz *stworzMacierze();
     Ui::MainWindow *ui;
 private slots:
+    Oswietlenie oswietlenie(int i);
     void nalozTeksture();
     void widoczneSciany();
     void rysujPoScianach();
