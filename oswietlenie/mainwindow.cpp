@@ -14,6 +14,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 
     img = new QImage(500, 500, QImage::Format_RGB32);
     img2 = new QImage(500, 500, QImage::Format_RGB32);
+    dolny = new QImage(500, 500, QImage::Format_RGB32);//2
+    gorny = new QImage(500, 500, QImage::Format_RGB32);//3
+    tekstura = new QImage("C:\\Users\\User\\Desktop\\grafika\\oswietlenie\\jeans.jpg");
     przesuniecie =new  macierz(4,4);
     wynik = new macierz(4,4);
     rotacjaX =     new  macierz(4,4);
@@ -48,6 +51,32 @@ void MainWindow::paintEvent(QPaintEvent*)
     QPainter p(this);
     p.drawImage(0, 0, *img2);
 }
+void MainWindow::czyscPomocnicze()
+{
+    unsigned char *ptr = dolny->bits();
+    int szer = dolny->width();
+    int wys = dolny->height();
+    for(int y=0;y<wys;++y)
+    {
+        for(int x=0;x<szer;++x)
+        {
+            ptr[szer*4*y + 4*x] = 0; // Składowa BLUE
+            ptr[szer*4*y + 4*x + 1] = 0; // Składowa GREEN
+            ptr[szer*4*y + 4*x + 2] = 0; // Składowa RED
+        }
+    }
+    ptr = gorny->bits();
+    for(int y=0;y<wys;++y)
+    {
+        for(int x=0;x<szer;++x)
+        {
+            ptr[szer*4*y + 4*x] = 0; // Składowa BLUE
+            ptr[szer*4*y + 4*x + 1] = 0; // Składowa GREEN
+            ptr[szer*4*y + 4*x + 2] = 0; // Składowa RED
+        }
+    }
+
+}
 void MainWindow::czysc2()
 {
     unsigned char *ptr = img2->bits();
@@ -79,10 +108,10 @@ void MainWindow::wstawPiksel(int x,int y, int r, int g, int b,int obrazek)
             ptr[szer*4*(y) + 4*(x) + 2] = b; // Składowa RED
         }
     }
-    else
+    else if(obrazek == 1)
     {
         ptr = img2->bits();
-        szer = img2->width();
+        szer =img2->width();
         wys = img2->height();
         if (((x)>=0)&&((y)>=0)&&((x)<szer)&&((y)<wys))
         {
@@ -91,6 +120,31 @@ void MainWindow::wstawPiksel(int x,int y, int r, int g, int b,int obrazek)
             ptr[szer*4*(y) + 4*(x) + 2] = b; // Składowa RED
         }
     }
+    else if(obrazek == 2)
+    {
+        ptr = dolny->bits();
+        szer= dolny->width();
+        wys = dolny->height();
+        if (((x)>=0)&&((y)>=0)&&((x)<szer)&&((y)<wys))
+        {
+            ptr[szer*4*(y) + 4*(x)] = r; // Składowa BLUE
+            ptr[szer*4*(y) + 4*(x) + 1] = g; // Składowa GREEN
+            ptr[szer*4*(y) + 4*(x) + 2] = b; // Składowa RED
+        }
+    }
+    else if(obrazek == 3)
+    {
+        ptr = gorny->bits();
+        szer =gorny->width();
+        wys = gorny->height();
+        if (((x)>=0)&&((y)>=0)&&((x)<szer)&&((y)<wys))
+        {
+            ptr[szer*4*(y) + 4*(x)] = r; // Składowa BLUE
+            ptr[szer*4*(y) + 4*(x) + 1] = g; // Składowa GREEN
+            ptr[szer*4*(y) + 4*(x) + 2] = b; // Składowa RED
+        }
+    }
+
 
     update();
 }
@@ -120,35 +174,29 @@ void MainWindow::widoczneSciany(){
 
 void MainWindow::rysujPoScianach()
 {
-    czysc2();
-    if(!czyTekstura)
+
+
+    if(ch)
     {
-        if(ch)
+        for(int i=0;i<WidoczneSciany.size();++i)
         {
-            for(int i=0;i<WidoczneSciany.size();++i)
+            for(int j=0;j<WidoczneSciany[i].Krawedzie.size();++j)
             {
-                for(int j=0;j<WidoczneSciany[i].Krawedzie.size();++j)
-                {
-                    kreska2(WidoczneSciany[i].Krawedzie[j].a.X,WidoczneSciany[i].Krawedzie[j].a.Y,WidoczneSciany[i].Krawedzie[j].b.X,WidoczneSciany[i].Krawedzie[j].b.Y,1);
-                }
-            }
-        }
-        else
-        {
-            for(int i=0;i<Sciany.size();++i)
-            {
-                for(int j=0;j<Sciany[i].Krawedzie.size();++j)
-                {
-                    kreska2(Sciany[i].Krawedzie[j].a.X,Sciany[i].Krawedzie[j].a.Y,Sciany[i].Krawedzie[j].b.X,Sciany[i].Krawedzie[j].b.Y,1);
-                }
+                kreska2(WidoczneSciany[i].Krawedzie[j].a.X,WidoczneSciany[i].Krawedzie[j].a.Y,WidoczneSciany[i].Krawedzie[j].b.X,WidoczneSciany[i].Krawedzie[j].b.Y,1);
             }
         }
     }
     else
     {
-        //to nie tylko kreski sie rysuja tylko wyswietla sie zlozony obraz tych wszystkich o jezu
-        //i tu beda tylko te widoczne bo oswietlenie
+        for(int i=0;i<Sciany.size();++i)
+        {
+            for(int j=0;j<Sciany[i].Krawedzie.size();++j)
+            {
+                kreska2(Sciany[i].Krawedzie[j].a.X,Sciany[i].Krawedzie[j].a.Y,Sciany[i].Krawedzie[j].b.X,Sciany[i].Krawedzie[j].b.Y,1);
+            }
+        }
     }
+
 
     WidoczneSciany.clear();
     Sciany.clear();
@@ -156,8 +204,104 @@ void MainWindow::rysujPoScianach()
 }
 void MainWindow::nalozTeksture()
 {
-    //dla kazdej sciany rysuje na pomocniczym obrazku
+    //trojakt "dolny"
+    czysc2();
+    std::vector <punkt> wielokat2;
+    punkt p;
+    czyscPomocnicze();
+    for(int i=0;i<WidoczneSciany.size();++i)
+    {
+
+        p.x=WidoczneSciany[i].Punkty[0].X;
+        p.y=WidoczneSciany[i].Punkty[0].Y;
+        wielokat2.push_back(p);
+
+        p.x=WidoczneSciany[i].Punkty[2].X;
+        p.y=WidoczneSciany[i].Punkty[2].Y;
+        wielokat2.push_back(p);
+
+        p.x=WidoczneSciany[i].Punkty[3].X;
+        p.y=WidoczneSciany[i].Punkty[3].Y;
+        wielokat2.push_back(p);
+
+
+        for(int y = 0; y < wys; y++)
+        {
+            std::vector <int> przeciecia2;//przechowuje przecieciaprostej poziomej
+            for(int i=0;i<wielokat2.size()-1;i++)//szukanie przeciec
+            {
+                if((wielokat2[i].y>y && wielokat2[i+1].y<=y) || (wielokat2[i].y<=y && wielokat2[i+1].y>y))
+                {
+                    int x = wielokat2[i].x + (y-wielokat2[i].y)*(wielokat2[i+1].x-wielokat2[i].x)/(wielokat2[i+1].y-wielokat2[i].y);
+                    przeciecia2.push_back(x);
+                }
+            }
+            if((wielokat2.back().y > y && wielokat2.front().y <= y) || (wielokat2.back().y <= y && wielokat2.front().y > y))
+            {
+                int x = wielokat2.back().x + (y - wielokat2.back().y) * (wielokat2.front().x - wielokat2.back().x) / (wielokat2.front().y - wielokat2.back().y);
+                przeciecia2.push_back(x);
+            }
+            std::sort(przeciecia2.begin(),przeciecia2.end());
+
+            for(int i=0;i<przeciecia2.size();i+=2)
+            {
+                for(int x = przeciecia2[i]; x <= przeciecia2[i+1]; x++)
+                {
+                    if((((wielokat2[1].y - wielokat2[2].y) * (wielokat2[0].x - wielokat2[2].x)) + ((wielokat2[2].x - wielokat2[1].x) * (wielokat2[0].y - wielokat2[2].y)))!=0)
+                    {
+                        wstawPiksel(x, y, 0, 0, 255, 1);
+                    }
+                }
+                przeciecia2.clear();
+            }
+        }
+        wielokat2.clear();
+    }
+
+    for(int i=0;i<WidoczneSciany.size();++i)
+    {
+        //"gorny"
+        for(int j=0;j<3;++j)
+        {
+            p.x=WidoczneSciany[i].Punkty[j].X;
+            p.y=WidoczneSciany[i].Punkty[j].Y;
+            wielokat2.push_back(p);
+        }
+        for(int y = 0; y < wys; y++)
+        {
+            std::vector <int> przeciecia2;//przechowuje przecieciaprostej poziomej
+            for(int i=0;i<wielokat2.size()-1;i++)//szukanie przeciec
+            {
+                if((wielokat2[i].y>y && wielokat2[i+1].y<=y) || (wielokat2[i].y<=y && wielokat2[i+1].y>y))
+                {
+                    int x = wielokat2[i].x + (y-wielokat2[i].y)*(wielokat2[i+1].x-wielokat2[i].x)/(wielokat2[i+1].y-wielokat2[i].y);
+                    przeciecia2.push_back(x);
+                }
+            }
+            if((wielokat2.back().y > y && wielokat2.front().y <= y) || (wielokat2.back().y <= y && wielokat2.front().y > y))
+            {
+                int x = wielokat2.back().x + (y - wielokat2.back().y) * (wielokat2.front().x - wielokat2.back().x) / (wielokat2.front().y - wielokat2.back().y);
+                przeciecia2.push_back(x);
+            }
+            std::sort(przeciecia2.begin(),przeciecia2.end());
+
+            for(int i=0;i<przeciecia2.size();i+=2)
+            {
+                for(int x = przeciecia2[i]; x <= przeciecia2[i+1]; x++)
+                {
+                    if((((wielokat2[1].y - wielokat2[2].y) * (wielokat2[0].x - wielokat2[2].x)) + ((wielokat2[2].x - wielokat2[1].x) * (wielokat2[0].y - wielokat2[2].y)))!=0)
+                    {
+                        wstawPiksel(x, y, 0, 0, 255, 1);
+                    }
+                }
+                przeciecia2.clear();
+            }
+        }
+        wielokat2.clear();
+    }
+    repaint();
 }
+
 void MainWindow::rysujSzescian()
 {
     point p;
@@ -311,8 +455,11 @@ void MainWindow::rysujSzescian()
     sciana S5(Krawedzie[4],Krawedzie[1],Krawedzie[6],Krawedzie[10],d,NoweWierzcholki[4],NoweWierzcholki[6],NoweWierzcholki[2],NoweWierzcholki[0]);
     Sciany.push_back(S5);
     widoczneSciany();
+    if(czyTekstura)
+    {
+        nalozTeksture();
+    }
     rysujPoScianach();
-    update();
 }
 macierz* MainWindow::stworzMacierze()
 {
@@ -591,11 +738,13 @@ void MainWindow::on_Wszystkie_clicked()
 void MainWindow::on_Tekstura_clicked()
 {
     czyTekstura = true;
+    przesun();
 }
 
 
 void MainWindow::on_UsunTekstura_clicked()
 {
     czyTekstura = false;
+    przesun();
 }
 

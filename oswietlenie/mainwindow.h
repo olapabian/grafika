@@ -4,7 +4,9 @@
 #include <QMainWindow>
 #include "macierz.h"
 #include "sciana.h"
-
+typedef struct Color {
+    int r, g, b;
+} Color;
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -16,6 +18,9 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
     QImage *img,*img2;
+    QImage *tekstura;
+    QImage *dolny;
+    QImage *gorny;
     int szer=544;
     int wys=676;
     bool pierwszaOperacja=true;
@@ -44,6 +49,7 @@ private slots:
     void rysujPoScianach();
     void paintEvent(QPaintEvent*);
     void czysc2();
+    void czyscPomocnicze();
     void on_LewoPrawo_valueChanged(int value);
     void on_GoraDol_valueChanged(int value);
     void on_PrzodTyl_valueChanged(int value);
