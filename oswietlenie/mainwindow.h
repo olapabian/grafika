@@ -49,6 +49,7 @@ private:
     macierz *stworzMacierze();
     Ui::MainWindow *ui;
 private slots:
+    Color Cieniowanie( double x, double y,int i);
     Oswietlenie oswietlenie(int i);
     void nalozTeksture();
     void widoczneSciany();

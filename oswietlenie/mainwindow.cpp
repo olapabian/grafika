@@ -13,6 +13,18 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui->setupUi(this);
 
     img = new QImage(500, 500, QImage::Format_RGB32);
+    unsigned char *ptr = img->bits();
+    int szer = img->width();
+    int wys = img->height();
+    for(int y=0;y<wys;++y)
+    {
+        for(int x=0;x<szer;++x)
+        {
+            ptr[szer*4*y + 4*x] = 255; // Składowa BLUE
+            ptr[szer*4*y + 4*x + 1] = 0; // Składowa GREEN
+            ptr[szer*4*y + 4*x + 2] = 0; // Składowa RED
+        }
+    }
     img2 = new QImage(500, 500, QImage::Format_RGB32);
     dolny = new QImage(500, 500, QImage::Format_RGB32);//2
     gorny = new QImage(500, 500, QImage::Format_RGB32);//3
@@ -177,27 +189,28 @@ void MainWindow::rysujPoScianach()
     if(!czyTekstura)
     {
         czysc2();
-    }
-    if(ch)
-    {
-        for(int i=0;i<WidoczneSciany.size();++i)
+        if(ch)
         {
-            for(int j=0;j<WidoczneSciany[i].Krawedzie.size();++j)
+            for(int i=0;i<WidoczneSciany.size();++i)
             {
-                kreska2(WidoczneSciany[i].Krawedzie[j].a.X,WidoczneSciany[i].Krawedzie[j].a.Y,WidoczneSciany[i].Krawedzie[j].b.X,WidoczneSciany[i].Krawedzie[j].b.Y,1);
+                for(int j=0;j<WidoczneSciany[i].Krawedzie.size();++j)
+                {
+                    kreska2(WidoczneSciany[i].Krawedzie[j].a.X,WidoczneSciany[i].Krawedzie[j].a.Y,WidoczneSciany[i].Krawedzie[j].b.X,WidoczneSciany[i].Krawedzie[j].b.Y,1);
+                }
+            }
+        }
+        else
+        {
+            for(int i=0;i<Sciany.size();++i)
+            {
+                for(int j=0;j<Sciany[i].Krawedzie.size();++j)
+                {
+                    kreska2(Sciany[i].Krawedzie[j].a.X,Sciany[i].Krawedzie[j].a.Y,Sciany[i].Krawedzie[j].b.X,Sciany[i].Krawedzie[j].b.Y,1);
+                }
             }
         }
     }
-    else
-    {
-        for(int i=0;i<Sciany.size();++i)
-        {
-            for(int j=0;j<Sciany[i].Krawedzie.size();++j)
-            {
-                kreska2(Sciany[i].Krawedzie[j].a.X,Sciany[i].Krawedzie[j].a.Y,Sciany[i].Krawedzie[j].b.X,Sciany[i].Krawedzie[j].b.Y,1);
-            }
-        }
-    }
+
 
 
     WidoczneSciany.clear();
@@ -215,13 +228,13 @@ Oswietlenie MainWindow::oswietlenie(int i)
                         w2[2] * w1[0] - (w1[2] * w2[0]),
                         w2[0] * w1[1] - (w1[0] * w2[1])};
 
-    float wObserwatora[3] = { (float)WidoczneSciany[i].Punkty[0].x - 0,
+    float wObserwatora[3] = { (float)WidoczneSciany[i].Punkty[0].x - 1000,
                               (float)WidoczneSciany[i].Punkty[0].y - 0,
-                              (float)WidoczneSciany[i].Punkty[0].z + d};
+                              (float)WidoczneSciany[i].Punkty[0].z - 0};
     //swiatlo ze srodka prawej strony
     float wSwiatla[3] = {(float)WidoczneSciany[i].Punkty[0].x - 0,
-                             (float)WidoczneSciany[i].Punkty[0].y - 500,
-                             (float)WidoczneSciany[i].Punkty[0].z - 500};
+                             (float)WidoczneSciany[i].Punkty[0].y - 0,
+                             (float)WidoczneSciany[i].Punkty[0].z - 0};
     float dWektoraSciany = sqrt(wSciany[0] * wSciany[0] + wSciany[1] * wSciany[1] + wSciany[2] * wSciany[2]);
     float dWektoraSwiatla = sqrt(wSwiatla[0] * wSwiatla[0] + wSwiatla[1] * wSwiatla[1] + wSwiatla[2] * wSwiatla[2]);
 
@@ -244,11 +257,11 @@ Oswietlenie MainWindow::oswietlenie(int i)
 }
 void MainWindow::nalozTeksture()
 {
-    //trojakt "dolny"
     czysc2();
     std::vector <punkt> wielokat2;
     punkt p;
     czyscPomocnicze();
+
     for(int i=0;i<WidoczneSciany.size();++i)
     {
 
@@ -287,21 +300,21 @@ void MainWindow::nalozTeksture()
             }
             std::sort(przeciecia2.begin(),przeciecia2.end());
 
-            for(int i=0;i<przeciecia2.size();i+=2)
+            for(int k=0;k<przeciecia2.size();k+=2)
             {
-                for(int x = przeciecia2[i]; x <= przeciecia2[i+1]; x++)
+                for(int x = przeciecia2[k]; x <= przeciecia2[k+1]; x++)
                 {
                     double Ia = 0.7;
                     double ka = 0.4; //wspoloczynnik odbicia swiatla tla
                     double kd = 0.4; //wspoloczynnik odbicia swiatla rozproszonego
                     double ks = 0.4; //wspoloczynnik odbicia swiatla kierunkowego
-                          //c * ka * Ia
-                    int pierwotne_r = 0;
-                    int pierwotne_g = 0;
-                    int pierwotne_b = 255;
-                    int r = pierwotne_r * ka * Ia + pierwotne_r * kd * o.cosB + ks * std::pow(o.cosA,30);
-                    int g = pierwotne_g * ka * Ia + pierwotne_g * kd * o.cosB + ks * std::pow(o.cosA,30);
-                    int b = pierwotne_b * ka * Ia + pierwotne_b * kd * o.cosB + ks * std::pow(o.cosA,30);
+                    //c * ka * Ia
+                    int r = Cieniowanie(x,y,i).r;
+                    int g = Cieniowanie(x,y,i).g;
+                    int b = Cieniowanie(x,y,i).b;
+                    r = r * ka * Ia + r * kd * o.cosB + ks * std::pow(o.cosA,30);
+                    g = g * ka * Ia + g * kd * o.cosB + ks * std::pow(o.cosA,30);
+                    b = b * ka * Ia + b * kd * o.cosB + ks * std::pow(o.cosA,30);
 
                     wstawPiksel(x, y, r, g, b, 1);
                 }
@@ -314,7 +327,80 @@ void MainWindow::nalozTeksture()
 
     repaint();
 }
+Color MainWindow::Cieniowanie( double x, double y,int i) {
+    unsigned char *Img;
 
+    Img = img->bits();
+
+    int wys = img->height();
+    int szer = img->width();
+    point A = WidoczneSciany[i].Punkty[0];
+    point B = WidoczneSciany[i].Punkty[2];
+    point C = WidoczneSciany[i].Punkty[1];
+    point a = WidoczneSciany[i].Punkty[2];
+    point b = WidoczneSciany[i].Punkty[1];
+    point c = WidoczneSciany[i].Punkty[3];
+
+    float pole1 = 0.5 *  abs((A.X - x) * (B.Y - y) - (A.Y - y) * (B.X - x));
+    float pole2 = 0.5 *  abs((B.X - x) * (C.Y - y) - (B.Y - y) * (C.X - x));
+    float pole3 = 0.5 *  abs((C.X - x) * (A.Y - y) - (C.Y - y) * (A.X - x));
+    float pole4 = 0.5 *  abs((B.X - A.X) * (C.Y - A.Y) - (B.Y - A.Y) * (C.X - A.X));
+    double Px=0,Py=0;
+
+    if(abs(pole4 - (pole1 + pole2 + pole3)) <= 1)
+    {
+        if((((B.Y - C.Y) * (A.X - C.X)) + ((C.X - B.X) * (A.Y - C.Y)))!=0)
+        {
+            double alfa = static_cast<double>(((x - C.X) * (B.Y - C.Y)) + ((C.X - B.X) * (y - C.Y))) / (((B.Y - C.Y) * (A.X - C.X)) + ((C.X - B.X) * (A.Y - C.Y)));
+            double beta = static_cast<double>(((A.X - C.X) * (y - C.Y)) + ((x - C.X) * (C.Y - A.Y))) / (((B.Y - C.Y) * (A.X - C.X)) + ((C.X - B.X) * (A.Y - C.Y)));
+            double gamma = 1.0 - alfa - beta;
+            if (alfa >= 0  && beta >= 0 && beta < 1 && gamma >= 0 && gamma < 1)
+            {
+                Px = alfa * a.X + beta * b.X + gamma * c.X;
+                Py = alfa * a.Y + beta * b.Y + gamma * c.Y;
+            }
+        }
+    }
+    else
+    {
+        if((((b.Y - c.Y) * (a.X - c.X)) + ((c.X - b.X) * (a.Y - a.Y)))!=0)
+        {
+            double alfa = static_cast<double>(((x - c.X) * (b.Y - c.Y)) + ((c.X - b.X) * (y - c.Y))) / (((b.Y - c.Y) * (a.X - c.X)) + ((c.X - b.X) * (a.Y - c.Y)));
+            double beta = static_cast<double>(((a.X - c.X) * (y - c.Y)) + ((x - c.X) * (c.Y - a.Y))) / (((b.Y - c.Y) * (a.X - c.X)) + ((c.X - b.X) * (a.Y - c.Y)));
+            double gamma = 1.0 - alfa - beta;
+            if (alfa >= 0  && beta >= 0 && beta < 1 && gamma >= 0 && gamma < 1)
+            {
+                x = alfa * A.X + beta * B.X + gamma * C.X;
+                y = alfa * A.Y + beta * B.Y + gamma * C.Y;
+            }
+        }
+    }
+
+    int x0 = static_cast<int>(Px); //p4
+    int y0 = static_cast<int>(Py);
+    int x1 = x0 + 1;
+    int y1 = y0 + 1;
+    int x2 = x0;
+    int y2 = y0 + 1;
+    int x3 = x0 + 1;
+    int y3 = y0;
+
+    double alpha = Px - x0;
+    double beta = Py - y0;
+    if (x0 >= 0 && x1 < szer && y0 >= 0 && y1 < wys && x2 >=0 && y2 < wys && x3 < szer && y3 >=0)
+    {
+        Color result;
+        result.r = static_cast<int>(beta * ((1-alpha)*Img[szer*4*y2 + 4*x2    ] + alpha*Img[szer*4*y1 + 4*x1    ])+(1-beta)*((1-alpha)*Img[szer*4*y0 + 4*x0    ] + alpha*Img[szer*4*y3 + 4*x3    ]));
+        result.g = static_cast<int>(beta * ((1-alpha)*Img[szer*4*y2 + 4*x2 + 1] + alpha*Img[szer*4*y1 + 4*x1 + 1])+(1-beta)*((1-alpha)*Img[szer*4*y0 + 4*x0 + 1] + alpha*Img[szer*4*y3 + 4*x3 + 1]));
+        result.b = static_cast<int>(beta * ((1-alpha)*Img[szer*4*y2 + 4*x2 + 2] + alpha*Img[szer*4*y1 + 4*x1 + 2])+(1-beta)*((1-alpha)*Img[szer*4*y0 + 4*x0 + 2] + alpha*Img[szer*4*y3 + 4*x3 + 2]));
+
+        return result;
+
+    } else return Color{0, 0, 0};
+
+
+
+}
 void MainWindow::rysujSzescian()
 {
     point p;

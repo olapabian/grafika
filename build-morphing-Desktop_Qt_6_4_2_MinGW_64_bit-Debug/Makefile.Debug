@@ -574,7 +574,11 @@ debug/mainwindow.o: ../morphing/mainwindow.cpp ../morphing/mainwindow.h \
 		C:/Qt/6.4.2/mingw_64/include/QtGui/QTransform \
 		C:/Qt/6.4.2/mingw_64/include/QtCore/qnativeinterface.h \
 		C:/Qt/6.4.2/mingw_64/include/QtWidgets/qtabwidget.h \
-		ui_mainwindow.h
+		ui_mainwindow.h \
+		C:/Qt/6.4.2/mingw_64/include/QtGui/QPainter \
+		C:/Qt/6.4.2/mingw_64/include/QtGui/qpainter.h \
+		C:/Qt/6.4.2/mingw_64/include/QtGui/qtextoption.h \
+		C:/Qt/6.4.2/mingw_64/include/QtGui/qpen.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\mainwindow.o ..\morphing\mainwindow.cpp
 
 debug/moc_mainwindow.o: debug/moc_mainwindow.cpp 
